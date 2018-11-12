@@ -53,8 +53,9 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM                            # use Github Flavored Markdown !important
-
-
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
 
 # 评论系统
 # Disqus（https://disqus.com/）
