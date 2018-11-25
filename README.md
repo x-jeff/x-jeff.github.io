@@ -7,4 +7,4 @@
 
 如果大家有问题，欢迎留言一起讨论。
 
-最后，感谢两位大神[BY]("http://qiubaiying.top")和[Hux]("http://huangxuan.me/)提供的博客模版。
+最后，感谢两位大神[BY](http://qiubaiying.top)和[Hux](http://huangxuan.me/)提供的博客模版。
