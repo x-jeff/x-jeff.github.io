@@ -12,6 +12,8 @@ tags:
 ---
 >本文为原创文章，未经本人允许，禁止转载。转载请注明出处。
 
+# 1.词频统计（方法一）
+
 首先，我们先输入一段文本：
 
 ```python
@@ -163,15 +165,93 @@ ai_result=sorted(dic.items(),key=operator.itemgetter(1),reverse=True)
  ('mapping', 1)]
 ```
 
-我们发现词频很高的词基本都是没有意义的**停用词**，因此我们需要去掉这些停用词：
+我们发现词频很高的词基本都是没有意义的**停用词**，因此我们需要去掉这些停用词。首先，先加载停用词：
 
 ```python
 ##加载停用词
 from nltk.corpus import stopwords
 import nltk
 nltk.download('stopwords') ##需先下载stopwords资源
-stop_words=stopwords.words('English')
+stop_words=stopwords.words('English') ##英文停用词
+```
+>from...import...和import...
+>
+>import moudle要调用moudle中的Function\_a()必需完整的写为：moudle.Function_a()
+>
+>from moudle import * 的话，直接调用Function\_a()就可以了。比如：from sys import argv，可以直接argv，而不用sys.argv
+
+去除停用词，得到最后结果：
+
+```python
+for k,v in ai_result:
+    if k not in stop_words:
+        if k != '': ##把空字符去除
+            print(k,v)
 ```
 
+结果见下：
 
+```python
+learning 5
+inputs 4
+ai 3
+machine 3
+object 3
+...##篇幅原因，中间省略
+navigation 1
+along 1
+localization 1
+motion 1
+planning 1
+mapping 1
+```
 
+⚠️在有列表或字典的循环结构中，若对列表或字典进行改、增、删等操作，会使得在迭代过程中，列表元素的值或者位置（集体前移或者后移）发生变化，或者是字典长度发生变化等，此时程序会报错，所以应该尽量避免。
+
+# 2.词频统计（方法二）
+
+另一种统计词频的方法，更为方便快捷：
+
+```python
+from collections import Counter
+c=Counter(ai_text_split)
+```
+输出为：
+
+```python
+Counter({'knowledge': 2,
+         'engineering': 2,
+         'is': 6,
+         'a': 7,
+         'core': 2,
+         'part': 2,
+         ... ##篇幅原因，中间省略
+         'navigation': 1,
+         'along': 1,
+         'localization': 1,
+         'motion': 1,
+         'planning': 1,
+         'mapping': 1})
+```
+(输出为字典形式)
+
+删除停用词：
+
+```python
+for sw in stop_words:
+	del c[sw]
+del c[''] ##删除空字符
+```
+
+输出词频最高的3个词：
+
+```python
+c.most_common(3) ##输出为：[('learning', 5), ('inputs', 4), ('ai', 3)]
+```
+
+# 3.python中module和package的区别
+
+# 4.参考资料
+1.[python中的模块，库，包有什么区别?(黑马程序员的回答)](https://zhidao.baidu.com/question/1961791319443404580.html)
+
+2.[模块（廖雪峰的官方网站）](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014318447437605e90206e261744c08630a836851f5183000)
