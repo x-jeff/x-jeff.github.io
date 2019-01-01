@@ -251,7 +251,16 @@ c.most_common(3) ##输出为：[('learning', 5), ('inputs', 4), ('ai', 3)]
 
 # 3.python中module和package的区别
 
-# 4.参考资料
-1.[python中的模块，库，包有什么区别?(黑马程序员的回答)](https://zhidao.baidu.com/question/1961791319443404580.html)
+* Module：python文件，后缀为xxx.py（单个Module）
+* Package：一组相关的Module组合而成（多个Module）
 
-2.[模块（廖雪峰的官方网站）](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014318447437605e90206e261744c08630a836851f5183000)
+在Python中，一个.py文件就称之为一个模块（Module），当一个模块编写完毕，就可以被其他地方引用。使用模块还可以避免函数名和变量名冲突，相同名字的函数和变量完全可以分别存在不同的模块中（尽量不要和python内置函数名字冲突）。为了避免模块名冲突，Python又引入了按目录来组织模块的方法，称为包（Package）。
+
+![](https://ws1.sinaimg.cn/large/006tNbRwly1fyqzaaxattj30cq0cwt9h.jpg)
+
+上图是一个多级层次的包结构,共有两个包目录：mycompany和web。⚠️每个包目录下面都会有一个`__init__.py`的文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。
+
+两个文件`utils.py`的模块名分别是`mycompany.utils`和`mycompany.web.utils`。
+
+# 4.参考资料
+1.[模块（廖雪峰的官方网站）](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014318447437605e90206e261744c08630a836851f5183000)
