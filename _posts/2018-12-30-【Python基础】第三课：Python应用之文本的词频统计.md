@@ -251,10 +251,10 @@ c.most_common(3) ##输出为：[('learning', 5), ('inputs', 4), ('ai', 3)]
 
 # 3.python中module和package的区别
 
-* Module：python文件，后缀为xxx.py（单个Module）
-* Package：一组相关的Module组合而成（多个Module）
+* **Module**：python文件，后缀为xxx.py（单个Module）
+* **Package**：一组相关的Module组合而成（多个Module）
 
-在Python中，一个.py文件就称之为一个模块（Module），当一个模块编写完毕，就可以被其他地方引用。使用模块还可以避免函数名和变量名冲突，相同名字的函数和变量完全可以分别存在不同的模块中（尽量不要和python内置函数名字冲突）。为了避免模块名冲突，Python又引入了按目录来组织模块的方法，称为包（Package）。
+在Python中，一个.py文件就称之为一个**模块（Module）**，当一个模块编写完毕，就可以被其他地方引用。使用模块还可以避免函数名和变量名冲突，相同名字的函数和变量完全可以分别存在不同的模块中（尽量不要和python内置函数名字冲突）。为了避免模块名冲突，Python又引入了按目录来组织模块的方法，称为**包（Package）**。
 
 ![](https://ws1.sinaimg.cn/large/006tNbRwly1fyqzaaxattj30cq0cwt9h.jpg)
 
