@@ -56,7 +56,7 @@ OpenCV的两种下载方法：
 ### 2.1.1.安装HomeBrew
 >HomeBrew中文官方网址：[HomeBrew](https://brew.sh/index_zh-cn.html)
 
-打开终端，输入一下命令：
+打开终端，输入以下命令：
 
 `
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -93,7 +93,7 @@ brew install cmake
 
 ### 2.1.3.下载OpenCV
 
-使用HomeBrew下载OpenCV，在终端输入一下命令：
+使用HomeBrew下载OpenCV，在终端输入以下命令：
 
 `
 brew install opencv
@@ -114,8 +114,8 @@ find_package(OpenCV REQUIRED)
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 set(CMAKE_CXX_STANDARD 11)
 set(SOURCE_FILES main.cpp)  ##main.cpp改为自己定义的名字
-add_executable(CDemo2 ${SOURCE_FILES}) ##CDemo2改为自己项目名称
-target_link_libraries(CDemo2 ${OpenCV_LIBS})  ##CDemo2改为自己项目名称
+add_executable(CDemo2 ${SOURCE_FILES}) ##CDemo2改为自己的项目名称
+target_link_libraries(CDemo2 ${OpenCV_LIBS})  ##CDemo2改为自己的项目名称
 ```
 
 ## 2.3.代码测试
