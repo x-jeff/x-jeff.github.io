@@ -141,3 +141,7 @@ int main() {
 ![](https://ws3.sinaimg.cn/large/006tNc79ly1fzbuz24glcj30zm0neqv5.jpg)
 
 OpenCV配置成功！
+
+# 3.代码地址
+
+1. [OpenCV测试代码](https://github.com/x-jeff/OpenCV_Code_Demo/tree/master/Demo1)
