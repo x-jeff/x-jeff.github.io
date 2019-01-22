@@ -40,11 +40,10 @@ layout: default
                     {% comment %} if page.subtitle {% endcomment %}
                     <h2 class="subheading">{{ page.subtitle }}</h2>
                     {% comment %} endif {% endcomment %}
+                    <p>
                     <span id="busuanzi_container_page_pv" style='display:none' class="meta">
-    <span id="busuanzi_value_page_pv"> </span> Views | {{ content | strip_html | strip_newlines | split: "" | size }} Words
-</span> 
-
-<br/><br/>        
+    <span id="busuanzi_value_page_pv"> </span>&nbsp;Views | {{ content | strip_html | strip_newlines | split: "" | size }} Words
+</span> </p>      
                     <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
                 </div>
             </div>
