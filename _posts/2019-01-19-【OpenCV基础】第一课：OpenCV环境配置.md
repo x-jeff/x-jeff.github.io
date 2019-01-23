@@ -6,6 +6,7 @@ date:       2019-01-19
 author:     x-jeff
 header-img: blogimg/20190119.jpg
 catalog: true
+category: OpenCV
 tags:
     - OpenCV
     - Computer Vision
