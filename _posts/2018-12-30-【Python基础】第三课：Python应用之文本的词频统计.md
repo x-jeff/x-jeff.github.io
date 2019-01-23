@@ -7,8 +7,7 @@ author:     x-jeff
 header-img: blogimg/20181230.jpg
 catalog: true
 tags:
-    - Python
-    - Element Knowledge
+    - Python Series
 ---
 >本文为原创文章，未经本人允许，禁止转载。转载请注明出处。
 

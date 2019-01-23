@@ -6,11 +6,8 @@ date:       2019-01-19
 author:     x-jeff
 header-img: blogimg/20190119.jpg
 catalog: true
-category: OpenCV
 tags:
-    - OpenCV
-    - Computer Vision
-    - Element Knowledge
+    - OpenCV Series
 ---
 >本文为原创文章，未经本人允许，禁止转载。转载请注明出处。
 
