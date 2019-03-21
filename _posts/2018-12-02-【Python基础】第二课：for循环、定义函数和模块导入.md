@@ -65,3 +65,7 @@ math.ceil(a) #取大于a的最小整数，所以输出为4
 import numpy
 numpy.random.normal(25,5,10) #产生符合正态分布，均值为25，标准差为5的10个随机数
 ~~~
+
+# 4.代码地址
+
+1. [for循环、if语句、函数定义、模块导入](https://github.com/x-jeff/Python_Code_Demo/tree/master/Demo2)
