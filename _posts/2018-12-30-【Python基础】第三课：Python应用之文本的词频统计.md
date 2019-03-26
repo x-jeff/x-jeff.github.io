@@ -130,7 +130,7 @@ sorted(students,key=operator.itemgetter(2)) ##输出为：[('dave', 'B', 10), ('
 sorted(students,key=operator.itemgetter(1,2)) ##输出为：[('john', 'A', 15), ('dave', 'B', 10), ('jane', 'B', 12)]
 ```
 
-**tips:***reverse=T or F*可以改变正序或倒序！
+**tips:***reverse=True or False*可以改变正序或倒序！
 
 `sorted(students,key=operator.itemgetter(2))`可以改写为：`sorted(students,key=lambda x:x[2])`，相当于一个迭代的过程，依次从`students`中抽取元素，`x`依次等于`('john','A',15)`、`('jane','B',12)`和`('dave','B',10)`。
 
@@ -261,5 +261,9 @@ c.most_common(3) ##输出为：[('learning', 5), ('inputs', 4), ('ai', 3)]
 
 两个文件`utils.py`的模块名分别是`mycompany.utils`和`mycompany.web.utils`。
 
-# 4.参考资料
+# 4.代码地址
+
+1. [词频统计相关代码](https://github.com/x-jeff/Python_Code_Demo/tree/master/Demo3)
+
+# 5.参考资料
 1.[模块（廖雪峰的官方网站）](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014318447437605e90206e261744c08630a836851f5183000)
