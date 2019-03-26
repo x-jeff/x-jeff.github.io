@@ -266,4 +266,5 @@ c.most_common(3) ##输出为：[('learning', 5), ('inputs', 4), ('ai', 3)]
 1. [词频统计相关代码](https://github.com/x-jeff/Python_Code_Demo/tree/master/Demo3)
 
 # 5.参考资料
-1.[模块（廖雪峰的官方网站）](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014318447437605e90206e261744c08630a836851f5183000)
+
+1. [模块（廖雪峰的官方网站）](https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014318447437605e90206e261744c08630a836851f5183000)
