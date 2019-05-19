@@ -24,7 +24,7 @@ f.close
 以下程序可实现自动关闭文档的操作，省去`f.close()`：
 
 ```python
-with open("temp.txt","w") as f: //冒号不能少
+with open("temp.txt","w") as f: #冒号不能少
     f.write("hello\nworld")
 ```
 
