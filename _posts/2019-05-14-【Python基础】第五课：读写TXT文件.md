@@ -181,8 +181,40 @@ with open("temp.txt","r") as f:
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson5/5x4.png)
 
+### 2.4.1.`.strip()`
+
+`str.strip([char])`：返回移除字符串头尾指定的字符生成新的字符串。
+
+❗️必须针对字符串进行操作。
+
+👉例子1：
+
+```python
+str="000  s0t0r 0"
+print(str.strip('0'))
+```
+
+输出的字符串为：`(空格)(空格)s0t0r(空格)`。去掉了首尾的0，但是会保留首尾的空格，也会保留中间部分的0。
+
+👉例子2：
+
+```python
+str="  s0t0r "
+print(str.strip())
+```
+
+输出的字符串为：`s0t0r`，去除了首尾的空格。
+
+👉例子3：
+
+```python
+str1="aabbccdd"
+print(str1.strip('a'))#输出为：bbccdd
+str2="aabbccddaaa"
+print(str2.strip('a'))#输出为：bbccdd
+print(str2.strip('b'))#输出为：aabbccddaaa。无报错。
+```
+
 # 3.代码地址
 
 1. [读写TXT文件](https://github.com/x-jeff/Python_Code_Demo/tree/master/Demo5)
-
-
