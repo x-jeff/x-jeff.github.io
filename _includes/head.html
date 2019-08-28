@@ -61,27 +61,5 @@
     });
   </script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> 
-
-<script type="text/javascript">
-$(document).ready(function(){
-  $("code").map(function(){
-    match = /^\$(.*)\$$/.exec($(this).html());
-    if (match) {
-      $(this).replaceWith("<span class=hpl_mathjax_inline>" + $(this).html() + "</span>");
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub,$(this).get(0)]);
-    }
-    match = /^\$\$(.*)\$\$$/.exec($(this).html());
-    if (match) {
-      $(this).replaceWith("<span class=hpl_mathjax_inline>" + $(this).html() + "</span>");
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub,$(this).get(0)]);
-    }
-    match = /^\\begin/.exec($(this).html());
-    if (match) {
-      $(this).replaceWith("<span class=hpl_mathjax_inline>" + $(this).html() + "</span>");
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub,$(this).get(0)]);
-    }
-  });
-});
-</script>
   
 </head>
