@@ -98,7 +98,7 @@ xml文档的字符分为**标记**与**内容**两类。标记通常以`<`开头
 
 ### 2.1.2.元素(element)
 
-元素是文档逻辑组成，或者在start-tag与匹配的end-tag之间，或者仅作为一个empty-element tag。
+元素是文档逻辑组成，或者在start-tag与匹配的end-tag之间，或者仅作为一个empty-element tag。例如：`<greeting>Hello, world!</greeting>`或`<line-break />`。
 
 ### 2.1.3.属性(attribute)
 
