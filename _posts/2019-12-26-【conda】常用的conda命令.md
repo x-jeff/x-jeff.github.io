@@ -43,6 +43,7 @@ tags:
 2. 创建conda虚拟环境：`conda create -n <env name> python=<python version> <pkg1 pkg2>`
 3. 进入虚拟环境：`source activate <env name>`
 4. 退出虚拟环境：`source deactivate`
+	* conda 4.8.0版本改为：`conda deactivate`
 5. 复制虚拟环境：`conda create -n <new env> -clone <old env>`
 6. 删除环境：`conda remove -n <env name> --all`
 
