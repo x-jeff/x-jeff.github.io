@@ -192,7 +192,11 @@ type['A'] #输出为21
 
 ❗️多维的Series组合在一起就成为了DataFrame。
 
-# 4.参考资料
+# 4.代码地址
+
+1. [使用Pandas和NumPy处理数据](https://github.com/x-jeff/Python_Code_Demo/tree/master/Demo9)
+
+# 5.参考资料
 
 1. [Python zip()函数（菜鸟教程）](https://www.runoob.com/python/python-func-zip.html)
 2. [Python3 zip()函数（菜鸟教程）](https://www.runoob.com/python3/python3-func-zip.html)
