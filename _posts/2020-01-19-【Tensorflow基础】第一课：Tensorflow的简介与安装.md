@@ -21,9 +21,12 @@ tags:
 
 1. 新建一个conda虚拟环境：`conda create -n tensorflow python=3.6`
 2. 进入虚拟环境：`source activate tensorflow`
-3. 安装tensorflow：
+3. 安装tensorflow（默认安装最新版本）：
 	* CPU版本：`pip install tensorflow`
 	* GPU版本：`pip install tensorflow-gpu`
+4. （可选）安装特定版本的tensorflow（自动卸载之前已安装的版本）：
+	* CPU版本：`pip install tensorflow==<版本号>`
+	* GPU版本：`pip install tensorflow-gpu==<版本号>`
 
 >👉[常见conda命令](http://shichaoxin.com/2019/12/26/conda-常用的conda命令/)
 
