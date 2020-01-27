@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      【conda】常用的conda命令
+title:      【Conda】常用的conda命令
 subtitle:   基本命令，包管理，虚拟环境，镜像源
 date:       2019-12-26
 author:     x-jeff
