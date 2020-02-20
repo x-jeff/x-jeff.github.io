@@ -2,9 +2,9 @@
 layout:     post
 title:      【深度学习基础】第十五课：mini-batch梯度下降法
 subtitle:   batch gradient descent，stochastic gradient descent，mini-batch gradient descent，mini-batch，epoch
-date:       2020-02-19
+date:       2020-02-20
 author:     x-jeff
-header-img: blogimg/20200219.jpg
+header-img: blogimg/20200220.jpg
 catalog: true
 tags:
     - Deep Learning Series
