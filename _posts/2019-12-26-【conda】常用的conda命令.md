@@ -21,7 +21,7 @@ tags:
 2. 获取帮助：
 	* `conda --help`
 	* `conda -h`
-3. 查看某一命令的使用方法：
+3. 查看某一命令的使用方法（以`upgrade `为例）：
 	* `conda upgrade --help`
 	* `conda upgrade -h`
 4. 查看conda配置：`conda config --show`
@@ -72,7 +72,7 @@ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/m
 conda config --set show_channel_urls yes
 ```
 
-👉中科大源
+👉中科大源：
 
 ```
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/

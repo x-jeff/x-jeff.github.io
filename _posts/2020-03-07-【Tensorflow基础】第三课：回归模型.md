@@ -31,6 +31,14 @@ y_data=np.square(x_data)+noise
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson3/3x1.png)
 
+>使用numpy生成随机数的几种方式：
+>
+>1. `numpy.random.rand(d0,d1,...,dn)`生成的随机数位于[0,1)之间。参数为生成的随机数的维度。
+>
+>2. `numpy.random.randn(d0,d1,...,dn)`生成的随机数来自标准正态分布。参数为生成的随机数的维度。
+>
+>3. `numpy.random.normal([loc,scale,size])`生成的随机数来自正态分布。正态分布的$\mu$和$\sigma$由参数`loc`和`scale`传入。
+
 # 3.定义神经网络
 
 ## 3.1.网络的输入、输出
@@ -56,6 +64,15 @@ A_L1=tf.nn.tanh(Z_L1)
 ```
 
 很简单直白的过程，不再赘述。
+
+`tf.random_normal(shape, mean=0.0, stddev=1.0, dtype=tf.float32, seed=None, name=None)`用于生成来自正态分布的随机数，参数说明见下：
+
+* `shape`：输出的张量形状。
+* `mean`：正态分布的均值，默认为0。
+* `stddev`：正态分布的标准差，默认是1.0。
+* `dtype`：输出的类型，默认是`tf.float32`。
+* `seed`：随机数种子，是一个整数，当设置之后，每次生成的随机数都一样。
+* `name`：操作的名称。
 
 >如果对这部分内容不熟悉，可先补一下有关深度学习的知识，可参考本人【深度学习基础】系列博客。
 
