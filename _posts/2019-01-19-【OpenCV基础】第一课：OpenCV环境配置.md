@@ -49,7 +49,7 @@ OpenCV的两种下载方法：
 1. 官网下载（官网地址见上文）。
 2. 通过HomeBrew下载。
 
-我个人是用通过HomeBrew下载的，也推荐大家使用这种下载方式，方便包的管理和更新。具体流程见下：
+我个人是通过HomeBrew下载的，也推荐大家使用这种下载方式，方便包的管理和更新。具体流程见下：
 
 ### 2.1.1.安装HomeBrew
 >HomeBrew中文官方网址：[HomeBrew](https://brew.sh/index_zh-cn.html)
