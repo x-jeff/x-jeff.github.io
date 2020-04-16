@@ -158,7 +158,11 @@ n_batch=mnist.train.num_examples // batch_size
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson4/4x3.png)
 
-# 3.参考资料
+# 3.代码地址
+
+1. [手写数字识别模型](https://github.com/x-jeff/Tensorflow_Code_Demo/tree/master/Demo3)
+
+# 4.参考资料
 
 1. [tf.argmax函数说明](https://blog.csdn.net/kdongyi/article/details/82390394)
 2. [tf.cast()数据类型转换](https://blog.csdn.net/dcrmg/article/details/79747814)

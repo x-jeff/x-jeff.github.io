@@ -37,7 +37,7 @@ y_data=np.square(x_data)+noise
 >
 >2. `numpy.random.randn(d0,d1,...,dn)`生成的随机数来自标准正态分布。参数为生成的随机数的维度。
 >
->3. `numpy.random.normal([loc,scale,size])`生成的随机数来自正态分布。正态分布的$\mu$和$\sigma$由参数`loc`和`scale`传入。
+>3. `numpy.random.normal(loc,scale,size)`生成的随机数来自正态分布。正态分布的$\mu$和$\sigma$由参数`loc`和`scale`传入。
 
 # 3.定义神经网络
 
