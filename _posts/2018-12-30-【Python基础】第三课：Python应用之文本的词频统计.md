@@ -101,7 +101,7 @@ for word in ai_text_split:
 在对词频排序之前我们先介绍**operator库**：
 
 * **operator库**：提供了一系列的函数操作。
-* **operator.itemgetter函数**：用于获取对象的某一维的数据
+* **operator.itemgetter函数**：用于获取对象的某一维的数据。
 
 **operator.itemgetter函数**的使用：
 
