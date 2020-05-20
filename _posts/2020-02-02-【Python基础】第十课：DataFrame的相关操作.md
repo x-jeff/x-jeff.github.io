@@ -62,7 +62,7 @@ df.columns=['Name','Gender','Age']
 
 ### 3.1.2.新增行
 
-`df.loc[6]={'Name':'Wade','Gender':'M','Age':28,'Employee':True,'Level':7}`：原DataFrame的列标签必须都被赋值，但是顺序不必一致。。
+`df.loc[6]={'Name':'Wade','Gender':'M','Age':28,'Employee':True,'Level':7}`：原DataFrame的列标签必须都被赋值，但是顺序不必一致。
 
 也可以简写为`df.loc[6]=['Wade','M',28,True,7]`。但是得与原DataFrame的列标签的顺序一致。
 

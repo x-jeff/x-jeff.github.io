@@ -20,7 +20,7 @@ OpenCV是一个计算机视觉的开源库。英文全称是：Open Source Compu
 2. Camera Calibration and 3D Reconstruction
 3. Video Analysis
 4. Object Detection
-5. Machine learning
+5. Machine Learning
 6. Deep Learning
 7. GPU Acceleration
 8. ......
