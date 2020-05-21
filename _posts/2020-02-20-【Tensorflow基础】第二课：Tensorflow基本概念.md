@@ -49,6 +49,17 @@ tags:
 
 ⚠️Graph是由一系列op构成的。
 
+每一个Operation对象均有输入和输出Tensor，同理，每个Tensor对象均有对应生成该Tensor的Operation对象和使用该Tensor对象作为输入的Operation对象。
+
+* Tensor对象的op属性指向生成该Tensor的Operation对象。
+* Tensor对象的consumers()函数获取使用该Tensor对象作为输入的Operation对象。
+* Operation对象的inputs属性指向该计算节点的输入Tensor对象。
+* Operation对象的outputs属性执行该计算节点的输出Tensor对象。
+
+如下图所示的网络结构中，调用`Tensor_2`对象的`consumers()`函数，返回的是`[op_1,op_2]`。`Tensor_3`的op属性指向的是`op_1`。`op_1`的inputs属性指向的是`[Tensor_1,Tensor_2]`，`op_1`的output属性指向的是`[Tensor_3]`。
+
+![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson2/2x2.png)
+
 ## 1.5.Feed、Fetch
 
 使用Feed和Fetch可以为任意的操作赋值或者从其中获取数据。
@@ -196,3 +207,4 @@ with tf.Session() as sess:
 # 5.参考资料
 
 1. [Tensorflow入门教程（1）(作者：Seventeen)](https://zhuanlan.zhihu.com/p/34530755)
+2. [从Tensorflow模型文件中解析并显示网络结构图（pb模型篇）](https://www.jianshu.com/p/b547c163e202)
