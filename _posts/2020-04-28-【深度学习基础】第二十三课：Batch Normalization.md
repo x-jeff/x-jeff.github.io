@@ -64,7 +64,7 @@ $$\beta^{[l]} := \beta^{[l]} -\alpha d\beta^{[l]}$$
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson23/23x4.png)
 
-其中，$X^{\{1 \}}$为第一个mini-batch的输入。
+其中，$X^{\\{1 \\}}$为第一个mini-batch的输入。
 
 # 3.BatchNorm为什么起作用
 

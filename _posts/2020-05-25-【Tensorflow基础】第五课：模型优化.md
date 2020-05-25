@@ -1,6 +1,19 @@
+---
+layout:     post
+title:      【Tensorflow基础】第五课：模型优化
+subtitle:   代价函数，网络结构，优化器
+date:       2020-05-25
+author:     x-jeff
+header-img: blogimg/20200525.jpg
+catalog: true
+tags:
+    - Tensorflow Series
+---
+>本文为原创文章，未经本人允许，禁止转载。转载请注明出处。
+
 # 1.前言
 
-我们以[【Tensorflow基础】第四课：手写数字识别](http://shichaoxin.com/2020/03/26/Tensorflow基础-第四课-手写数字识别/)中构建的手写数字识别模型为例，看一下深度学习中常用的模型优化算法怎么用tensorflow实现。
+我们以[【Tensorflow基础】第四课：手写数字识别](http://shichaoxin.com/2020/03/26/Tensorflow基础-第四课-手写数字识别/)中构建的手写数字识别模型为例，对模型进行进一步的优化。
 
 # 2.修改代价函数
 
@@ -15,6 +28,8 @@ loss=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y,logits=pred
 ![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson5/5x1.png)
 
 很明显，交叉熵损失函数效果更好，收敛速度更快。
+
+>在做tensor之间的加减乘除等基本运算时，也可以直接用`+-*\`等符号，这些符号会被tensorflow自动重载为对应的接口函数，例如`+`被重载为`tf.add()`。
 
 # 3.修改网络
 
@@ -74,3 +89,25 @@ truncated_normal(
 ![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson5/5x2.png)
 
 相比第2部分，结果又有了进一步的提升。
+
+# 4.修改优化器
+
+有很多优化算法可供选择：
+
+1. [Adam优化算法](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)：`tf.train.AdamOptimizer()`。
+2. [RMSProp优化算法](http://shichaoxin.com/2020/03/13/深度学习基础-第十八课-RMSprop/)：`tf.train.RMSPropOptimizer()`。
+3. [Momentum优化算法](http://shichaoxin.com/2020/03/05/深度学习基础-第十七课-Momentum梯度下降法/)：`tf.train.MomentumOptimizer()`。
+
+例如我们选择Adam优化算法：
+
+```python
+train_step=tf.train.AdamOptimizer(1e-2).minimize(loss)
+```
+
+![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson5/5x3.png)
+
+模型表现相比第3部分又有提升。
+
+# 5.代码地址
+
+1. [模型优化](https://github.com/x-jeff/Tensorflow_Code_Demo/tree/master/Demo4)
