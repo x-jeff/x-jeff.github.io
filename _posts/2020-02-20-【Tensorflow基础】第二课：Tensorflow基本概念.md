@@ -54,9 +54,9 @@ tags:
 * Tensor对象的op属性指向生成该Tensor的Operation对象。
 * Tensor对象的consumers()函数获取使用该Tensor对象作为输入的Operation对象。
 * Operation对象的inputs属性指向该计算节点的输入Tensor对象。
-* Operation对象的outputs属性执行该计算节点的输出Tensor对象。
+* Operation对象的outputs属性指向该计算节点的输出Tensor对象。
 
-如下图所示的网络结构中，调用`Tensor_2`对象的`consumers()`函数，返回的是`[op_1,op_2]`。`Tensor_3`的op属性指向的是`op_1`。`op_1`的inputs属性指向的是`[Tensor_1,Tensor_2]`，`op_1`的output属性指向的是`[Tensor_3]`。
+如下图所示的网络结构中，调用`Tensor_2`对象的`consumers()`函数，返回的是`[op_1,op_2]`。`Tensor_3`的op属性指向的是`op_1`。`op_1`的inputs属性指向的是`[Tensor_1,Tensor_2]`，`op_1`的outputs属性指向的是`[Tensor_3]`。
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson2/2x2.png)
 
