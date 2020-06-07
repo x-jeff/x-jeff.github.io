@@ -108,6 +108,18 @@ train_step=tf.train.AdamOptimizer(1e-2).minimize(loss)
 
 模型表现相比第3部分又有提升。
 
-# 5.代码地址
+# 5.学习率衰减
+
+详细讲解请见：[【深度学习基础】第二十课：学习率衰减](http://shichaoxin.com/2020/03/23/深度学习基础-第二十课-学习率衰减/)。
+
+```python
+tf.assign(lr,0.001*(0.95**epoch))
+```
+
+执行之后模型的性能有了进一步的提升：
+
+![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson5/5x4.png)
+
+# 6.代码地址
 
 1. [模型优化](https://github.com/x-jeff/Tensorflow_Code_Demo/tree/master/Demo4)
