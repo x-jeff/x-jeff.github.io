@@ -69,7 +69,7 @@ writer=tf.summary.FileWriter("logs/",sess.graph)
 
 关于图中一些基本符号的解释可在上图左下角处找到。
 
-双击`input`（即我们之前定义的`name_space`）进行查看：
+双击`input`（即我们之前定义的`name_scope`）进行查看：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x4.png)
 
@@ -151,7 +151,7 @@ with tf.name_scope("accuracy"):
 
 ## 2.2.`SCALARS`
 
-`tf.summary.scalar`用来显示**标量**信息。一般在画loss,accuary时会用到这个函数。例如，在2.1部分代码的基础上主要添加以下函数：
+`tf.summary.scalar`用来显示**标量**信息。一般在画loss,accuracy时会用到这个函数。例如，在2.1部分代码的基础上主要添加以下函数：
 
 ```python
 #省略
@@ -167,7 +167,7 @@ with tf.name_scope("loss"):
 
 >完整的代码请见：[链接](https://github.com/x-jeff/Tensorflow_Code_Demo/blob/master/Demo5/5.2.tensorboard_network_running.py)。
 
-进入tensorboard的界面，点击`SCALARS`，可以看到accuary随着epoch的变化：
+进入tensorboard的界面，点击`SCALARS`，可以看到accuracy随着epoch的变化：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x15.png)
 
