@@ -1,0 +1,40 @@
+---
+layout:     post
+title:      【深度学习基础】第三十五课：R-CNN中的候选区域
+subtitle:   R-CNN，候选区域
+date:       2020-09-09
+author:     x-jeff
+header-img: blogimg/20200909.jpg
+catalog: true
+tags:
+    - Deep Learning Series
+---
+>【深度学习基础】系列博客为学习Coursera上吴恩达深度学习课程所做的课程笔记。  
+>本文为原创文章，未经本人允许，禁止转载。转载请注明出处。
+
+# 1.候选区域
+
+>本文旨在通过R-CNN了解候选区域这一概念，并不会过多的介绍R-CNN。
+
+[YOLO算法](http://shichaoxin.com/2020/09/06/深度学习基础-第三十四课-YOLO算法/)直接将输入喂给一个卷积神经网络，即可得到输出，即目标的bounding box，这就是通常所说的**one-stage**类型的目标检测算法。
+
+这种算法（例如YOLO、[滑动窗口](http://shichaoxin.com/2020/08/23/深度学习基础-第三十三课-基于滑动窗口的目标检测算法/)等）的一个缺点就是会在没有任何对象的区域浪费时间。例如：
+
+![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson35/35x1.png)
+
+而本文所要介绍的另一种目标检测算法**R-CNN(Regions with CNN)**则可避免这一问题。R-CNN先尝试选出一些候选区域（region），使得在这些候选区域上运行卷积网络分类器是有意义的。选出候选区域的方法之一是运行图像分割算法：
+
+![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson35/35x2.png)
+
+然后我们针对每个色块（block）限定bounding box并运行卷积网络分类器：
+
+![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson35/35x3.png)
+
+>📝RCNN原文：Girshick R, Donahue J, Darrell T, et al. Rich feature hierarchies for accurate object detection and semantic segmentation[C]//Proceedings of the IEEE conference on computer vision and pattern recognition. 2014: 580-587.
+
+以上便是R-CNN的主要思想。与YOLO算法相比，R-CNN分为明显的两个阶段，因此其属于**two-stage**类型的目标检测算法。
+
+但是R-CNN的一个缺点就是速度很慢，因此针对其速度优化，又提出了Fast R-CNN和Faster R-CNN。但尽管如此，R-CNN及其衍生算法依旧比YOLO慢很多。
+
+>📝Fast R-CNN原文：Girshick R. Fast r-cnn[C]//Proceedings of the IEEE international conference on computer vision. 2015: 1440-1448.      
+>📝Faster R-CNN原文：Ren S, He K, Girshick R, et al. Faster r-cnn: Towards real-time object detection with region proposal networks[C]//Advances in neural information processing systems. 2015: 91-99.
