@@ -25,7 +25,7 @@ tags:
 
 因此该论文提出了一种基于多层神经网络的手写数字识别模型（见本博客第2部分）。
 
->本博客主要介绍文章的I,II.B部分，其中II.B部分最为重要，详细描述了LeNet5的实现。文章的后几部分属于进一步的延伸内容，有兴趣的同学可以自行阅读原文（原文链接见本文末尾），本博客不再赘述。
+>本博客主要介绍文章的I,II.B部分，其中II.B部分最为重要，详细描述了LeNet-5的实现。文章的后几部分属于进一步的延伸内容，有兴趣的同学可以自行阅读原文（原文链接见本文末尾），本博客不再赘述。
 >
 >此外，论文中含有大量对基础概念的解释，例如loss function、梯度、卷积等，在此也不再赘述。
 
@@ -45,11 +45,11 @@ LeNet-5不算输入层，一共有7层。卷积层用$C_x$表示，下采样层�
 
 👉【$C_1$】
 
-使用的卷积核大小为$5 \times 5 \times 1$，数量为6，步长为1（LeNet-5被创作的那个年代，人们不使用padding）。得到的feature map的维度为$28\times 28$，feature map的数量为6。本层共包含156个参数：$5\times 5\times 1\times 6+6=156$。本层共进行122304次连接（connection）,即共进行了122304次计算（不包含激活函数的计算）：$5\times 5\times 28\times 28\times 6+28\times 28\times 6=122304$。
+使用的卷积核大小为$5 \times 5 \times 1$，数量为6，步长为1（LeNet-5被创作的那个年代，人们不使用padding）。得到的feature map的维度为$28\times 28$，feature map的数量为6。本层共包含156个参数：$5\times 5\times 1\times 6+6=156$。本层共有122304次连接（connection）：$5\times 5\times 28\times 28\times 6+28\times 28\times 6=122304$。
 
 👉【$S_2$】
 
-这里的下采样层类似于我们现在的pooling层，但是做法稍有不同。本层所用的核大小为$2\times 2$（步长为2），因此得到的feature map为$14\times 14\times 6$。常见的pooling层是直接取最大值或者平均，而这里的$S_2$是先将四个格子（$2\times 2$）的输入求和（z），然后乘上一个系数（w），再加上一个偏置值（b），最后通过sigmoid函数（即$sigmoid(wz+b)$）。即相当于average pooling（只不过这里是加权平均）之后通过一个sigmoid激活函数。本层一共有12个参数：6个$2\times 2$的核，每个核有2个参数（w,b），所以有$6\times 2=12$。本层一共进行了5880次连接，即共进行了5880次计算（同样不包含激活函数的计算）：$14\times 14\times 5\times 6=5880$。解释下式子里的5，假设四个格子里的值分别为$x_1,x_2,x_3,x_4$，一次下采样为$w\times (x_1+x_2+x_3+x_4)+b$，刚好是5次计算。
+这里的下采样层类似于我们现在的pooling层，但是做法稍有不同。本层所用的核大小为$2\times 2$（步长为2），因此得到的feature map为$14\times 14\times 6$。常见的pooling层是直接取最大值或者平均，而这里的$S_2$是先将四个格子（$2\times 2$）的输入求和（z），然后乘上一个系数（w），再加上一个偏置值（b），最后通过sigmoid函数（即$sigmoid(wz+b)$）。即相当于average pooling（只不过这里是加权平均）之后通过一个sigmoid激活函数。本层一共有12个参数：6个$2\times 2$的核，每个核有2个参数（w,b），所以有$6\times 2=12$。本层一共有5880次连接：$14\times 14\times 5\times 6=5880$。解释下式子里的5，假设四个格子里的值分别为$x_1,x_2,x_3,x_4$，一次下采样为$w\times (x_1+x_2+x_3+x_4)+b$，刚好是5次连接。
 
 👉【$C_3$】
 
@@ -59,7 +59,7 @@ LeNet-5不算输入层，一共有7层。卷积层用$C_x$表示，下采样层�
 
 上图中，每一列可以看成每一个卷积核（一共16个），每一行为$S_2$层的每一个feature map（一共6个）。以第0列为例：第0个卷积核只和$S_2$层的前3个feature map进行了卷积运算，因此该卷积核大小应该为$5\times 5\times 3$。因此该层的参数数量为：$5\times 5\times 3\times 6+5\times 5\times 4\times 9+5\times 5\times 6\times 1+16=1516$。
 
-共进行的计算数（$150000+6000=156000$）：
+总的连接数（$150000+6000=156000$）：
 
 * 卷积部分：$5\times 5\times 3\times 6\times 10\times 10+5\times 5\times 4\times 9\times 10\times 10+5\times 5\times 6\times 1\times 10\times 10=150000$
 * 偏置项部分：$3\times 6\times 10\times 10+4\times 9\times 10\times 10+6\times 1\times 10\times 10=6000$（一个$5\times 5\times 3$的卷积核进行一次卷积运算，会进行3次偏置项的加法运算，但是这三次加法运算使用的偏置项是同一个）
@@ -68,7 +68,7 @@ LeNet-5不算输入层，一共有7层。卷积层用$C_x$表示，下采样层�
 
 👉【$S_4$】
 
-和$S_2$层一样。使用$2\times 2\times 16$的核（步长为2），得到的feature map为$5\times 5\times 16$。可训练的参数数量为：$2\times 16=32$。总的计算次数为：$5\times 5\times 5\times 16=2000$。
+和$S_2$层一样。使用$2\times 2\times 16$的核（步长为2），得到的feature map为$5\times 5\times 16$。可训练的参数数量为：$2\times 16=32$。总的连接数为：$5\times 5\times 5\times 16=2000$。
 
 👉【$C_5$】
 
