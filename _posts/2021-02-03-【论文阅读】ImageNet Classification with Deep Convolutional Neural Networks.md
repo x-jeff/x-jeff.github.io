@@ -145,7 +145,11 @@ ILSVRC-2012，AlexNet参加比赛，获得冠军，远超第二名SIFT+FVs：
 
 AlexNet的成功说明了深度对于神经网络的重要性。
 
-# 8.参考资料
+# 8.原文链接
+
+👽[ImageNet Classification with Deep Convolutional Neural Networks](https://github.com/x-jeff/AI_Papers/blob/master/ImageNet%20Classification%20with%20Deep%20Convolutional%20Neural%20Networks.pdf)
+
+# 9.参考资料
 
 1. [Alexnet中的LRN](https://www.pianshen.com/article/71331232633/)
 2. [AlexNet论文解读]( https://zhuanlan.zhihu.com/p/157643267)
