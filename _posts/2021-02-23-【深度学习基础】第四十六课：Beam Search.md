@@ -16,7 +16,7 @@ tags:
 
 我们先来看一个简单的seq2seq(sequence to sequence)模型。假设有一个法语句子：Jane visite l'Afrique en septembre.。我们想通过一个模型将其翻译成英语，例如：Jane is visiting Africa in September.。
 
-使用$x^{<t>}$表示输入句子中的第t个单词，$y^{<t>}$表示输出句子中的第t个单词：
+使用$x^{\<t\>}$表示输入句子中的第t个单词，$y^{\<t\>}$表示输出句子中的第t个单词：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x1.png)
 
