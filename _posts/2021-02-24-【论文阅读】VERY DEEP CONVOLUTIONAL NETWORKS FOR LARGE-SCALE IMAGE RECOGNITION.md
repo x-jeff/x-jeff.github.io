@@ -33,7 +33,9 @@ VGG中所有卷积层的设置都是一样的。
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/VGG/1.png)
 
-所有的参数设置都遵循2.1部分。卷积核的个数从64开始，每经过一个max-pooling，卷积核的个数就翻倍（乘2）一次。表1中需要注意的一点就是卷积核的表示方法：conv<卷积核大小>-<卷积核个数>，例如conv3-64表示卷积核的大小为3*3，个数为64。（VGG16结构的详细介绍请见本人的另一篇博客：[VGG16详细结构](http://shichaoxin.com/2020/07/18/深度学习基础-第二十九课-经典的神经网络结构/#3vgg-16)）。
+所有的参数设置都遵循2.1部分。卷积核的个数从64开始，每经过一个max-pooling，卷积核的个数就翻倍（乘2）一次。表1中需要注意的一点就是卷积核的表示方法：conv<卷积核大小>-<卷积核个数>，例如conv3-64表示卷积核的大小为3*3，个数为64。
+
+>VGG16结构的详细介绍请见本人的另一篇博客：[VGG16详细结构](http://shichaoxin.com/2020/07/18/深度学习基础-第二十九课-经典的神经网络结构/#3vgg-16)。
 
 每种配置的参数数量见下。可以看出，相比于较浅的网络但是使用较大的卷积核的情况，虽然VGG网络的深度很深，但其参数数量并不多。
 
@@ -138,3 +140,7 @@ VGG在ILSVRC-2014中以7.3%的测试集top-5错误率取得了分类任务第二
 # 5.结论（CONCLUSION）
 
 VGG证实了增加卷积神经网络的深度有利于提升分类精度。
+
+# 6.原文链接
+
+👽[VERY DEEP CONVOLUTIONAL NETWORKS FOR LARGE-SCALE IMAGE RECOGNITION](https://github.com/x-jeff/AI_Papers/blob/master/VERY%20DEEP%20CONVOLUTIONAL%20NETWORKS%20FOR%20LARGE-SCALE%20IMAGE%20RECOGNITION.pdf)
