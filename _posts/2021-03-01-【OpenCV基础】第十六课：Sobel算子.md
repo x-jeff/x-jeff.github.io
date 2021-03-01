@@ -48,7 +48,7 @@ $$\mathbf G =\lvert \mathbf {G_x} \rvert + \lvert \mathbf {G_y} \rvert$$
 
 # 3.Scharr算子
 
-虽然Sobel算子可以有效的提取图像边缘，但是对图像中较弱的边缘提取效果较差。因此为了能够有效的提取出较弱的边缘，需要将像素值间的差距增大，因此引入Scharr算子。Scharr算子是对Sobel算子差异性的增强，因此两者之间的在检测图像边缘的原理和使用方式上相同。
+虽然Sobel算子可以有效的提取图像边缘，但是对图像中较弱的边缘提取效果较差。因此为了能够有效的提取出较弱的边缘，需要将像素值间的差距增大，因此引入Scharr算子。Scharr算子是对Sobel算子差异性的增强，因此两者在检测图像边缘的原理和使用方式上相同。
 
 $$\mathbf  {G_x}=\begin{bmatrix} -3 & 0 & +3 \\ -10 & 0 & +10 \\ -3 & 0 & +3 \\ \end{bmatrix} * \mathbf A$$
 
@@ -99,7 +99,7 @@ cv::Scharr(
 
 构造Sobel算子的理论基础是帕斯卡三角形（Pascal's triangle）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson16/16x4.png)
+![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson16/16x4.jpg)
 
 帕斯卡三角形的构建公式为（$n$为行数，$k$为列数）：
 
