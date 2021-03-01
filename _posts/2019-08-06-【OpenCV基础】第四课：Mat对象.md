@@ -39,11 +39,16 @@ Mat对象有以下6种构建方法：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson4/4x1.png)
 
+类似的还有：
+
+* `Mat::ones()`：每个像素的第一个通道为1，其余通道为0。
+* `Mat::zeros()`：每个像素的每个通道都为0。
+
 # 3.部分复制和完全复制
 
 👉**部分复制：**一般情况下只会复制Mat对象的头和指针部分，不会复制数据部分。
 
-👉**完全复制：**如果想把Mat对象的头部和数据部分一起复制。
+👉**完全复制：**把Mat对象的头部和数据部分一起复制。
 
 ```c++
 Mat A=imread(imgFilePath);
