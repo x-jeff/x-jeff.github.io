@@ -178,7 +178,7 @@ def dynamic_rnn(cell,
 
 👉`scope`：VariableScope for the created subgraph; defaults to "rnn".
 
-`tf.nn.dynamic_rnn`的返回值是一个tuple：`(outputs,states)`。`outputs`是RNN最后一层的输出，`states`储存的是最后一个cell输出的states。一般情况下states的形状（例如当cell为GRU单元时）为[batch\_size, cell.output\_size]，但当输入的cell为BasicLSTMCell时，states的形状为[2，batch\_size, cell.output\_size]，其中2也对应着LSTM中的cell state（即$c^{<t>}$）和hidden state（即$a^{<t>}$）。
+`tf.nn.dynamic_rnn`的返回值是一个tuple：`(outputs,states)`。`outputs`是RNN最后一层的输出，`states`储存的是最后一个cell输出的states。一般情况下states的形状（例如当cell为GRU单元时）为[batch\_size, cell.output\_size]，但当输入的cell为BasicLSTMCell时，states的形状为[2，batch\_size, cell.output\_size]，其中2也对应着LSTM中的cell state（即$c^{\<t\>}$）和hidden state（即$a^{\<t\>}$）。
 
 举个例子说明一下，假设我们的LSTM网络只有一层，包含两个cell（即`max_time=2`）：
 
