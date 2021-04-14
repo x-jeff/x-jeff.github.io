@@ -136,8 +136,8 @@ def pct_change(self, periods=1,fill_method='pad', limit=None, freq=None,**kwargs
 1. `periods=n`：表示当前元素与先前第n个元素相差的百分比。
 2. `fill_method`：缺失值的填补方式，默认为[pad方式](http://shichaoxin.com/2020/02/23/Python基础-第十一课-处理缺失值/#2214向前后填值)。
 3. `limit`：填补连续缺失值的个数限制。
-4. `freq`：DateOffset, timedelta, or offset alias string, optional. Increment to use from time series API (e.g. 'M' or BDay()).
-5. `**kwargs`：Additional keyword arguments are passed into `DataFrame.shift` or `Series.shift`.
+4. `freq`：DateOffset, timedelta, or offset alias string, optional. Increment to use from time series API (e.g. 'M' or BDay())。
+5. `**kwargs`：Additional keyword arguments are passed into `DataFrame.shift` or `Series.shift`。
 
 👉例子一：
 
