@@ -93,7 +93,7 @@ world
 
 ## 2.2.`.readline()`
 
-`.readline()`**每次只读取一行**，通常比`.readlines()`慢很多。仅当没有足够内存可以一次性读取整个文件时，才应该使用`.readline()`。返回值也是**一个字符串变量**
+`.readline()`**每次只读取一行**，通常比`.readlines()`慢很多。仅当没有足够内存可以一次性读取整个文件时，才应该使用`.readline()`。返回值也是**一个字符串变量**。
 
 ```python
 with open("temp.txt","r") as f:
