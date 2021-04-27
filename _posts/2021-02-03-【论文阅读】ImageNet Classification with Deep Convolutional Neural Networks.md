@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      【论文阅读】ImageNet Classification with Deep Convolutional Neural Networks
-subtitle:   ILSVRC2012冠军：AlexNet
+subtitle:   ILSVRC2012(分类任务冠军/定位任务冠军)：AlexNet
 date:       2021-02-03
 author:     x-jeff
 header-img: blogimg/20210203.jpg

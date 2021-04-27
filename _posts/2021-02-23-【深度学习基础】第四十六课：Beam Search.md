@@ -64,7 +64,7 @@ Beam Search的第一步我们使用如下的网络部分（绿色是编码部分
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x6.png)
 
->因为Beam Width=3，所以我们会有三个这样的网络副本。每个网络的第一个单词不同。
+>因为Beam Width=3，所以我们会有三个这样的网络副本。
 
 第二个单词的概率（即条件概率）为：
 
