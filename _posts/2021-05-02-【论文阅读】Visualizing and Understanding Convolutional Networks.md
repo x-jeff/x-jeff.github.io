@@ -37,7 +37,7 @@ ZFNet使用像[LeNet](http://shichaoxin.com/2020/10/13/论文阅读-Gradient-Bas
 >
 >文中对LCN的解释见下：![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ZFNet/2.png)
 >
->LCN类似于均值-标准差归一化。第$i$个feature map中，坐标为$(j,k)$的点的值为$x_{i,j,k}$。首先，去均值化（减法运算部分）：$v_{i,j,k}=x_{i,j,k}-\sum_{ipq} w_{pq} \cdot x_{i,j+p,k+q}$。其中，$w_{pq}$为$p \times q$大小的window上对应位置的高斯系数（所以此处应该用的是[二维高斯分布](http://shichaoxin.com/2020/03/03/OpenCV基础-第九课-图像模糊/#6高斯分布)，该论文中使用的window大小为$9\times 9$），且有$\sum_{i,p,q} w_{pq}=1$。然后，除法运算部分：$y_{i,j,k}=v_{i,j,k} / \max(c,\sigma_{jk})$。其中，$\sigma_{jk}=(\sum_{ipq}w_{pq}\cdot v^2_{i,j+p,k+q})^{1/2}$，即标准差；$c=mean(\sigma _{jk})$。a
+>LCN类似于均值-标准差归一化。第$i$个feature map中，坐标为$(j,k)$的点的值为$x_{i,j,k}$。首先，去均值化（减法运算部分）：$v_{i,j,k}=x_{i,j,k}-\sum_{ipq} w_{pq} \cdot x_{i,j+p,k+q}$。其中，$w_{pq}$为$p \times q$大小的window上对应位置的高斯系数（所以此处应该用的是[二维高斯分布](http://shichaoxin.com/2020/03/03/OpenCV基础-第九课-图像模糊/#6高斯分布)，该论文中使用的window大小为$9\times 9$），且有$\sum_{i,p,q} w_{pq}=1$。然后，除法运算部分：$y_{i,j,k}=v_{i,j,k} / \max(c,\sigma_{jk})$。其中，$\sigma_{jk}=(\sum_{ipq}w_{pq}\cdot v^2_{i,j+p,k+q})^{1/2}$，即标准差；$c=mean(\sigma _{jk})$。
 
 ZFNet网络结构见Fig3：
 
