@@ -60,6 +60,28 @@ A.copyTo(G);//完全复制
 
 (部分复制：共用一个矩阵，即一张图，该图如果发生改变，A和B都将改变。而完全复制是各自用各自的数据部分，互不干扰。)
 
+## 3.1.`copyTo()`
+
+`copyTo()`有三种声明方式：
+
+```c++
+//1
+Mat clone() const CV_NODISCARD;
+//2
+void copyTo( OutputArray m ) const;
+//3
+void copyTo( OutputArray m, InputArray mask ) const;
+```
+
+其中第三种方式还可用于图像融合，mask的尺寸必须和原图像相同，它的非零元素表示需要复制的矩阵元素，mask必须是`CV_8U`类型的，可以有1个或多个通道。例如：
+
+```c++
+src.copyTo(dst,mask);
+```
+
+如果mask在像素点$(i,j)$的像素值不为0，则把src在像素点$(i,j)$的像素值直接赋给dst的$(i,j)$处；如果mask在像素点$(i,j)$的像素值为0，则dst保留其在$(i,j)$处的像素值。
+
 # 4.代码地址
 
 1. [Mat对象](https://github.com/x-jeff/OpenCV_Code_Demo/tree/master/Demo4)
+2. [OpenCV中mat::copyto( )函数使用方法](https://blog.csdn.net/NNNNNNNNNNNNY/article/details/52296827)
