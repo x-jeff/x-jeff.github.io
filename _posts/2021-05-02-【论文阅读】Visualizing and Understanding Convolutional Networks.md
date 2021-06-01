@@ -69,7 +69,7 @@ ZFNet共有8层。输入为$224\times 224 \times 3$的彩色图像（输入是�
 >
 >ZFNet在网络结构方面没有什么创新，基本和AlexNet一样。主要区别是ZFNet将第1层的卷积核大小从$11\times 11$缩小到$7 \times 7$，stride从4改为2。
 
-假设训练集共有$N$张图片${x,y}$，标签为$y_i$，预测结果为$\hat y_i$。ZFNet模型使用[交叉熵代价函数](http://shichaoxin.com/2019/09/04/深度学习基础-第二课-softmax分类器和交叉熵损失函数/#3交叉熵损失函数)。模型训练方法为[SGD](http://shichaoxin.com/2020/02/20/深度学习基础-第十五课-mini-batch梯度下降法/#21bgdsgdmbgd)。
+假设训练集共有$N$张图片${x,y}$，标签为$y_i$，预测结果为$\hat y_i$。ZFNet模型使用[交叉熵代价函数](http://shichaoxin.com/2019/09/04/深度学习基础-第二课-softmax分类器和交叉熵损失函数/#3交叉熵损失函数)。模型训练方法为[MBGD](http://shichaoxin.com/2020/02/20/深度学习基础-第十五课-mini-batch梯度下降法/)。
 
 ## 2.1.通过反卷积网络进行可视化（Visualization with a Deconvnet）
 
@@ -109,7 +109,7 @@ ZFNet的作者提出了反卷积网络的概念用于研究卷积网络的可视
 
 # 3.训练细节（Training Details）
 
-训练所使用的数据集为ImageNet2012提供的训练集（共130万张图像，超过1000个类别）。将数据集中的图像统一resize为$256 \times 256$大小（resize方法和AlexNet一样，请见：[链接](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/#2数据集the-dataset)）。并且每个像素点都减去了其平均值（图像中某一点的像素值的平均值为数据集中所有图像在该点的像素值的平均）。此外，在$256 \times 256$的图像中，ZFNet作者进一步裁剪出$224 \times 224$大小的图像作为网络的输入。一张$256 \times 256$的图像可以得到10张$224 \times 224$大小的图像（四个角+中心便可得到5张，然后进行水平翻转，又可以得到5张，共10张）。训练方法为[SGD](http://shichaoxin.com/2020/02/20/深度学习基础-第十五课-mini-batch梯度下降法/#21bgdsgdmbgd)+[Mini-Batch](http://shichaoxin.com/2020/02/20/深度学习基础-第十五课-mini-batch梯度下降法/#1mini-batch梯度下降法)+[Momentum梯度下降法](http://shichaoxin.com/2020/03/05/深度学习基础-第十七课-Momentum梯度下降法/)，其中batch size=128，学习率为$10^{-2}$，Momentum梯度下降法的超参数$\beta$为0.9。当验证集的错误率不再下降时，会手动降低学习率。FC6和FC7使用了[dropout](http://shichaoxin.com/2020/02/01/深度学习基础-第十一课-正则化/#5dropout正则化)，参数为0.5。所有权重初始化为$10^{-2}$，偏置项初始化为0。
+训练所使用的数据集为ImageNet2012提供的训练集（共130万张图像，超过1000个类别）。将数据集中的图像统一resize为$256 \times 256$大小（resize方法和AlexNet一样，请见：[链接](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/#2数据集the-dataset)）。并且每个像素点都减去了其平均值（图像中某一点的像素值的平均值为数据集中所有图像在该点的像素值的平均）。此外，在$256 \times 256$的图像中，ZFNet作者进一步裁剪出$224 \times 224$大小的图像作为网络的输入。一张$256 \times 256$的图像可以得到10张$224 \times 224$大小的图像（四个角+中心便可得到5张，然后进行水平翻转，又可以得到5张，共10张）。训练方法为[Mini-Batch](http://shichaoxin.com/2020/02/20/深度学习基础-第十五课-mini-batch梯度下降法/#1mini-batch梯度下降法)+[Momentum梯度下降法](http://shichaoxin.com/2020/03/05/深度学习基础-第十七课-Momentum梯度下降法/)，其中batch size=128，学习率为$10^{-2}$，Momentum梯度下降法的超参数$\beta$为0.9。当验证集的错误率不再下降时，会手动降低学习率。FC6和FC7使用了[dropout](http://shichaoxin.com/2020/02/01/深度学习基础-第十一课-正则化/#5dropout正则化)，参数为0.5。所有权重初始化为$10^{-2}$，偏置项初始化为0。
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ZFNet/9.png)
 
@@ -264,6 +264,10 @@ ZFNet作者探讨了ImageNet预训练模型的每一层是如何区别特征的�
 
 本文提出了一种创新的可视化卷积神经网络的方法，并且可以通过可视化的结果来优化网络参数。此外，ZFNet可以很好的泛化到其他相似数据集（例如Caltech-101和Caltech-256）。
 
-# 7.参考资料
+# 7.原文链接
+
+👽[Visualizing and Understanding Convolutional Networks](https://github.com/x-jeff/AI_Papers/blob/master/Visualizing%20and%20Understanding%20Convolutional%20Networks.pdf)
+
+# 8.参考资料
 1. [“直观理解”卷积神经网络(一)：反卷积(Deconvnet)](https://zhuanlan.zhihu.com/p/140896660)
 2. [PyTorch源码浅析(3)：NN](https://www.52coding.com.cn/2019/05/05/PyTorch3/)

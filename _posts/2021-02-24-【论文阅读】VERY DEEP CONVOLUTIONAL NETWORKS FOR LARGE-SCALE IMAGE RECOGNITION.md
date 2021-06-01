@@ -49,7 +49,7 @@ VGG中所有卷积层的设置都是一样的。
 
 >AlexNet博客讲解及原文：[【论文阅读】ImageNet Classification with Deep Convolutional Neural Networks](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)。
 >
->ZFNet原文：Zeiler, M. D. and Fergus, R. Visualizing and understanding convolutional networks. CoRR, abs/1311.2901,2013. Published in Proc. ECCV, 2014.。
+>ZFNet博客讲解及原文：[【论文阅读】Visualizing and Understanding Convolutional Networks](http://shichaoxin.com/2021/05/02/论文阅读-Visualizing-and-Understanding-Convolutional-Networks/)。
 >
 >OverFeat原文：Sermanet, P., Eigen, D., Zhang, X., Mathieu, M., Fergus, R., and LeCun, Y. OverFeat: Integrated Recognition,Localization and Detection using Convolutional Networks. In Proc. ICLR, 2014.。
 
