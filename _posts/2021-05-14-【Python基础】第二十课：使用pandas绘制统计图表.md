@@ -113,7 +113,11 @@ df[['rise', 'fall']].sum().plot(kind='pie', figsize=[5, 5], counterclock=True, s
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson20/20x5.png)
 
-# 3.参考资料
+# 3.代码地址
+
+1. [使用pandas绘制统计图表](https://github.com/x-jeff/Python_Code_Demo/tree/master/Demo20)
+
+# 4.参考资料
 
 1. [【python】详解pandas.DataFrame.plot( )画图函数](https://blog.csdn.net/brucewong0516/article/details/80524442)
 2. [pandas.DataFrame.plot](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html)
