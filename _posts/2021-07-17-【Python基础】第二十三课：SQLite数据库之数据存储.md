@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      【Python基础】第二十三课：SQLite数据库之数据存储
-subtitle:   使用python链接数据库，透过SQLite做数据新增，使用pandas存储数据
+subtitle:   使用python链接数据库，透过SQLite做数据新增、查询，使用pandas存储数据
 date:       2021-07-17
 author:     x-jeff
 header-img: blogimg/20210717.jpg
