@@ -58,6 +58,7 @@ DataFrame.plot(x=None, y=None, kind='line', ax=None, subplots=False,
 5. `title`：图的名字或标题。
 6. `grid`：背景是否添加网格线。
 7. `legend`：是否显示图例。
+8. `rot`：x轴label旋转角度。
 
 ## 2.1.绘制折线图
 
