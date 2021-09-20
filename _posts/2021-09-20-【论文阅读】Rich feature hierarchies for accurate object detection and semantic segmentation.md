@@ -295,36 +295,41 @@ $$G=(G_x,G_y,G_w,G_h)$$
 
 使用4个变换函数$d_x(P),d_y(P),d_w(P),d_h(P)$，通过下面四个公式计算预测的ground truth $\hat G$：
 
-$$\hat G_x = P_w d_x(P) + P_x \tag{1}$$
+$$\hat{G} _x = P_w d_x(P) + P_x \tag{1}$$
 
-$$\hat G_y = P_h d_y(P) + P_y \tag{2}$$
+$$\hat{G} _y = P_h d_y(P) + P_y \tag{2}$$
 
-$$\hat G_w = P_w exp( d_w(P) ) \tag{3}$$
+$$\hat{G} _w = P_w exp( d_w(P) ) \tag{3}$$
 
-$$\hat G_h = P_h  exp( d_h(P) ) \tag{4}$$
+$$\hat{G} _h = P_h  exp( d_h(P) ) \tag{4}$$
 
 >$\hat G$其实就是$P$通过平移缩放得到的。
 >
 >平移我们可以表示为：
 >
 >$$\hat G_x = P_x + \delta x$$
+>
 >$$\hat G_y = P_y + \delta y$$
 >
 >缩放我们可以表示为：
 >
 >$$\hat G_w = P_w \cdot \delta w$$
+>
 >$$\hat G_h = P_h \cdot \delta h$$
 >
 >论文中对$\delta x,\delta y,\delta w,\delta h$定义如下：
 >
 >$$\delta x = P_w d_x (P)$$
+>
 >$$\delta y = P_h d_y (P)$$
+>
 >$$\delta w = exp ( d_w (P) )$$
+>
 >$$\delta h = exp ( d_h (P) )$$
 >
 >带入即可得到式1~式4。
 
-式1~式4中的$d_* (P)$（$*$为$x,y,h,w$中的一个）为一个线性模型，自变量为CNN网络中POOL5层的输出，表示为$\phi _5 (P)$。则$d_* (P)=w_* ^T \phi_5 (P)$。参数$w_*$的学习方法为岭回归（即改良的[最小二乘估计](http://shichaoxin.com/2019/06/30/机器学习基础-第六课-线性回归/#21最小二乘法)，其实就是多加了个正则化项）：
+式1~式4中的$d_* (P)$（$\*$为$x,y,h,w$中的一个）为一个线性模型，自变量为CNN网络中POOL5层的输出，表示为$\phi _5 (P)$。则$d_* (P)=w_* ^T \phi_5 (P)$。参数$w_*$的学习方法为岭回归（即改良的[最小二乘估计](http://shichaoxin.com/2019/06/30/机器学习基础-第六课-线性回归/#21最小二乘法)，其实就是多加了个正则化项）：
 
 $$w_* = \arg \min \limits_{\hat{w}_*} \sum^N_{i} (t^i_* - \hat{w}_*^T\phi_5(P^i))^2 + \lambda \parallel \hat{w}_* \parallel ^2 \tag{5}$$
 
