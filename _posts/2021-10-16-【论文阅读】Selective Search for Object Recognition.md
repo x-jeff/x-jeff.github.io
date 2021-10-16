@@ -178,6 +178,10 @@ $$\frac{\partial^2 G}{\partial \vec{l}^2}=\frac{\partial^2 G}{\partial x^2} \cos
 
 在selective search算法的纹理相似度计算部分，个人理解应该使用的是二维高斯函数的一阶方向导数，每个像素点与周边的八个相邻像素点构成了八个方向，即$\theta = \\{0°,45°,90°,135°,180°,225°,270°,315° \\}$。
 
-# 3.参考资料
+# 3.原文链接
+
+👽[Selective Search for Object Recognition](https://github.com/x-jeff/AI_Papers/blob/master/Selective%20Search%20for%20Object%20Recognition.pdf)
+
+# 4.参考资料
 
 1. [高斯导数](https://jingyan.baidu.com/article/5bbb5a1bedf94413eba179ba.html)

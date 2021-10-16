@@ -63,7 +63,7 @@ R-CNN包含3个模块：1）第一个模块用于生成region proposals，这些
 5. multi-scale combinatorial grouping：P. Arbel´aez, J. Pont-Tuset, J. Barron, F. Marques, and J. Malik. Multiscale combinatorial grouping. In CVPR, 2014.
 6. Ciresan：D. Cires¸an, A. Giusti, L. Gambardella, and J. Schmidhuber. Mitosis detection in breast cancer histology images with deep neural networks. In MICCAI, 2013.
 
-R-CNN所用的方法为selective search。
+R-CNN所用的方法为[selective search](http://shichaoxin.com/2021/10/16/论文阅读-Selective-Search-for-Object-Recognition/)。
 
 **Feature extraction：**
 
