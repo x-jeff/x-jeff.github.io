@@ -43,11 +43,9 @@ Selective Search的目标是在实际的目标检测框架下，为其生成一�
 
 我们使用一个分层分组算法（a hierarchical grouping algorithm）作为Selective Search的基础。自下而上的分组（Bottom-up grouping）是一个非常流行的分割方法，所以我们将其应用于Selective Search。因为分组的过程本身就是分层（hierarchical），我们可以继续分组过程直至图像全部变为单一区域。这也刚好满足了捕获所有尺寸的要求。
 
-因为区域包含的信息比像素更丰富，所以我们想尽可能的使用基于区域的特征。我们使用“Felzenszwalb and Huttenlocher (2004)”的方法来产生初始的划分区域。因为该方法速度快，且产生的区域不会横跨多个目标，很适合我们这种任务。
+因为区域包含的信息比像素更丰富，所以我们想尽可能的使用基于区域的特征。我们使用[“Felzenszwalb and Huttenlocher (2004)”的方法](http://shichaoxin.com/2021/10/19/论文阅读-Efficient-Graph-Based-Image-Segmentation/)来产生初始的划分区域。因为该方法速度快，且产生的区域不会横跨多个目标，很适合我们这种任务。
 
->“Felzenszwalb and Huttenlocher (2004)”的方法：Felzenszwalb, P. F.,&Huttenlocher, D. P. (2004). Efficient graph-based image segmentation. International Journal of Computer Vision, 59,167–181.
-
-我们的分组过程见下。首先我们使用“Felzenszwalb and Huttenlocher (2004)”的方法来产生初始划分区域。然后我们应用贪心算法迭代的整合这些区域：首先计算所有相邻区域的相似度。相似度最高的一组相邻区域将会被整合在一起，即合并为一个新的区域。然后我们会重复这个步骤直至整幅图像变成一个单一的区域。详细的实现细节见下：
+我们的分组过程见下。首先我们使用[“Felzenszwalb and Huttenlocher (2004)”的方法](http://shichaoxin.com/2021/10/19/论文阅读-Efficient-Graph-Based-Image-Segmentation/)来产生初始划分区域。然后我们应用贪心算法迭代的整合这些区域：首先计算所有相邻区域的相似度。相似度最高的一组相邻区域将会被整合在一起，即合并为一个新的区域。然后我们会重复这个步骤直至整幅图像变成一个单一的区域。详细的实现细节见下：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SelectiveSearch/3.png)
 
@@ -130,9 +128,9 @@ $$S(r_i,r_j)=a_1 S_{colour}(r_i,r_j)+a_2 S_{texture}(r_i,r_j) + a_3 S_{size}(r_i
 
 👉第三个方面：**Complementary Starting Regions.**
 
-多样性的第三个方面体现在初始划分区域的改变。据我们所知，“Felzenszwalb and
-Huttenlocher (2004)”的方法是最快的，并且算法开源，划分的区域质量也比较高。作者在论文中说他找不到具有相似效率和性能的其他算法，所以其只使用了这一种划分初始区域的算法。但是不同的色彩空间会产生不同的初始划分区域。此外，作者也改变了“Felzenszwalb and
-Huttenlocher (2004)”方法中的阈值参数k的值。
+多样性的第三个方面体现在初始划分区域的改变。据我们所知，[“Felzenszwalb and
+Huttenlocher (2004)”的方法](http://shichaoxin.com/2021/10/19/论文阅读-Efficient-Graph-Based-Image-Segmentation/)是最快的，并且算法开源，划分的区域质量也比较高。作者在论文中说他找不到具有相似效率和性能的其他算法，所以其只使用了这一种划分初始区域的算法。但是不同的色彩空间会产生不同的初始划分区域。此外，作者也改变了[“Felzenszwalb and
+Huttenlocher (2004)”方法](http://shichaoxin.com/2021/10/19/论文阅读-Efficient-Graph-Based-Image-Segmentation/)中的阈值参数k的值。
 
 ## 1.3.Combining Locations
 
