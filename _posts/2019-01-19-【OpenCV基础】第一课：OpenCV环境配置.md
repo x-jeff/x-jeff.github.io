@@ -56,9 +56,7 @@ OpenCV的两种下载方法：
 
 打开终端，输入以下命令：
 
-`
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-`
+`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
 ### 2.1.2.下载CMake
 
@@ -77,25 +75,19 @@ CMake官方网站：[CMake](https://cmake.org)
 
 选择第二种方法，在终端输入：
 
-`
-sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install
-`
+`sudo "/Applications/CMake.app/Contents/bin/cmake-gui" --install`
 
 这样使得每次打开终端，都可以正确识别cmake命令。
 
 当然，也可以选择使用HomeBrew下载CMake，在终端输入如下命令即可：
 
-`
-brew install cmake
-`
+`brew install cmake`
 
 ### 2.1.3.下载OpenCV
 
 使用HomeBrew下载OpenCV，在终端输入以下命令：
 
-`
-brew install opencv
-`
+`brew install opencv`
 
 下载的为最新版本的OpenCV，我下载的版本为4.0.1。
 
