@@ -52,7 +52,7 @@ $$\min \limits_{G} \  \max \limits_{D} V(D,G) = \mathbb{E}_{\mathbf x \sim p_{da
 
 >图像的概率分布可视为[连续型概率分布](http://shichaoxin.com/2019/10/23/数学基础-第八课-概率分布/#1概率分布)。
 
-## 4.1.全局最优$p_g = p_{data}$
+## 4.1.Global Optimality of $p_g = p_{data}$
 
 本部分旨在证明上述模型存在全局最优解：$p_g = p_{data}$。即生成的图像和真实图像无法被区分，二者有着一样的概率分布。
 
@@ -80,7 +80,7 @@ $$\begin{align} C(G) &= \max \limits_{D} V(G,D) \\&= \mathbb{E}_{\mathbf x \sim 
 
 【证明】假设存在某一模型G，使得$p_g = p_{data}$，此时有$D^*_G(\mathbf x)=\frac{1}{2}$。代入式(4)，便可得到$C(G)=\log \frac{1}{2}+\log \frac{1}{2}=-\log 4$：
 
-$$\mathbb{E}_{\mathbf x \sim p_{data}} [-\log 2]+\mathbb{E}_{\mathbf x \sim p_g} [-\log 2]=\log 4$$
+$$\mathbb{E}_{\mathbf x \sim p_{data}} [-\log 2]+\mathbb{E}_{\mathbf x \sim p_g} [-\log 2]=-\log 4$$
 
 如果定理1成立的话，那么$-\log 4$应该就是$C(G)$的最小值了。但如果是对于任意的一个模型G，式(4)也可写为：
 
