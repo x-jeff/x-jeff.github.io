@@ -21,9 +21,7 @@ GoogLeNet的参数数量比[AlexNet](http://shichaoxin.com/2021/02/03/论文阅�
 
 尽管max-pooling的使用会丢失一些空间信息，但是[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)依旧在定位、目标检测以及人体pose识别等领域取得了不错的成绩。此外，GoogLeNet使用了大量的[$1 \times 1$卷积（Network-in-Network）](http://shichaoxin.com/2020/08/02/深度学习基础-第三十一课-Inception网络/#11times-1的卷积)，这样做的目的有两个：1）降低计算量，从而打破网络规模的限制；2）在加深且加宽网络的同时，不会造成严重的性能下降。
 
-目前目标检测领域内最为优秀的算法之一是R-CNN（Regions with Convolutional Neural Networks，原文：Ross B. Girshick, Jeff Donahue, Trevor Darrell, and Jitendra Malik. Rich feature hierarchies
-for accurate object detection and semantic segmentation. In Computer Vision and Pattern
-Recognition, 2014. CVPR 2014. IEEE Conference on, 2014.）。R-CNN将目标检测问题分成2个部分（即通常所说的two-stage approach）：1）使用浅层特征确定一些[候选区域](http://shichaoxin.com/2020/09/09/深度学习基础-第三十五课-R-CNN中的候选区域/)；2）在这些候选区域内运行CNN。GoogLeNet在检测任务中也使用了类似的结构，但是其对每一部分都进行了优化。
+目前目标检测领域内最为优秀的算法之一是[R-CNN](http://shichaoxin.com/2021/09/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)。[R-CNN](http://shichaoxin.com/2021/09/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)将目标检测问题分成2个部分（即通常所说的two-stage approach）：1）使用浅层特征确定一些[候选区域](http://shichaoxin.com/2020/09/09/深度学习基础-第三十五课-R-CNN中的候选区域/)；2）在这些候选区域内运行CNN。GoogLeNet在检测任务中也使用了类似的结构，但是其对每一部分都进行了优化。
 
 # 3.动机和高层设计考虑（Motivation and High Level Considerations）
 
@@ -151,7 +149,7 @@ ILSVRC检测任务是使用bounding box圈出目标的位置。一共有200个�
 >
 >0.662就是该类别的AP（average precision）值。mAP就是所有类别AP值的平均。
 
-GoogLeNet的检测策略类似于RCNN，但是限于时间，GoogLeNet并没有使用RCNN中的bounding  box regression。GoogLeNet在检测任务中使用了6个网络的组合，其表现见下：
+GoogLeNet的检测策略类似于[R-CNN](http://shichaoxin.com/2021/09/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)，但是限于时间，GoogLeNet并没有使用[R-CNN](http://shichaoxin.com/2021/09/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)中的bounding  box regression。GoogLeNet在检测任务中使用了6个网络的组合，其表现见下：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/14.png)
 
