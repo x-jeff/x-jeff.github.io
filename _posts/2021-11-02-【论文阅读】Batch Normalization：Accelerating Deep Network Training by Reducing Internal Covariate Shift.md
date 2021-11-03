@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      【论文阅读】Batch Normalization：Accelerating Deep Network Training by Reducing Internal Covariate Shift
-subtitle:   Batch Normalization
+subtitle:   Batch Normalization，BN-Inception
 date:       2021-11-02
 author:     x-jeff
 header-img: blogimg/20211102.jpg
