@@ -14,6 +14,8 @@ tags:
 
 # 1.什么是Batch Normalization
 
+>原文：[链接](https://github.com/x-jeff/AI_Papers/blob/master/Batch%20Normalization%EF%BC%9AAccelerating%20Deep%20Network%20Training%20by%20Reducing%20Internal%20Covariate%20Shift.pdf)；博客讲解：[链接](http://shichaoxin.com/2021/11/02/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)。
+
 在[【深度学习基础】第十二课：归一化输入](http://shichaoxin.com/2020/02/03/深度学习基础-第十二课-归一化输入/)一文中，我们提到了归一化输入可以加速学习过程。
 
 根据这个思路，同样的我们也可以将每个隐藏层的输入$a^{[0]},a^{[1]},a^{[2]},...,a^{[l]}$进行同样的归一化处理。这样我们就可以提升每一层的训练效率。
