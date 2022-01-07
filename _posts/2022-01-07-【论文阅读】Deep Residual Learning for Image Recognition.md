@@ -178,9 +178,9 @@ plain网络和ResNet分别使用Fig3中间和右边所示的框架（只是使�
 |layer name|output size|6n+2 layer|
 |:-:|:-:|:-:|
 |conv 1|$32\times 32$|$3\times 3,16$|
-|conv 2\_x|$32\times 32$|$\begin{bmatrix} 3\times 3,16 \\ 3\times 3,16 \\ \end{bmatrix} \times 2n$|
-|conv 3\_x|$16\times 16$|$\begin{bmatrix} 3\times 3,32 \\ 3\times 3,32 \\ \end{bmatrix} \times 2n$|
-|conv 4\_x|$8\times 8$|$\begin{bmatrix} 3\times 3,64 \\ 3\times 3,64 \\ \end{bmatrix} \times 2n$|
+|conv 2\_x|$32\times 32$|$\begin{bmatrix} 3\times 3,16 \\\\ 3\times 3,16 \\ \end{bmatrix} \times 2n$|
+|conv 3\_x|$16\times 16$|$\begin{bmatrix} 3\times 3,32 \\\\ 3\times 3,32 \\ \end{bmatrix} \times 2n$|
+|conv 4\_x|$8\times 8$|$\begin{bmatrix} 3\times 3,64 \\\\ 3\times 3,64 \\ \end{bmatrix} \times 2n$|
 ||$1\times 1$|average pool,10-d fc,softmax|
 
 其中，下采样通过步长为2来进行。网络一共有$6n+2$层，一共有$3n$个shortcuts，且均为identity shortcuts（即option A）。因此，这样构建出来的ResNet和对应的plain网络有着相同的深度，宽度和参数数量。[weight decay](http://shichaoxin.com/2020/02/01/深度学习基础-第十一课-正则化/#311l2正则化)设为0.0001，[momentum](http://shichaoxin.com/2020/03/05/深度学习基础-第十七课-Momentum梯度下降法/)设为0.9。权重初始化的方法来自论文“K. He, X. Zhang, S. Ren, and J. Sun. Delving deep into rectifiers: Surpassing human-level performance on imagenet classification. In ICCV, 2015.”，使用了[BN](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)，没有使用[dropout](http://shichaoxin.com/2020/02/01/深度学习基础-第十一课-正则化/#5dropout正则化)。使用[MBGD](http://shichaoxin.com/2020/02/20/深度学习基础-第十五课-mini-batch梯度下降法/)，mini-batch size=128。使用2块GPU。初始学习率为0.1，在32k和48k迭代时将学习率除以10，总迭代次数为64k（基于45k训练集+5k验证集）。我们进行了简单的数据扩展：每个边进行4个像素的padding，然后从padding后的图像中随机截取$32\times 32$大小的图像或者其水平翻转作为输入。测试阶段，我们仅使用原始的$32\times 32$大小的图像，没有其他额外处理。
