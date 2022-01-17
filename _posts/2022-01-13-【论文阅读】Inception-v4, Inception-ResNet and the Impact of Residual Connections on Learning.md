@@ -187,7 +187,7 @@ pure Inception-v3和Inception-ResNet-v1有着近似的计算成本，在ILSVRC-2
 
 >dense evaluation的介绍请见：[链接](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/#32测试testing)。
 
-集成模型的结果见表5，ResNet-151使用6个模型的dense evalution。Inception网络使用4个模型（表5第二行：四个Inception-v3，表5第三行：一个Inception-v4+三个Inception-ResNet-v2）+144 crop：
+集成模型的结果见表5，ResNet-151使用6个模型的dense evaluation。Inception网络使用4个模型（表5第二行：四个Inception-v3，表5第三行：一个Inception-v4+三个Inception-ResNet-v2）+144 crop：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/31.png)
 
