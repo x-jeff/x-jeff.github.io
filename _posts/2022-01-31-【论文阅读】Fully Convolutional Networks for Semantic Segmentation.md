@@ -81,7 +81,7 @@ tags:
 
 卷积网络中每一层的数据都是三维的：$h\times w \times d$，其中，$h$和$w$为空间维度，$d$为通道维度。第一层为输入图像，此时，$h\times w$为输入图像的大小，$d$为输入（彩色）图像的通道数。
 
-卷积网络基于平移不变性（translation invariance）建立。网络的基本组件（卷积、pooling、激活函数）作用在输入的局部区域上，并且仅依赖于相对空间坐标。使$\mathbf{x}_{ij}$为某一层$(i,j)$处的数据向量（向量大小为$d\times 1$），$\mathbf{y}_{ij}$为下一层的值（即$(i,j)$位置对应的输出），$\mathbf{y}_{ij}$的计算见下：
+卷积网络基于平移不变性（translation invariance）建立。网络的基本组件（卷积、pooling、激活函数）作用在输入的局部区域上，并且仅依赖于相对空间坐标。使$\mathbf{x}\_{ij}$为某一层$(i,j)$处的数据向量（向量大小为$d\times 1$），$\mathbf{y}\_{ij}$为下一层的值（即$(i,j)$位置对应的输出），$\mathbf{y}\_{ij}$的计算见下：
 
 $$\mathbf{y}_{ij}=f_{ks} ( \{ \mathbf{x}_{si+\delta i , sj+\delta j} \} _ {0 \leqslant \delta i , \delta j \leqslant k})$$
 
@@ -145,6 +145,7 @@ shift-and-stitch这个方法会使计算成本增加$f^2$倍，但是有一个tr
 
 1. shift and stitch。过程为：shift input，得到$s^2$个inputs，然后分别经过subsampling layer得到$s^2$个outputs，这些outputs又分别通过后续的conv层，得到$s^2$个outputs，最后stitch这$s^2$个outputs得到最终大小为$w\times h$的output。
 2. filter rarefaction。将下采样层的stride改为1，同时将后接卷积层的filter按如下方式dilate：
+
 	$$f'_{ij} = \begin{cases} f_{i/s,j/s}, & \text{if s divides both i and j;} \\ 0, & \text{otherwise,} \end{cases}$$
 
 如果按照方式1继续下一层的卷积：
@@ -259,10 +260,21 @@ skip结构的加入将FCN-16s在验证集上的mean IU提升至62.4，FCN-8s在�
 
 👉**Metrics：**模型评估使用以下常用指标（$n_{ij}$表示类别$i$被预测为类别$j$的像素点个数，$t_i = \sum_j n_{ij}$表示真实类别为$i$的像素点的个数，$n_{cl}$表示类别个数）：
 
-* pixel accuracy：$$\sum_{i} n_{ii} / \sum_i t_i$$
-* mean accuraccy：$$(1/n_{cl}) \sum_i n_{ii} / t_i$$
-* mean IU：$$(1/n_{cl}) \sum_i n_{ii} / (t_i +\sum_j n_{ji} - n_{ii})$$
-* frequency weighted IU：$$(\sum_k t_k)^{-1} \sum_i t_i n_{ii} / (t_i +\sum_j n_{ji} - n_{ii})$$
+* pixel accuracy：
+
+	$$\sum_{i} n_{ii} / \sum_i t_i$$
+	
+* mean accuraccy：
+
+	$$(1/n_{cl}) \sum_i n_{ii} / t_i$$
+	
+* mean IU：
+
+	$$(1/n_{cl}) \sum_i n_{ii} / (t_i +\sum_j n_{ji} - n_{ii})$$
+	
+* frequency weighted IU：
+
+	$$(\sum_k t_k)^{-1} \sum_i t_i n_{ii} / (t_i +\sum_j n_{ji} - n_{ii})$$
 
 👉**PASCAL VOC：**FCN-8s在PASCAL VOC 2011和2012测试集上的表现见表3。并和之前SOTA的方法：SDS、[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)进行比较。FCN-8s取得了最高的mean IU，并且推理速度也快了很多。
 
