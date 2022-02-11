@@ -101,6 +101,8 @@ convertible (score = 0.00335)
 
 通过TensorFlow官方提供的[retrain.py](https://github.com/tensorflow/hub/tree/master/examples/image_retraining)来快速实现重训练。
 
+>如果想使用自己的数据从头训练一个模型，可以参考：[链接](https://github.com/tensorflow/models/tree/master/research/slim)。
+
 # 4.代码地址
 
 1. [Inception-v3的训练和检测](https://github.com/x-jeff/Tensorflow_Code_Demo/tree/master/Demo9)
