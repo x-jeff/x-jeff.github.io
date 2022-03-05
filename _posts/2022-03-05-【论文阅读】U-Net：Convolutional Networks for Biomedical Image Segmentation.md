@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      【论文阅读】U-Net: Convolutional Networks for Biomedical Image Segmentation
+title:      【论文阅读】U-Net：Convolutional Networks for Biomedical Image Segmentation
 subtitle:   U-Net
 date:       2022-03-05
 author:     x-jeff
@@ -27,7 +27,7 @@ Fig1中，每个蓝色块代表一个多通道的feature map，通道的数量�
 
 通过U-Net的结构可以发现，其输出的维度是小于输入维度的。因此在Fig2中，蓝色框是输入的大小，黄色框是输出的结果。如果蓝色框里的数据不完整，则通过镜像的方式补全。这种tiling的策略对于将U-Net应用于大型图像非常重要，否则容易受到GPU内存的限制。
 
-因为我们的任务中训练数据非常少，所以我们使用弹性形变（elastic deformations）来进行数据扩展。这使得网络可以学习到不同形变中的共通性。这在医学图像分割中尤其重要，因为形变是细胞组织中最常见的变化，可以有效模拟真实情况。
+因为我们的任务中训练数据非常少，所以我们使用[弹性形变（elastic deformations）](http://shichaoxin.com/2022/03/01/论文阅读-Best-Practices-for-Convolutional-Neural-Networks-Applied-to-Visual-Document-Analysis/)来进行数据扩展。这使得网络可以学习到不同形变中的共通性。这在医学图像分割中尤其重要，因为形变是细胞组织中最常见的变化，可以有效模拟真实情况。
 
 对于许多细胞分割任务来说，另一个挑战是区分互相接触且属于同一类别的目标（见Fig3）。因此，我们建议使用加权loss，将互相接触的细胞分割开来的区域（即被预测为背景）应该赋予更大的loss权重。
 
