@@ -233,7 +233,7 @@ Fig4也是编码器第5层，上面为第5个头的注意力可视化，下面�
 
 $$lrate = d_{model}^{-0.5} \cdot \min (step\_ num^{-0.5},step\_num \cdot warmup\_steps^{-1.5}) \tag{3}$$
 
-其中，$warmup\_steps=4000$。
+其中，$warmup\\_steps=4000$。
 
 ## 5.4.Regularization
 
