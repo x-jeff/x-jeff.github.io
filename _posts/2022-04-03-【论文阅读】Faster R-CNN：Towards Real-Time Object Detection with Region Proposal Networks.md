@@ -17,7 +17,7 @@ tags:
 
 相比[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)优化后的CNN部分的检测时间，生成proposal的耗时会高出几个数量级。以[Selective Search](http://shichaoxin.com/2021/10/16/论文阅读-Selective-Search-for-Object-Recognition/)为例，其在CPU上针对每幅图像需要运行2秒。另一个生成proposal的方法：EdgeBoxes，每幅图像也需要0.2秒，这仍然是个不小的时间支出。
 
->EdgeBoxes原文：C. L. Zitnick and P. Doll´ar, “Edge boxes: Locating object proposals from edges,” in European Conference on Computer Vision (ECCV), 2014.
+>EdgeBoxes原文：C. L. Zitnick and P. Doll´ar, “Edge boxes: Locating object proposals from edges,” in European Conference on Computer Vision (ECCV), 2014.。
 
 但是需要注意的是CNN部分是运行在GPU上的，而proposal的生成是运行在CPU上的，所以直接比较耗时并不公平。但即使把proposal的生成放在GPU上运行，虽然理论上可以提速，但是其和CNN部分仍然是孤立的，并不能共享计算，所以还是有进一步优化的余地。
 
@@ -79,13 +79,13 @@ anchor机制具有平移不变性。平移不变性使得我们模型的size更�
 
 $$L( \{ p_i \},\{ t_i \})=\frac{1}{N_{cls}} \sum_i L_{cls} (p_i,p^*_i)+\lambda \frac{1}{N_{reg}} \sum_i p^*_i L_{reg} (t_i,t^*_i) \tag{1}$$
 
-$i$表示在一个mini-batch中第$i$个anchor的索引，$p_i$为第$i$个anchor属于前景的概率。$p_i^*$是GT，当第$i$个anchor为正样本时，$p_i^*=1$；为负样本时，$p_i^*=0$。$t_i$（预测值）和$t_i^*$（GT）为四个值的向量，定义和[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)一致：
+$i$表示在一个mini-batch中第$i$个anchor的索引，$p\_i$为第$i$个anchor属于前景的概率。$p\_i^*$是GT，当第$i$个anchor为正样本时，$p\_i^*=1$；为负样本时，$p\_i^*=0$。$t\_i$（预测值）和$t\_i^*$（GT）为四个值的向量，定义和[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)一致：
 
 $$\begin{split} t_x = (x-x_a)/w_a, \quad t_y=(y-y_a)/h_a, \\ t_w=\log(w/w_a), \quad t_h=\log(h/h_a), \\ t^*_x=(x^*-x_a)/w_a, \quad t^*_y=(y^*-y_a)/h_a, \\  t^*_w=\log(w^*/w_a), \quad t^*_h=\log(h^*/h_a), \end{split} \tag{2}$$
 
-式（2）中，$x,y,w,h$为预测得到的box的中心点坐标以及其宽和高，$x_a,y_a,w_a,h_a$为anchor box的中心点以及宽高，$x^*,y^*,w^*,h^*$为GT box的中心点以及宽高。
+式（2）中，$x,y,w,h$为预测得到的box的中心点坐标以及其宽和高，$x_a,y_a,w_a,h_a$为anchor box的中心点以及宽高，$x^\*,y^\*,w^\*,h^\*$为GT box的中心点以及宽高。
 
-回到式（1），$L_{cls}$和$L_{reg}$的计算和[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)一样。在我们自己的代码中，设$N_{cls}=mini-batch size$（即$N_{cls}=256$）。$N_{reg}$为最后一个共享feature map的大小，即锚点的个数：$N_{reg}=W*H$，我们的代码中该值约为2400。我们设$\lambda=10$，这样的话，$cls$项和$reg$项的权重差不多。我们后续实验表明结果对$\lambda$的取值并不敏感（见表9）。并且我们还发现normalization（即$N_{cls}$和$N_{reg}$）不是必要的，可以被简化。
+回到式（1），$L_{cls}$和$L_{reg}$的计算和[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)一样。在我们自己的代码中，设$N_{cls}=\text{mini-batch size}$（即$N_{cls}=256$）。$N_{reg}$为最后一个共享feature map的大小，即锚点的个数：$N_{reg}=W*H$，我们的代码中该值约为2400。我们设$\lambda=10$，这样的话，$cls$项和$reg$项的权重差不多。我们后续实验表明结果对$\lambda$的取值并不敏感（见表9）。并且我们还发现normalization（即$N_{cls}$和$N_{reg}$）不是必要的，可以被简化。
 
 在[SPPnet](http://shichaoxin.com/2022/02/22/论文阅读-Spatial-Pyramid-Pooling-in-Deep-Convolutional-Networks-for-Visual-Recognition/)和[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)中，所有region proposal在经过[spatial pyramid pooling layer](http://shichaoxin.com/2022/02/22/论文阅读-Spatial-Pyramid-Pooling-in-Deep-Convolutional-Networks-for-Visual-Recognition/)后的bounding box回归计算使用的同一组权重。而我们的方法针对每一种类型的anchor都训练了一个单独的回归器，即共训练了$k$个不同的回归器，每个回归器只负责一种scale和aspect ratio的anchor。
 
