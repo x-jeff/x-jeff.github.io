@@ -79,7 +79,7 @@ anchor机制具有平移不变性。平移不变性使得我们模型的size更�
 
 $$L( \{ p_i \},\{ t_i \})=\frac{1}{N_{cls}} \sum_i L_{cls} (p_i,p^*_i)+\lambda \frac{1}{N_{reg}} \sum_i p^*_i L_{reg} (t_i,t^*_i) \tag{1}$$
 
-$i$表示在一个mini-batch中第$i$个anchor的索引，$p\_i$为第$i$个anchor属于前景的概率。$p\_i^*$是GT，当第$i$个anchor为正样本时，$p\_i^*=1$；为负样本时，$p\_i^*=0$。$t\_i$（预测值）和$t\_i^*$（GT）为四个值的向量，定义和[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)一致：
+$i$表示在一个mini-batch中第$i$个anchor的索引，$p\_i$为第$i$个anchor属于前景的概率。$p\_i^\*$是GT，当第$i$个anchor为正样本时，$p\_i^\*=1$；为负样本时，$p\_i^\*=0$。$t\_i$（预测值）和$t\_i^\*$（GT）为四个值的向量，定义和[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)一致：
 
 $$\begin{split} t_x = (x-x_a)/w_a, \quad t_y=(y-y_a)/h_a, \\ t_w=\log(w/w_a), \quad t_h=\log(h/h_a), \\ t^*_x=(x^*-x_a)/w_a, \quad t^*_y=(y^*-y_a)/h_a, \\  t^*_w=\log(w^*/w_a), \quad t^*_h=\log(h^*/h_a), \end{split} \tag{2}$$
 
