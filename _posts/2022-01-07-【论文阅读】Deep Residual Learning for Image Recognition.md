@@ -209,7 +209,7 @@ Fig7展示了在CIFAR-10数据集上layer responses的标准差。reponses指的
 
 ## 4.3.Object Detection on PASCAL and MS COCO
 
-我们的方法在其他识别任务中也有不错的表现。表7和表8展示了基于PASCAL VOC 2007/2012和COCO数据集的目标检测结果。我们采用Faster R-CNN作为检测方法，将其中的[VGG-16](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)替换为了ResNet-101。
+我们的方法在其他识别任务中也有不错的表现。表7和表8展示了基于PASCAL VOC 2007/2012和COCO数据集的目标检测结果。我们采用[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)作为检测方法，将其中的[VGG-16](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)替换为了ResNet-101。
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/15.png)
 
