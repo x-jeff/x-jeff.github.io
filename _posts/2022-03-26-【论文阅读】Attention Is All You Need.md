@@ -125,8 +125,8 @@ Transformer通过三种不同的方式使用多头注意力，见下图的1，2�
 
 每个部分的解释见下：
 
-1. 在“encoder-decoder attention”层中（个人理解：即编码器和解码器连接的部分，也就是解码器中间的那个多头注意力层，见Fig1），queries来自该解码器的上一层，keys和values来自编码器的输出。这样就使得解码器中的每个位置都能注意到输入序列的所有位置。
-2. 编码器中包含的自注意力层（self-attention layers），其所有的keys，values和queries都来自上一层的输出。编码器中的每个位置都能注意到上一层的所有位置。
+1. 在“encoder-decoder attention”层中（个人理解：即编码器和解码器连接的部分，也就是解码器中间的那个多头注意力层，见Fig1），queries来自该解码器的上一层，keys和values来自编码器的输出。这样就使得解码器中的每个位置都能注意到输入序列的所有位置（个人理解：“keys和values来自编码器的输出”有3种可能的实现方式：1）编码器把最后一层的keys和values直接传给解码器的每一层；2）编码器只是把最后一层的转换矩阵$W^K,W^V$传给了解码器的每一层，解码器需要用上一个子层的输出自行计算keys和values；3）编码器把最后一层的输出$\mathbf{z}$传给了解码器的每一层，解码器需要自己学习转换矩阵$W^K,W^V$。因为本人未阅读源码，所以不确定是用的哪种方式，在此记录下自己的猜测）。
+2. 编码器中包含的自注意力层（self-attention layers），其所有的keys，values和queries都来自上一层的输出。编码器中的每个位置都能注意到上一层的所有位置（个人理解：类似在第1点中提到的，“其所有的keys，values和queries都来自上一层的输出”也可以有3种方式，个人觉得应该是根据上一层的输出自行学习自己的转换矩阵）。
 3. 该自注意力层是为了让每个位置注意到该位置以及之前所有的位置，而不关注该位置之后的位置。个人理解这个Masked Multi-Head Attention主要是在训练时起作用，因为测试阶段，单词是一个接一个的被预测出来的，不存在知道后续位置信息的情况。只有在训练阶段，我们已经知道了整个翻译好的GT，所以在模拟逐个单词被翻译出来的场景时，需要屏蔽掉后续位置上的单词。Mask的处理方式为将非法连接在Scaled Dot-Product Attention中对应的softmax输出置为$-\infty$：
 
 	![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/15.png)
