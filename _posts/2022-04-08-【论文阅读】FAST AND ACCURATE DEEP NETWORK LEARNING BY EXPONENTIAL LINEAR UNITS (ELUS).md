@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      【论文阅读】FAST AND ACCURATE DEEP NETWORK LEARNING BY EXPONENTIAL LINEAR UNITS (ELUS)
-subtitle:   exponential linear unit（ELU）激活函数
+subtitle:   exponential linear unit（ELU）激活函数，Shifted ReLU（SReLU）激活函数
 date:       2022-04-08
 author:     x-jeff
 header-img: blogimg/20220408.jpg
