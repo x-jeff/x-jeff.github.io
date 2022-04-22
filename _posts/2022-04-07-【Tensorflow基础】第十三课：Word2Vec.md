@@ -423,7 +423,7 @@ print((-a[0,:]).argsort()) #array([2, 0, 1])
 
 # 3.代码地址
 
-1. [Word2Vec](https://github.com/x-jeff/Tensorflow_Code_Demo/tree/master/Demo13)
+1. [Word2Vec](https://github.com/x-jeff/Tensorflow_Code_Demo/tree/master/Demo12)
 
 # 4.参考资料
 
