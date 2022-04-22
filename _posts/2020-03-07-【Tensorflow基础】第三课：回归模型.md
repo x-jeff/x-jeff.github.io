@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      【Tensorflow基础】第三课：回归模型
-subtitle:   非线性回归模型
+subtitle:   非线性回归模型，numpy.linspace，numpy.random.rand，numpy.random.randn，numpy.random.normal，tf.random_normal，tf.reduce_mean，tf.train.GradientDescentOptimizer
 date:       2020-03-07
 author:     x-jeff
 header-img: blogimg/20200307.jpg

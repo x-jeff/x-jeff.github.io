@@ -105,7 +105,7 @@ NLP中的许多数据集都相对较小，所以用于NLP的激活函数也得�
 
 GELU是非凸、非单调函数，在正值部分是非线性的。而[ReLU](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#22relu函数)和[ELU](http://shichaoxin.com/2022/04/08/论文阅读-FAST-AND-ACCURATE-DEEP-NETWORK-LEARNING-BY-EXPONENTIAL-LINEAR-UNITS-(ELUS)/)是单调凸函数，在正值部分是线性的。
 
-对于使用GELU，我们有两个实用的tips：1）搭配带有[momentum](http://shichaoxin.com/2020/03/05/深度学习基础-第十七课-Momentum梯度下降法/)的优化算法；2）使用尽可能接近高斯分布的[概率分布函数](http://shichaoxin.com/2019/10/23/数学基础-第八课-概率分布/#23概率分布函数)。比如，sigmoid function $\sigma(x)=1/(1+e^{-x})$就是正态分布的[概率分布函数](http://shichaoxin.com/2019/10/23/数学基础-第八课-概率分布/#23概率分布函数)的近似。我们发现SiLU（即$x\sigma (x)$）的表现不如GELU，但是仍优于[ReLU](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#22relu函数)和[ELU](http://shichaoxin.com/2022/04/08/论文阅读-FAST-AND-ACCURATE-DEEP-NETWORK-LEARNING-BY-EXPONENTIAL-LINEAR-UNITS-(ELUS)/)，所以SiLU也是个不错的选择。
+对于使用GELU，我们有两个实用的tips：1）搭配带有[momentum](http://shichaoxin.com/2020/03/05/深度学习基础-第十七课-Momentum梯度下降法/)的优化算法；2）使用尽可能接近高斯分布的[概率分布函数](http://shichaoxin.com/2019/10/23/数学基础-第八课-概率分布/#23概率分布函数)。比如，sigmoid function $\sigma(x)=1/(1+e^{-x})$就是正态分布的[概率分布函数](http://shichaoxin.com/2019/10/23/数学基础-第八课-概率分布/#23概率分布函数)的近似。我们发现SiLU（即$x\sigma (x),\  \sigma(x)=1/(1+e^{-x})$）的表现不如GELU，但是仍优于[ReLU](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#22relu函数)和[ELU](http://shichaoxin.com/2022/04/08/论文阅读-FAST-AND-ACCURATE-DEEP-NETWORK-LEARNING-BY-EXPONENTIAL-LINEAR-UNITS-(ELUS)/)，所以SiLU也是个不错的选择。
 
 # 5.原文链接
 

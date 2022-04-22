@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      【Tensorflow基础】第五课：模型优化
-subtitle:   代价函数，网络结构，优化器
+subtitle:   代价函数，网络结构，优化器，tf.truncated_normal
 date:       2020-05-25
 author:     x-jeff
 header-img: blogimg/20200525.jpg
