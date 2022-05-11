@@ -37,6 +37,10 @@ $$\nabla ^2 f(x,y)=f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)$$
 
 $$\begin{bmatrix} 0 & 1 & 0 \\ 1 & -4 & 1 \\ 0 & 1 & 0 \\ \end{bmatrix}$$
 
+如果把对角线方向也算上，则filter的形式可扩展为：
+
+$$\begin{bmatrix} 1 & 1 & 1 \\ 1 & -8 & 1 \\ 1 & 1 & 1 \\ \end{bmatrix}$$
+
 # 2.API
 
 ```c++
