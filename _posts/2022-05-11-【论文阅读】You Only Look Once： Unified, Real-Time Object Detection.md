@@ -99,7 +99,7 @@ YOLO针对每个grid cell会预测多个bounding box。在训练阶段，和GT�
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/5.png)
 
-其中，$\mathbb{1}_i^{obj}$表示第$i$个grid cell内是否存在object（个人理解：存在为1，不存在为0）。$\mathbb{1}_{ij}^{obj}$表示第$i$个grid cell中的第$j$个bounding box被选择为该object的预测结果（个人理解：如果这个bounding box负责对该object的预测，则该项为1，否则为0）。
+其中，$\mathbb{1}\_i^{obj}$表示第$i$个grid cell内是否存在object（个人理解：存在为1，不存在为0）。$\mathbb{1}\_{ij}^{obj}$表示第$i$个grid cell中的第$j$个bounding box被选择为该object的预测结果（个人理解：如果这个bounding box负责对该object的预测，则该项为1，否则为0）。
 
 loss function的拆解见下：
 
@@ -210,7 +210,7 @@ YOLO的局限性在于每个grid cell只能预测2个bounding box，且只能有
 
 # 7.原文链接
 
-👽[You Only Look Once: Unified, Real-Time Object Detection]()
+👽[You Only Look Once: Unified, Real-Time Object Detection](https://github.com/x-jeff/AI_Papers/blob/master/You%20Only%20Look%20Once：%20Unified%2C%20Real-Time%20Object%20Detection.pdf)
 
 # 8.参考资料
 
