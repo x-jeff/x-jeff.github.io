@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      【Tensorflow基础】第十三课：Word2Vec
-subtitle:   os.path.exists，urllib.request.urlretrieve，os.stat，zipfile.ZipFile，ZipFile.namelist，tf.compat.as_str，collections.deque，random.randint，numpy.random.choice，tf.nn.embedding_lookup，tf.nn.nce_loss，xrange，argsort，TSNE降维可视化
+subtitle:   os.path.exists，urllib.request.urlretrieve，os.stat，zipfile.ZipFile，ZipFile.namelist，tf.compat.as_str，collections.deque，random.randint，numpy.random.choice，tf.nn.embedding_lookup，tf.nn.nce_loss，xrange，argsort，TSNE降维可视化，tf.random_uniform
 date:       2022-04-07
 author:     x-jeff
 header-img: blogimg/20220407.jpg
