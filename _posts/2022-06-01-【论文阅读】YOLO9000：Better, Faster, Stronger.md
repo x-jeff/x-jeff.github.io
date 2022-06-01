@@ -237,6 +237,10 @@ $$Pr(\text{physical object})=1$$
 
 YOLO9000是一个real-time的框架，可以检测超过9000个类别。我们通过WordTree在ImageNet和COCO上进行了联合训练。YOLO9000缩小了检测数据集和分类数据集之间的gap。
 
-# 6.参考资料
+# 6.原文链接
+
+👽[YOLO9000：Better, Faster, Stronger](https://github.com/x-jeff/AI_Papers/blob/master/YOLO9000：%20Better%2C%20Faster%2C%20Stronger.pdf)
+
+# 7.参考资料
 
 1. [YOLO v2详细解读](https://blog.csdn.net/weixin_43694096/article/details/123523679)
