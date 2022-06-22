@@ -135,7 +135,7 @@ $$A \simeq B$$
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x3.png)
 
-这里坐标向量$[\mathbf{x}]\_{\epsilon}=\begin{pmatrix} 0 \\ 2 \end{pmatrix}$，坐标向量$[\mathbf{y}]\_{\epsilon}=\begin{pmatrix} 3 \\ 1 \end{pmatrix}$，矩阵$A$就是把$\begin{pmatrix} 0 \\ 2 \end{pmatrix}$转换为$\begin{pmatrix} 3 \\ 1 \end{pmatrix}$：
+这里坐标向量$[\mathbf{x}]\_{\epsilon}=\begin{pmatrix} 0 \\\ 2 \end{pmatrix}$，坐标向量$[\mathbf{y}]\_{\epsilon}=\begin{pmatrix} 3 \\\ 1 \end{pmatrix}$，矩阵$A$就是把$\begin{pmatrix} 0 \\\ 2 \end{pmatrix}$转换为$\begin{pmatrix} 3 \\\ 1 \end{pmatrix}$：test
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x4.png)
 
