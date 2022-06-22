@@ -131,11 +131,11 @@ $$A \simeq B$$
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x2.png)
 
-将$\mathbf{x}$在自然基下的坐标向量用$[\mathbf{x}]_{\epsilon}$表示，$\mathbf{y}$在自然基下的坐标向量用$[\mathbf{y}]_{\epsilon}$表示。矩阵$A$就是将坐标向量$[\mathbf{x}]_{\epsilon}$映射到坐标向量$[\mathbf{y}]_{\epsilon}$：
+将$\mathbf{x}$在自然基下的坐标向量用$[\mathbf{x}]\_{\epsilon}$表示，$\mathbf{y}$在自然基下的坐标向量用$[\mathbf{y}]\_{\epsilon}$表示。矩阵$A$就是将坐标向量$[\mathbf{x}]\_{\epsilon}$映射到坐标向量$[\mathbf{y}]\_{\epsilon}$：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x3.png)
 
-这里坐标向量$[\mathbf{x}]_{\epsilon}=\begin{pmatrix} 0 \\ 2 \end{pmatrix}$，坐标向量$[\mathbf{y}]_{\epsilon}=\begin{pmatrix} 3 \\ 1 \end{pmatrix}$，矩阵$A$就是把$\begin{pmatrix} 0 \\ 2 \end{pmatrix}$转换为$\begin{pmatrix} 3 \\ 1 \end{pmatrix}$：
+这里坐标向量$[\mathbf{x}]\_{\epsilon}=\begin{pmatrix} 0 \\ 2 \end{pmatrix}$，坐标向量$[\mathbf{y}]\_{\epsilon}=\begin{pmatrix} 3 \\ 1 \end{pmatrix}$，矩阵$A$就是把$\begin{pmatrix} 0 \\ 2 \end{pmatrix}$转换为$\begin{pmatrix} 3 \\ 1 \end{pmatrix}$：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x4.png)
 
@@ -143,21 +143,21 @@ $$A \simeq B$$
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x5.gif)
 
-将$\mathbf{x}$在非自然基下的坐标向量用$[\mathbf{x}]_{\mathcal{P}}$表示，$\mathbf{y}$在非自然基下的坐标向量用$[\mathbf{y}]_{\mathcal{P}}$表示。矩阵$B$就是将坐标向量$[\mathbf{x}]_{\mathcal{P}}$映射到坐标向量$[\mathbf{y}]_{\mathcal{P}}$：
+将$\mathbf{x}$在非自然基下的坐标向量用$[\mathbf{x}]\_{\mathcal{P}}$表示，$\mathbf{y}$在非自然基下的坐标向量用$[\mathbf{y}]\_{\mathcal{P}}$表示。矩阵$B$就是将坐标向量$[\mathbf{x}]\_{\mathcal{P}}$映射到坐标向量$[\mathbf{y}]\_{\mathcal{P}}$：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x6.png)
 
-这里坐标向量$[\mathbf{x}]_{\mathcal{P}} = \begin{pmatrix} 1 \\ 2 \end{pmatrix}, [\mathbf{y}]_{\mathcal{P}} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$。矩阵$B$就是把$\begin{pmatrix} 1 \\ 2 \end{pmatrix}$转换为$\begin{pmatrix} 2 \\ 1 \end{pmatrix}$：
+这里坐标向量$[\mathbf{x}]\_{\mathcal{P}} = \begin{pmatrix} 1 \\ 2 \end{pmatrix}, [\mathbf{y}]\_{\mathcal{P}} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$。矩阵$B$就是把$\begin{pmatrix} 1 \\ 2 \end{pmatrix}$转换为$\begin{pmatrix} 2 \\ 1 \end{pmatrix}$：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x7.png)
 
 也就是说矩阵$A$，矩阵$B$，都是将$\mathbf{x}$映射到向量$\mathbf{y}$，而它们只是不同基下的不同代数表达。
 
-假如我们可以通过某矩阵$P$，将坐标向量$[\mathbf{x}]_{\mathcal{P}}$变换为坐标向量$[\mathbf{x}]_{\epsilon}$；矩阵$P^{-1}$，将坐标向量$[\mathbf{y}]_{\epsilon}$变换为坐标向量$[\mathbf{y}]_{\mathcal{P}}$：
+假如我们可以通过某矩阵$P$，将坐标向量$[\mathbf{x}]\_{\mathcal{P}}$变换为坐标向量$[\mathbf{x}]\_{\epsilon}$；矩阵$P^{-1}$，将坐标向量$[\mathbf{y}]\_{\epsilon}$变换为坐标向量$[\mathbf{y}]\_{\mathcal{P}}$：
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x8.png)
 
-这个时候$B$和$P^{-1}AP$都是将$[\mathbf{x}]_{\mathcal{P}}$映射为$[\mathbf{y}]_{\mathcal{P}}$，因此它们是相等的，即：
+这个时候$B$和$P^{-1}AP$都是将$[\mathbf{x}]\_{\mathcal{P}}$映射为$[\mathbf{y}]\_{\mathcal{P}}$，因此它们是相等的，即：
 
 $$B=P^{-1}AP$$
 
