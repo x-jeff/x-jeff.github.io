@@ -167,7 +167,11 @@ plt.show()
 
 可以看到，DBSCAN将数字1和数字8分成了两群，聚类效果要比KMeans好很多。
 
-# 4.参考资料
+# 4.代码地址
+
+1. [使用Python实现DBSCAN聚类](https://github.com/x-jeff/Python_Code_Demo/tree/master/Demo39)
+
+# 5.参考资料
 
 1. [Python图像处理库PIL中的convert函数的用法](https://blog.csdn.net/Leon1997726/article/details/109016170)
 2. [np.where()的使用方法](https://blog.csdn.net/island1995/article/details/90200151)
