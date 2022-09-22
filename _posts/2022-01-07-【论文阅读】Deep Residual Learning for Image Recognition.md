@@ -93,7 +93,7 @@ $\mathcal{F}$的形式是灵活的，可跨越多层使用，本文使用的形�
 
 我们在ImageNet上的实现遵循了[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)和[VGGNet](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)中的一些操作。先将图像的短边随机resize到[256,480]的范围内（长边等比例缩放），然后从resize后的图像或resize后加了水平翻转的图像中随机裁剪出$224 \times 224$大小的图像，并将其中的每个像素都减去该坐标上所有像素值的平均。在每次卷积之后，激活函数之前，都应用了[BN](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)。按照论文“K. He, X. Zhang, S. Ren, and J. Sun. Delving deep into rectifiers: Surpassing human-level performance on imagenet classification. In ICCV, 2015.”初始化权重，plain和residual网络的训练都是train from scratch。使用[MBGD](http://shichaoxin.com/2020/02/20/深度学习基础-第十五课-mini-batch梯度下降法/)，mini-batch size=256。初始学习率设为0.1，当loss不再明显下降时，将学习率除以10。模型共训练$60 \times 10^4$次迭代。[weight decay](http://shichaoxin.com/2020/02/01/深度学习基础-第十一课-正则化/#311l2正则化)设为0.0001，[momentum](http://shichaoxin.com/2020/03/05/深度学习基础-第十七课-Momentum梯度下降法/)参数设为0.9。我们没有使用[dropout](http://shichaoxin.com/2020/02/01/深度学习基础-第十一课-正则化/#5dropout正则化)。
 
->from scrath在英文中的意思就是“从零开始、从头开始、白手起家”，引申过来就是不使用预训练文件而直接进行训练。
+>from scratch在英文中的意思就是“从零开始、从头开始、白手起家”，引申过来就是不使用预训练文件而直接进行训练。
 
 测试阶段，对于比较研究，我们采用标准的10-crop作为测试。对于最优结果的获取，使用了和[VGGNet](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)一样的多尺度方法（图像的短边resize到{224,256,384,480,640}）。
 
