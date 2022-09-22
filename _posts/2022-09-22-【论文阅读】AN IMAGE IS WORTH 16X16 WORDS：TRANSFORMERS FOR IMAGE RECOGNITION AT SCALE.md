@@ -45,9 +45,9 @@ tags:
 
 ![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViT/1.png)
 
-模型的总体框架见Fig1。标准的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的输入为一维的token embeddings的序列。为了使其能处理二维图像，假设原始图像为$\mathbf{x} \in \mathbb{R}^{H\times W \times C}$，其中$(H,W)$为原始图像的分辨率，$C$为通道数，将原始图像划分为多个patch，将每个patch都拍扁为一维，如果有$N$个patch则可得到序列：$\mathbf{x}_p \in \mathbb{R}^{N\times (P^2\cdot C)}$，其中$(P,P)$为每个patch的分辨率，$N=HW/P^2$为patch的数量（即[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的有效输入序列长度）。[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)在所有层中使用了一个固定的向量大小$D$，因此我们也将拍平的patch通过一个可训练的线性映射投影到$D$维（见公式1，个人理解就是[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)中的$d_{model}=512$，即Fig1中的Linear Projection）。我们将其称为patch embeddings。
+模型的总体框架见Fig1。标准的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的输入为一维的token embeddings的序列。为了使其能处理二维图像，假设原始图像为$\mathbf{x} \in \mathbb{R}^{H\times W \times C}$，其中$(H,W)$为原始图像的分辨率，$C$为通道数，将原始图像划分为多个patch，将每个patch都拍扁为一维，如果有$N$个patch则可得到序列：$\mathbf{x}\_p \in \mathbb{R}^{N\times (P^2\cdot C)}$，其中$(P,P)$为每个patch的分辨率，$N=HW/P^2$为patch的数量（即[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的有效输入序列长度）。[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)在所有层中使用了一个固定的向量大小$D$，因此我们也将拍平的patch通过一个可训练的线性映射投影到$D$维（见公式1，个人理解就是[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)中的$d\_{model}=512$，即Fig1中的Linear Projection）。我们将其称为patch embeddings。
 
-类似于BERT的`[class]` token，我们也设置了一个可学习的嵌入向量（$\mathbf{z}_0^0=\mathbf{x}_{class}$），其经过[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)编码器得到的$\mathbf{z}_L^0$为image representation $\mathbf{y}$（见公式4，个人理解：就是图像的类别标识）。在预训练和fine-tune过程中，一个classification head和$\mathbf{z}_L^0$相连。在预训练时，classification head由一个带有一个隐藏层的MLP实现；在fine-tune时，classification head由一个线性层实现。
+类似于BERT的`[class]` token，我们也设置了一个可学习的嵌入向量（$\mathbf{z}\_0^0=\mathbf{x}\_{class}$），其经过[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)编码器得到的$\mathbf{z}_L^0$为image representation $\mathbf{y}$（见公式4，个人理解：就是图像的类别标识）。在预训练和fine-tune过程中，一个classification head和$\mathbf{z}_L^0$相连。在预训练时，classification head由一个带有一个隐藏层的MLP实现；在fine-tune时，classification head由一个线性层实现。
 
 >BERT原文：Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: Pre-training of deep bidirectional transformers for language understanding. In NAACL, 2019.。
 >
@@ -355,7 +355,9 @@ ResNets使用SGD进行训练，而我们使用[Adam算法](http://shichaoxin.com
 * 1D的positional embedding：将patch看作是一个序列，本文的默认方法，不再赘述。
 * 2D的positional embedding：个人理解这里是将1D的positional embedding分成两部分，每部分的size都是$\frac{D}{2}$，前半部分代表X-embedding，后半部分代表Y-embedding。整个positional embedding依然是可学习的。
 * 相对的positional embedding：使用patch之间的相对位置信息来编码空间信息，而不是使用patch的绝对位置。为此，我们使用了1D的相对注意力（Relative Attention），我们定义了所有可能的patch对之间的相对距离。原文中对Relative Attention这部分的解释没太看懂，个人理解就是对原来[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)中的注意力机制做了一些手脚，将其改为：
+
 	$$Attention(Q,K,V)=softmax\left( \frac{Q(Q-K)^T}{\sqrt{d_k}} \right)V$$
+	
 	如有不同意见，欢迎留言一起讨论。
 	
 除了比较空间信息的不同编码方式，我们还尝试了多种将空间位置编码嵌入模型的方法。对于1D和2D的positional embedding，我们尝试了以下三种方法：
