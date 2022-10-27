@@ -266,6 +266,8 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ### 4.2.2.Evaluation on MPII
 
+![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/12.png)
+
 我们在MPII验证集上比较了DARK和HRNet-W32。表7中的结果表明我们的方法通常表现更为优异。在更严格的PCKh@0.1指标下，DARK的提升幅度更大。并且，MPII的训练集比COCO小的多，这说明我们的方法适用于不同大小的训练集。
 
 # 5.Conclusion
