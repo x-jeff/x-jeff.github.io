@@ -154,7 +154,7 @@ $$L_{t \to s}^{od} = \text{MSE}(K_s, K_t) \tag{4}$$
 
 $$t^* = \arg \min \limits_{t} (\text{MSE} (T(\{t;X\}), K_{gt}) ) \tag{5}$$
 
-其中，$K_{gt}$为ground truth heatmaps，$X$为输入图像，$T(\{ t;X \})$为teacher model的预测输出，$t^*$为最小化loss得到的最优knowledge token。在这之后，knowledge token $t^*$会和student network的visual tokens concat在一起参与student network的训练，并且在此期间knowledge token $t^*$是被冻结的状态，即不再改变，这样就可以把teacher network的knowledge传递给student network了。因此，student network的loss可表示为：
+其中，$K_{gt}$为ground truth heatmaps，$X$为输入图像，$T(\\{ t;X \\})$为teacher model的预测输出，$t^\*$为最小化loss得到的最优knowledge token。在这之后，knowledge token $t^\*$会和student network的visual tokens concat在一起参与student network的训练，并且在此期间knowledge token $t^\*$是被冻结的状态，即不再改变，这样就可以把teacher network的knowledge传递给student network了。因此，student network的loss可表示为：
 
 $$L_{t \to s}^{td} = \text{MSE}(S(\{t^*;X \}), K_{gt} ) \tag{6}$$
 
@@ -186,7 +186,7 @@ ViTPose遵循人体姿态估计中常见的top-down setting，即detector用于�
 
 👉**The structure simplicity and scalability.**
 
-我们分别使用第3.1部分提到的classic decoder和simple decoder来训练ViTPose。作为比较，我们还训练了使用[ResNet](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)作为backbones的SimpleBaseline，并且也分别搭配两种不同的decoders。结果见表2。从表2中可以看出，对于ResNet-50和ResNet-152来说，相比classic decoder，使用simple decoder会导致AP降低18个点左右。然而对于ViTPose来说，相比classic decoder，使用simple decoder只会导致AP降低0.3个点左右。对于指标$\text{AP}_{50}$和$\text{AR}_{50}$，无论使用哪种decoder，ViTPose的表现都差不多，这说明plain vision transformer有着很强的representation能力，并且复杂的decoder不是必须的。此外，从表2中还可以得出结论，ViTPose的性能随着模型大小的增加而不断提升，这也证明了ViTPose有着良好的scalability。
+我们分别使用第3.1部分提到的classic decoder和simple decoder来训练ViTPose。作为比较，我们还训练了使用[ResNet](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)作为backbones的SimpleBaseline，并且也分别搭配两种不同的decoders。结果见表2。从表2中可以看出，对于ResNet-50和ResNet-152来说，相比classic decoder，使用simple decoder会导致AP降低18个点左右。然而对于ViTPose来说，相比classic decoder，使用simple decoder只会导致AP降低0.3个点左右。对于指标$\text{AP}\_{50}$和$\text{AR}\_{50}$，无论使用哪种decoder，ViTPose的表现都差不多，这说明plain vision transformer有着很强的representation能力，并且复杂的decoder不是必须的。此外，从表2中还可以得出结论，ViTPose的性能随着模型大小的增加而不断提升，这也证明了ViTPose有着良好的scalability。
 
 >SimpleBaseline：B. Xiao, H. Wu, and Y. Wei. Simple baselines for human pose estimation and tracking. In Proceedings of the European conference on computer vision (ECCV), 2018.。
 
