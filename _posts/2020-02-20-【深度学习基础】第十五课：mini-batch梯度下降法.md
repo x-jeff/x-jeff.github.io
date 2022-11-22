@@ -59,7 +59,7 @@ $$Y_{(1,m)}=[y^{(1)} \  y^{(2)} \  y^{(3)} \  ... \  y^{(m)}]$$
 
 而在mini-batch梯度下降法中,cost并不是单调递减的。因为每次迭代只是对$X^{\\{t\\}},Y^{\\{t\\}}$的处理，这就好像每次迭代都使用不同的训练集，所以得到的cost曲线的总体趋势是减小的，但是会有震荡（即噪声）。也就是说其cost并不一定每次迭代都会下降。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson15/15x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson15/15x1.png)
 
 ## 2.1.BGD、SGD、MBGD
 
@@ -71,7 +71,7 @@ $$Y_{(1,m)}=[y^{(1)} \  y^{(2)} \  y^{(3)} \  ... \  y^{(m)}]$$
 
 通过下图来直观的展示三种梯度下降法在优化cost function时有什么不同：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson15/15x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson15/15x2.png)
 
 可以看出：
 

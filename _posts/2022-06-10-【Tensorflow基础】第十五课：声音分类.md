@@ -445,7 +445,7 @@ array([[[ 1,  2,  3,  4],
 
 `t.shape`为(2,2,4)，对应每个维度的大小：第0维对应第一个2，第1维对应第二个2，第2维对应4。我们将其可视化表示：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson15/15x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson15/15x1.png)
 
 此时如果运行`t1 = t.transpose(1, 0, 2)`，则t1为：
 
@@ -458,7 +458,7 @@ array([[[ 1,  2,  3,  4],
 
 相当于交换第0维和第1维，第2维保持不变：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson15/15x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson15/15x2.png)
 
 # 3.代码地址
 

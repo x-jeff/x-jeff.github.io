@@ -100,7 +100,7 @@ plt.legend(loc='lower right')
 plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson35/35x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson35/35x1.png)
 
 👉计算AUC分数：
 

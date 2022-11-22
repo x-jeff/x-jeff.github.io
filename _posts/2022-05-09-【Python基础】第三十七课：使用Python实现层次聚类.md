@@ -15,7 +15,7 @@ tags:
 
 层次聚类的介绍请见：[【机器学习基础】第三十七课：聚类之层次聚类](http://shichaoxin.com/2022/05/06/机器学习基础-第三十七课-聚类之层次聚类/)。层次聚类有“Agglomerative”（bottom-up）和“Divisive”（top-down）两种方式：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x17.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x17.png)
 
 👉使用`scipy`绘制树状图：
 
@@ -34,7 +34,7 @@ plt.ylabel('Euclidean distances')
 plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x1.png)
 
 `sch.linkage`的讲解见本文第2部分。`sch.dendrogram`用于绘制树状图。
 
@@ -57,7 +57,7 @@ plt.legend()
 plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x19.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x19.png)
 
 与真实结果进行比较：
 
@@ -67,7 +67,7 @@ plt.scatter(iris.data[iris.target == 1, 2], iris.data[iris.target == 1, 3], s=10
 plt.scatter(iris.data[iris.target == 2, 2], iris.data[iris.target == 2, 3], s=100, c='green', label='Cluster3')
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x20.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x20.png)
 
 # 2.`linkage`
 
@@ -96,7 +96,7 @@ dn = dendrogram(Z)
 plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x18.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x18.png)
 
 >注意这里绘制的树状图和第3部分引用wiki百科例子中的树状图稍有不同。
 
@@ -173,11 +173,11 @@ $$D_4(C7,C1)=\min (D_3(C6,C1),D_3(C3,C1))=\min(6,4)=4$$
 
 详见[【机器学习基础】第三十七课：聚类之层次聚类](http://shichaoxin.com/2022/05/06/机器学习基础-第三十七课-聚类之层次聚类/)中的“single-linkage”。也被称为**the Nearest Point Algorithm**。举个例子，假设我们有5个样本：$a,b,c,d,e$，其之间的距离矩阵$D_1$见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x2.png)
 
 距离最近的两个样本是$D_1(a,b)=17$。此时，我们便可以合并样本$a$和$b$，树状图中的节点$u$就表示$a$和$b$已经连接了，然后设$\delta(a,u)=\delta(b,u)=D_1 (a,b)/2=8.5$，以确保$a,b$到$u$的距离是相等的（其实$a,b$到$u$的距离就是到簇质心的距离）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x3.png)
 
 然后分别计算簇$(a,b)$到$c,d,e$的距离：
 
@@ -189,7 +189,7 @@ $$D_2((a,b),e)=\min(D_1(a,e),D_1(b,e))=\min (23,21)=21$$
 
 更新距离矩阵$D_2$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x4.png)
 
 最近的距离有两个：$D_2((a,b),c)$和$D_2((a,b),e)$。因此，我们合并$(a,b),c,e$。节点$v$的总长度为$\delta(a,v)=\delta(b,v)=\delta(c,v)=\delta(e,v)=21/2=10.5$。因此可算得：$\delta(u,v)=\delta(c,v)-\delta(a,u)=\delta(c,v)-\delta(b,u)=10.5-8.5=2$。然后计算簇$((a,b),c,e)$和剩余簇$d$的距离：
 
@@ -197,7 +197,7 @@ $$D_3(((a,b),c,e),d)=\min(D_2((a,b),d),D_2(c,d),D_2(e,d))=\min(31,28,43)=28$$
 
 更新距离矩阵$D_3$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x5.png)
 
 和上面一样的策略，计算节点$r$的总长度：$\delta(((a,b),c,e),r)=\delta(d,r)=28/2=14$。同理可算得：$\delta(v,r)=\delta(a,r)-\delta(a,v)=\delta(b,r)-\delta(b,v)=\delta(c,r)-\delta(c,v)=\delta(e,r)-\sigma(e,v)=14-10.5=3.5$。至此，整个聚类过程和树状图的绘制全部结束。
 
@@ -205,7 +205,7 @@ $$D_3(((a,b),c,e),d)=\min(D_2((a,b),d),D_2(c,d),D_2(e,d))=\min(31,28,43)=28$$
 
 详见[【机器学习基础】第三十七课：聚类之层次聚类](http://shichaoxin.com/2022/05/06/机器学习基础-第三十七课-聚类之层次聚类/)中的“complete-linkage”。也被称为**the Farthest Point Algorithm**或**Voor Hees Algorithm**。依旧以以下距离矩阵$D_1$为例：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x2.png)
 
 依然是$a,b$距离最近（$D_1(a,b)=17$），现将这两个样本聚为一个簇。节点$u$：
 
@@ -221,7 +221,7 @@ $$D_2((a,b),e)=\max(D_1(a,e),D_1(b,e))=\max(23,21)=23$$
 
 更新距离矩阵$D_2$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x6.png)
 
 将距离最近的$(a,b)$和$e$聚在一起（$D_2((a,b),e)=23$）。节点$v$：
 
@@ -237,7 +237,7 @@ $$D_3(((a,b),e),d)=\max(D_2((a,b),d),D_2(e,d))=\max(34,43)=43$$
 
 更新距离矩阵$D_3$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x7.png)
 
 $c,d$的距离最近（$D_3(c,d)=28$），将其聚成一类。节点$w$：
 
@@ -249,7 +249,7 @@ $$D_4((c,d),((a,b),e))=\max(D_3(c,((a,b),e)),D_3(d,((a,b),e)))=\max(39,43)=43$$
 
 更新距离矩阵$D_4$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x8.png)
 
 节点$r$：
 
@@ -261,13 +261,13 @@ $$\delta(w,r)=\delta((c,d),r)-\delta(c,w)=21.5-14=7.5$$
 
 最终的树状图见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x9.png)
 
 ## 3.3.average
 
 详见[【机器学习基础】第三十七课：聚类之层次聚类](http://shichaoxin.com/2022/05/06/机器学习基础-第三十七课-聚类之层次聚类/)中的“average-linkage”。也被称为**the UPGMA (unweighted pair group method with arithmetic mean) algorithm**。以以下距离矩阵$D_1$为例：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x2.png)
 
 $a,b$距离最近$D_1(a,b)=17$，先聚成一类。节点$u$：
 
@@ -283,7 +283,7 @@ $$D_2((a,b),e)=\frac{D_1(a,e)+D_1(b,e)}{2}=\frac{23+21}{2}=22$$
 
 更新距离矩阵$D_2$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x10.png)
 
 $(a,b)$和$e$的距离最近（$D_2((a,b),e)=22$），聚成一类。节点$v$：
 
@@ -301,7 +301,7 @@ $$D_3(((a,b),e),d)=\frac{D_2((a,b),d)\times 2 + D_2(e,d)\times 1}{2+1}=\frac{32.
 
 更新距离矩阵$D_3$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x11.png)
 
 此时，$c,d$的距离最近（$D_3(c,d)=28$），将其聚成一类。节点$w$：
 
@@ -315,7 +315,7 @@ $$D_4((c,d),((a,b),e))=\frac{D_3(c,((a,b),e))\times 1 + D_3 (d,((a,b),e))\times 
 
 更新距离矩阵$D_4$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x12.png)
 
 最后一步便是把簇$((a,b),e)$和簇$(c,d)$聚在一起。节点$r$：
 
@@ -327,7 +327,7 @@ $$\delta(w,r)=\delta((c,d),r)-\delta(c,w)=16.5-14=2.5$$
 
 最终得到的树状图：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x13.png)
 
 ## 3.4.weighted
 
@@ -337,7 +337,7 @@ $$d_{(i \cup j),k}=\frac{d_{i,k}+d_{j,k}}{2}$$
 
 该方式也称为**WPGMA (Weighted Pair Group Method with Arithmetic Mean)**。以距离矩阵$D_1$为例：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x2.png)
 
 $a,b$距离最近（$D_1(a,b)=17$），最先聚成一类。节点$u$：
 
@@ -353,7 +353,7 @@ $$D_2((a,b),e)=\frac{D_1(a,e)+D_1(b,e)}{2}=\frac{23+21}{2}=22$$
 
 更新距离矩阵$D_2$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x10.png)
 
 $(a,b)$和$e$的距离最近（$D_2((a,b),e)=22$），聚成一类。节点$v$：
 
@@ -371,7 +371,7 @@ $$D_3(((a,b),e),d)=\frac{D_2((a,b),d)+ D_2(e,d)}{2}=\frac{32.5+43}{2}=37.75$$
 
 更新距离矩阵$D_3$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x14.png)
 
 $c,d$的距离最近（$D_3(c,d)=28$），聚成一类。节点$w$：
 
@@ -383,7 +383,7 @@ $$D_4((c,d),((a,b),e))=\frac{D_3(c,((a,b),e))+D_3(d,((a,b),e))}{2}=\frac{32.25+3
 
 更新距离矩阵$D_4$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x15.png)
 
 节点$r$：
 
@@ -395,7 +395,7 @@ $$\delta(w,r)=\delta((c,d),r)-\delta(c,w)=17.5-14=3.5$$
 
 最终得到的树状图：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson37/37x16.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson37/37x16.png)
 
 ## 3.5.centroid
 

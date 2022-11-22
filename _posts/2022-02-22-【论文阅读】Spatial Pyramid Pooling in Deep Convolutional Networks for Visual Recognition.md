@@ -15,11 +15,11 @@ tags:
 
 目前的CNN网络存在一个技术问题：网络输入必须是固定尺寸（比如$224 \times 224$）。通常通过对原始图像进行crop或者warp来使其满足网络输入的尺寸要求，如Fig1所示。但是crop可能会导致目标裁剪不全，warp则会改变目标原始几何比例。这种信息丢失以及形变会进一步影响模型性能，降低识别准确率。此外，固定的输入尺寸对大小各异的目标来说也是不合适的。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/1.png)
 
 那么为什么CNN网络需要固定的输入尺寸呢？通常来讲，一个CNN网络包含两部分：卷积层和全连接层。卷积层通过滑动窗口的方式产生feature map（见Fig2）。事实上，卷积层并不要求固定的图像大小，其可以产生任意大小的feature map。但是全连接层则需要固定大小的输入。所以问题主要来自全连接层。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/2.png)
 
 在本文中，我们介绍一种新的层，叫做spatial pyramid pooling (SPP) layer来移除网络固定输入大小的限制。通常我们在最后一个卷积层的后面添加一个SPP层。SPP层通过一种特殊的pooling方式处理feature并生成一个固定大小的output，以适配下一个全连接层（见Fig1下）。我们称使用了SPP层的网络为SPP-net。
 
@@ -49,7 +49,7 @@ SPP-net在目标检测任务中甚至发挥的更好。对于该领域的优秀�
 
 我们将$pool_5$替换为spatial pyramid pooling layer，具体结构见Fig3。可以看出，该spatial pyramid有3层（第一层有$16\times 16$个spatial bin，第二层有$4\times 4$个spatial bin，第三层有$1\times 1$个spatial bin），对每一个spatial bin进行pooling操作（这里使用max pooling，其实spatial bin可以看做是执行pooling操作的filter）。spatial pyramid每层的大小和$conv_5$是一致的。假设$conv_5$的输出维度为$13 \times 13 \times 256$，那经过spatial pyramid第一层pooling后得到的输出维度为$4 \times 4 \times 256$，将维度拍扁即可得到$16\times 256$个神经元。剩余两层同理，最终我们可以得到固定的输出大小：$(16+4+1)\times 256$个神经元，此时便可与后续的FC层相连。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/3.png)
 
 通过spatial pyramid pooling，输入的图像可以是任意大小的（任意的ratio和scale）。不同scale对深度网络的精度也是很重要的（作者的意思就是将原始图像resize成固定scale不利于网络的精度）。
 
@@ -61,7 +61,7 @@ SPP-net在目标检测任务中甚至发挥的更好。对于该领域的优秀�
 
 对于给定尺寸（即single-size）的输入图像（输入图像大小都一样），我们可以事先计算spatial pyramid pooling的bin size。例如通过$conv_5$我们得到的feature map大小为$a \times a$（比如$13\times 13$）。金字塔的某一层有$n\times n$个bin，我们使用滑动窗口进行pooling，窗口的大小为$win = \lceil a/n \rceil$，滑动步长为$str = \lfloor a/n \rfloor$。Fig4展示了3层pyramid pooling的结构。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/4.png)
 
 Fig4中，假设最后一层卷积层为$conv_5$，得到的feature map大小为$13 \times 13$。$[pool3\times 3],[pool2\times 2],[pool1\times 1]$表示bin的数量。sizeX为滑动窗口的大小，stride为滑动窗口的步长（其实大概就是相当于对每个bin执行一次pooling）。
 
@@ -85,7 +85,7 @@ Multi-size training的主要目的是为了模拟不同尺寸的输入。理论�
 
 作者使用[ZFNet](http://shichaoxin.com/2021/05/02/论文阅读-Visualizing-and-Understanding-Convolutional-Networks/)作为baseline，见表1，分为fast版本和big版本（详见[ZFNet](http://shichaoxin.com/2021/05/02/论文阅读-Visualizing-and-Understanding-Convolutional-Networks/)原文的表2）。测试阶段和[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)一样，将测试图像扩展为10幅图像，将10幅图像的平均结果作为最终结果。作者自己重现的[ZFNet](http://shichaoxin.com/2021/05/02/论文阅读-Visualizing-and-Understanding-Convolutional-Networks/)的fast版本（e1）比原文结果（d1）更好。作者分析好的原因在于原文是在$256\times 256$大小的图像下进行$224 \times 224$大小的crop，而作者是在原始尺寸下进行$224 \times 224$大小的crop。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/5.png)
 
 表1中的（e2）（e3）是SPP-net在Single-size training下得到的结果。训练和测试图像都是$224 \times 224$大小的。这两个模型都是基于[ZFNet](http://shichaoxin.com/2021/05/02/论文阅读-Visualizing-and-Understanding-Convolutional-Networks/)的fast版本实现的（只是添加了SPP layer）。（e2）使用了4层金字塔：$\\{4\times 4,3\times 3,2\times 2,1\times 1  \\}$（共计30个bin）。（e3）使用了4层金字塔：$\\{6\times 6,3\times 3,2\times 2,1\times 1  \\}$（共计50个bin）。和（e1）相比，（e2）和（e3）的结果有较大的提升，因为不同之处只有multi-level pooling，所以我们可以说性能的提升是由multi-level pooling造成的。并且，（e2）（FC6的输入为$30\times 256-d$）比（e1）（FC6的输入为$36\times 256-d$）的参数数量更少。因此，multi-level pooling对模型性能的提升并不简单的靠增加参数数量。这是因为multi-level pooling对目标形变和空间布局的变化更具有鲁棒性。
 
@@ -93,7 +93,7 @@ Multi-size training的主要目的是为了模拟不同尺寸的输入。理论�
 
 此外，在表2中我们尝试了使用不同size去测试SPP-net。在表2中，1 crop为中心裁剪得到的$224 \times 224$大小的测试图像，1 full为按原图短边resize到256得到的测试图像（长边等比例缩放）。相比1 crop，1 full的top-1错误率更低。相比single-size training，multi-size training的top-1错误率更低。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/6.png)
 
 对于表1中（e5）的测试图像，我们将中心裁剪得到的2个crop换成了全图及其翻转图像。top-1和top-5错误率进一步降低。
 
@@ -103,7 +103,7 @@ Multi-size training的主要目的是为了模拟不同尺寸的输入。理论�
 
 Pascal VOC 2007分类任务包含9963张图像（其中训练集包含5011张图像），共20个类别。性能评估指标为mAP。测试结果见表3：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/7.png)
 
 表3（a）为baseline，模型是表1（e1），这里称为plain net。为了使用这个模型，我们将图像的短边resize到224，然后裁剪出$224 \times 224$的区域。训练SVM所用的特征向量基于网络的某一层。从表3中可以看出，提取的特征向量基于的层数越深，效果越好。（b）列使用了SPP-net，并且从原始图像的中心裁剪出$224 \times 224$的区域作为网络输入。我们发现从FC层开始效果优于（a）列，这是由于multi-level pooling导致的。
 
@@ -113,13 +113,13 @@ Pascal VOC 2007分类任务包含9963张图像（其中训练集包含5011张图
 
 表5展示了我们的方法和先前SOTA方法的比较。VQ、LLC和FK三种方法都是基于spatial pyramids matching，而DeCAF、[ZFNet](http://shichaoxin.com/2021/05/02/论文阅读-Visualizing-and-Understanding-Convolutional-Networks/)和Oquab则是基于深度学习网络。我们的方法是最优的。Oquab每张图使用了500个view才达到77.7%，而我们只用一张全图view就能达到80.10%。如果再加上数据扩展、multi-view testing和fine-tune，我们的结果会更好。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/8.png)
 
 ## 3.3.Experiments on Caltech101
 
 Caltech101数据集包含9144张图像，共102个类别（其中一类为背景）。每个类别随机挑选30张图像作为训练集，每个类别随机挑选50张图像作为测试集。我们做了10次实验，结果取平均。结果见表4。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/9.png)
 
 在Caltech101上的测试结果和Pascal VOC 2007上有一些共同点：SPP-net比plain net表现要好，full-view要比crop好。但是二者也有不同的地方：在Caltech101上，FC层的结果不是最优的，$pool_5$和SPP layer的结果更好。这可能是因为Caltech101中的目标与ImageNet相似性较低，而更深的FC层更有针对性。full-view的结果是最优的，scale到$224$是因为Caltech101中的目标和ImageNet中的都比较大。
 
@@ -131,7 +131,7 @@ Caltech101数据集包含9144张图像，共102个类别（其中一类为背景
 
 而我们的SPP-net也可以应用于目标检测。我们对整图只进行一次特征提取。但是只对候选区域进行spatial pyramid pooling（见Fig5）。因为只进行了一次卷积运算，所以我们的方法相比[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)会快很多。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/10.png)
 
 >对于Fig5，我们需要找到备选区域在$conv_5$对应的区域，然后只对这一小块区域进行spatial pyramid pooling。
 
@@ -149,17 +149,17 @@ SVM分类器的训练按照[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读
 
 我们使用Pascal VOC 2007检测任务的数据集来评估我们的方法。结果见表6（更详细的结果见表7）。1-sc表示我们只使用一个s（=688）；5-sc表示我们使用5个s。如果网络只到$pool_5$（即后面没有$fc_6,fc_7$，直接跟21个神经元的输出层），我们的方法优于[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)（44.9% vs. 44.2）。但是如果到$fc_6$，则我们的结果差于[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)。但是如果我们fine-tune了$fc_6$（即$ftfc_6$），我们的结果依然优于[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)。我们最终最优的mAP是59.2，略优于[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)的58.5%。表8展示了每一种类别的结果。我们的方法在11个类别上的结果优于[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)，有2个类别和[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)表现一样。Fig6展示了在VOC 2007测试集上的结果。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/11.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/12.png)
 
 Fig6是SPP-net ftfc7 bb在Pascal VOC 2007测试集上的结果展示（mAP=59.2%）。所有得分大于0的window都显示出来了。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/13.png)
 
 在表8中，我们还与其他方法进行了比较。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/14.png)
 
 ## 4.3.Complexity and Running Time
 
@@ -169,7 +169,7 @@ Fig6是SPP-net ftfc7 bb在Pascal VOC 2007测试集上的结果展示（mAP=59.2%
 
 接下来考虑多模型集成。在ImageNet上预训练了另外一个模型（即表9中的SPP-net(2)），该模型结构和本部分所用模型一模一样，训练方式也一模一样，唯一不同在于随机初始化的权重。结果见表9。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SPPnet/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SPPnet/15.png)
 
 集成策略是：将两个模型的结果放在一起进行[NMS](http://shichaoxin.com/2020/09/06/深度学习基础-第三十四课-YOLO算法/#3非极大值抑制)。因为两个模型具有一定的互补关系，所以集成的结果有了进一步的提升。
 

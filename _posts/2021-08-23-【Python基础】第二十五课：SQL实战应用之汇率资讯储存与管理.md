@@ -16,17 +16,17 @@ tags:
 通过网络爬虫收集汇率信息（网络爬虫的实现参照博客：[【Python基础】第八课：网络爬虫
 ](http://shichaoxin.com/2019/11/04/Python基础-第八课-网络爬虫/)）。所爬取的汇率信息来自[国家外汇管理局官方网站](http://www.safe.gov.cn)：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson25/25x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson25/25x1.png)
 
 确定目标内容的位置以及HTTP请求方法：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson25/25x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson25/25x2.png)
 
 >HTTP请求可以有很多方法。HTTP1.0定义了三种请求方法：`GET`、`POST`和`HEAD`。HTTP1.1新增了五种请求方法：`OPTIONS`、`PUT`、`DELETE`、`TRACE`和`CONNECT`。在此不再区分这几种方法的异同。
 
 确定限定日期所用的字段名称：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson25/25x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson25/25x3.png)
 
 ```python
 import requests
@@ -76,7 +76,7 @@ df_rates = dfs[0]
 print(df_rates.head())
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson25/25x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson25/25x4.png)
 
 # 2.数据转换
 
@@ -139,7 +139,7 @@ with lite.connect('currency.sqlite') as db:
     plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson25/25x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson25/25x5.png)
 
 >使用pandas绘制统计图表请参见：[【Python基础】第二十课：使用pandas绘制统计图表](http://shichaoxin.com/2021/05/14/Python基础-第二十课-使用pandas绘制统计图表/)。
 >

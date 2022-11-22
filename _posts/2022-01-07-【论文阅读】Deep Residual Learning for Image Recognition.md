@@ -17,11 +17,11 @@ tags:
 
 神经网络的深度对于网络的性能至关重要。那么一味的添加隐藏层就能获得更好的性能吗？回答这一问题的一大障碍就是[梯度消失/爆炸](http://shichaoxin.com/2020/02/07/深度学习基础-第十三课-梯度消失和梯度爆炸/)。但是[Batch Normalization](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)在很大程度上解决了[梯度消失/爆炸](http://shichaoxin.com/2020/02/07/深度学习基础-第十三课-梯度消失和梯度爆炸/)问题，因此我们可以继续这个问题，当网络深度一直增加时，模型准确率会上升至饱和，然后迅速下降（称该现象为“退化”（degradation）），并且这不是由过拟合造成的。Fig1给出了一个典型的例子：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/1.png)
 
 在本文中，我们通过引入深度残差学习框架（a deep residual learning framework）来解决“退化”问题：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/2.png)
 
 作者称这种跳跃性的连接（跨越一层或多层）为“shortcut connections”。
 
@@ -65,7 +65,7 @@ $$\mathbf{y}=\mathcal{F} (\mathbf{x},\{ W_i \})+W_s \mathbf{x} \tag{2}$$
 
 $\mathcal{F}$的形式是灵活的，可跨越多层使用，本文使用的形式见Fig5（分别跨越两层和三层）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/3.png)
 
 但是如果只跨越一层，这类似于线性层：$\mathbf{y} = W_1 x +x$，并没有显著的优势。
 
@@ -75,7 +75,7 @@ $\mathcal{F}$的形式是灵活的，可跨越多层使用，本文使用的形�
 
 我们测试了不同的plain/residual网络，并发现了一些一致的现象。为了后续的讨论，在这里列出在ImageNet上测试的两个模型。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/4.png)
 
 >Fig3中，FLOPs全称为floating point operations，意为浮点运算数（即计算量，本文中计算量指的就是加法和乘法的次数，即multiply-adds）。FLOPs通常用于衡量模型或者算法的复杂度。
 
@@ -107,25 +107,25 @@ $\mathcal{F}$的形式是灵活的，可跨越多层使用，本文使用的形�
 
 我们首先评估了18层和34层的plain网络。34层的plain网络见Fig3中间。18层的plain网络近似于34层plain网络的结构，详细结构请见表1：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/5.png)
 
 表1中，下采样发生在conv3\_1,conv4\_1,conv5\_1（步长为2）。表1中每组括号都是一个残差块，其用到的残差连接见Fig5：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/6.png)
 
 ResNet-34用的是跨越两层的连接，ResNet-50/101/152用的是跨越三层的连接。
 
 结果见表2（top-1错误率，10-crop testing，ImageNet验证集）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/7.png)
 
 从表2可以看到，34层plain网络的错误率反倒比更浅的18层plain网络的错误率要高。为了揭示原因，我们比较了它俩在训练过程中，分别在训练集/验证集上的错误率（见Fig4左）。细的曲线为训练集错误率，粗的曲线为验证集错误率。我们发现了“退化”问题：在整个训练过程中，34层plain网络的训练集错误率一直高于18层plain网络的训练集错误率，尽管18层plain网络其实是34层plain网络的一个子集。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/8.png)
 
 我们认为这种现象不太可能是由[梯度消失](http://shichaoxin.com/2020/02/07/深度学习基础-第十三课-梯度消失和梯度爆炸/)引起的。这些网络在训练时都添加了[BN](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)，这确保了前向传播信号都有非0方差。并且我们也验证了反向传播的梯度确实也没有问题。因此无论是前向传播还是后向传播，信号都没有消失。事实上，34层plain网络也能取得不错的成绩（虽然没有18层plain网络好），见表3。我们猜测“退化”可能是因为深度plain网络收敛速度过慢，影响到了训练集错误率的下降。我们尝试了增加迭代次数（增加3倍），但依然观察到了“退化”现象，说明这个问题不能简单的只靠增加迭代次数来解决。这种优化困难的原因会在未来继续研究。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/9.png)
 
 👉**Residual Networks**
 
@@ -161,13 +161,13 @@ identity shortcuts对瓶颈框架尤为重要。如果将Fig5右中的identity s
 
 ResNet-50/101/152比ResNet-34的准确率高很多（见表3和表4）。从表3和表4中都能发现，对于ResNet，深度越深，模型准确率越高，并没有发生“退化”现象。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/10.png)
 
 **Comparisons with State-of-the-art Methods**
 
 在表4中，我们对比了以前最优的单模型结果。我们的baseline（即ResNet-34）就已经取得了很好的结果。ResNet-152的top-5错误率仅有4.49%，这一单模型结果比表5中其他组合模型的结果还要好。在表5中，我们组合了6个不同深度的ResNet模型（只包含两个ResNet-152）。最终ResNet组合模型的top-5错误率为3.57%，取得了ILSVRC 2015第一名的成绩。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/11.png)
 
 ## 4.2.CIFAR-10 and Analysis
 
@@ -187,19 +187,19 @@ plain网络和ResNet分别使用Fig3中间和右边所示的框架（只是使�
 
 我们比较了$n=\\{ 3,5,7,9 \\}$，分别能得到20,32,44,56层的网络。Fig6左展示了plain网络的表现。虚线为训练误差，粗线为测试误差。从Fig6左中可以看出，越深的plain网络却有着更高的训练误差。这一现象和在ImageNet以及MNIST数据集上测试的结果相似。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/12.png)
 
 Fig6中间的图展示了ResNet的表现。深度越深，准确率越高，解决了“退化”问题。
 
 我们进一步探索了$n=18$，即110层的ResNet。此时，我们发现初始学习率设为0.1有点偏大（收敛有点慢，不过最后也能达到相近的准确率）。因此，我们将初始学习率设为了0.01，当训练误差低于80%（大约400次迭代）时，将学习率重新改为0.1，然后按照之前的策略继续训练。110层的ResNet收敛的非常好，见Fig6中间。并且相比FitNet和Highway，其参数更少，准确率更高，见表6。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/13.png)
 
 👉**Analysis of Layer Responses**
 
 Fig7展示了在CIFAR-10数据集上layer responses的标准差。reponses指的是$3\times 3$层的输出，在[BN](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)之后，非线性（比如ReLU激活函数）之前。对于ResNet，这种分析揭示了残差函数的reponse强度。Fig7显示ResNet通常比对应的plain网络的reponse要小。这个结果也印证了我们在第3.1部分的讨论：残差函数相比非残差函数更接近零。并且我们还注意到，ResNet越深，response越小。当层数变多时，ResNet中的每一层仅对signal做微小的修改。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/14.png)
 
 👉**Exploring Over 1000 layers**
 
@@ -211,7 +211,7 @@ Fig7展示了在CIFAR-10数据集上layer responses的标准差。reponses指的
 
 我们的方法在其他识别任务中也有不错的表现。表7和表8展示了基于PASCAL VOC 2007/2012和COCO数据集的目标检测结果。我们采用[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)作为检测方法，将其中的[VGG-16](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)替换为了ResNet-101。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ResNet/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNet/15.png)
 
 # 5.原文链接
 

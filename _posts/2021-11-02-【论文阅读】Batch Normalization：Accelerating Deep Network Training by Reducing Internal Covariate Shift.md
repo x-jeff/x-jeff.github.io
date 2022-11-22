@@ -41,7 +41,7 @@ $$y^{(k)}=\gamma^{(k)} \hat{x}^{(k)} + \beta^{(k)}$$
 
 如果使用了[MBGD](http://shichaoxin.com/2020/02/20/深度学习基础-第十五课-mini-batch梯度下降法/)，则均值和方差的计算基于一个batch。算法流程见下（称为Batch Normalizing Transform，简称BN Transform）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BN/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BN/1.png)
 
 其中，$\epsilon$为一个常数，$m$为batch size。参数$\gamma,\beta$和网络权值一样，在反向传播过程中会被更新：
 
@@ -67,7 +67,7 @@ $$Var[x]=\frac{m}{m-1} \cdot E_{\mathcal{B}}[\sigma^2_{\mathcal{B}}]$$
 
 训练过程见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BN/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BN/2.png)
 
 >k指的是网络的第k层，一共为K层。
 
@@ -103,7 +103,7 @@ $$z=g(BN(Wu))$$
 
 为了验证BN对internal covariate shift的消除作用，基于MNIST数据集，我们使用了一个简单的网络：输入为$28 \times 28$的二值图像；一共有3个隐藏层且均为全连接；每个隐藏层有100个神经元；激活函数均为sigmoid函数；权值$W$基于高斯分布进行随机初始化；输出层为10个神经元（即10个类别）；损失函数使用交叉熵。网络一共训练了50000步，mini-batch size=60。对每个隐藏层都添加了BN。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BN/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BN/3.png)
 
 在Fig1(a)中，纵轴为预测的准确率，横轴为训练步数。可以明显看出，添加了BN之后，网络的准确率更高并且训练速度更快。为了探究造成这个现象的原因，我们研究了最后一个隐藏层中某一神经元的sigmoid函数输入在整个训练过程中的分布变化情况，结果见Fig1(b)和Fig1(c)。三条线分别代表着3个不同的分位数。可以看出，添加BN之后，分布变化较为平稳，这将有助于训练。
 
@@ -111,7 +111,7 @@ $$z=g(BN(Wu))$$
 
 我们将BN应用在了[GoogLeNet](http://shichaoxin.com/2021/06/01/论文阅读-Going-deeper-with-convolutions/)，并在ImageNet2014分类任务数据集上进行训练。详细网络结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BN/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BN/4.png)
 
 和[GoogLeNet](http://shichaoxin.com/2021/06/01/论文阅读-Going-deeper-with-convolutions/)主体部分的区别总结如下：
 
@@ -166,15 +166,15 @@ $$z=g(BN(Wu))$$
 
 测试结果见下图：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BN/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BN/5.png)
 
 Inception在训练了$31\cdot 10^6$步后达到了72.2%的准确率（Inception所能达到的最高准确率）。BN-Baseline达到72.2%准确率所用的步数不到Inception的一半。BN-x5达到72.2%准确率所用步数仅为Inception的十四分之一。BN-x30相比BN-x5训练速度慢了一些，但是最终的准确率更高，其在$6\cdot 10^6$步时达到了74.8%的准确率。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BN/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BN/6.png)
 
 ### 4.2.3.Ensemble Classification
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BN/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BN/7.png)
 
 从Fig4可以看出，BN-Inception ensemble取得了比GoogLeNet ensemble更好的结果（基于验证集），甚至在测试集上，BN-Inception ensemble的top-5错误率达到了更低的4.82%。
 

@@ -36,7 +36,7 @@ df = pandas_datareader.data.DataReader('BABA', data_source='yahoo')
 print(df.tail())
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson19/19x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson19/19x1.png)
 
 >`pandas_datareader`的用法见本文第3部分。
 
@@ -64,7 +64,7 @@ df['Close'].count()
 df.describe()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson19/19x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson19/19x2.png)
 
 ## 2.2.基本计算
 
@@ -81,7 +81,7 @@ df.loc[df.index >= '2017-04-01', ['rise', 'fall']].sum()#这里只能用.loc，�
 
 `df.index`：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson19/19x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson19/19x3.png)
 
 >index的格式为[datetime](http://shichaoxin.com/2020/08/19/Python基础-第十五课-处理时间格式资料/)。
 
@@ -147,13 +147,13 @@ s = pd.Series([90, 91, 85])
 
 `s.pct_change()`为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson19/19x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson19/19x4.png)
 
 $$\frac{91-90}{90}=0.011111;\frac{85-91}{91}=-0.065934$$
 
 `s.pct_change(periods=2)`为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson19/19x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson19/19x5.png)
 
 $$\frac{85-90}{90}=-0.055556$$
 
@@ -165,7 +165,7 @@ s = pd.Series([90, 91, None, 85])
 
 `s.pct_change(fill_method='ffill')`为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson19/19x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson19/19x6.png)
 
 👉例子三：
 
@@ -177,15 +177,15 @@ df = pd.DataFrame({
              index=['1980-01-01', '1980-02-01', '1980-03-01'])
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson19/19x7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson19/19x7.png)
 
 `df.pct_change()`为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson19/19x8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson19/19x8.png)
 
 `df.pct_change(axis='columns')`为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson19/19x9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson19/19x9.png)
 
 # 5.代码地址
 

@@ -32,11 +32,11 @@ for object detection. In NIPS, 2013.（mAP=30.5%），表现有所提升，但�
 >
 >例如，三层$3\times 3$卷积核操作之后的感受野是$7\times 7$：
 >
->![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/1.png)
+>![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/1.png)
 
 作者所用模型结构：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/2.png)
 
 先从原始输入图像中提取大约2000个备选区域（region proposals），然后将每个region proposal缩放到同一尺寸进入CNN网络，输出层为线性SVM（有多少个类别，就构建多少个SVM）。因此，作者所使用的模型结构被称为R-CNN：Regions with CNN features。R-CNN在PASCAL VOC 2010的mAP为53.7%，优于另一种同样使用region proposals，但是搭配spatial pyramid和bag-of-visual-words的方法（mAP=35.1%）。在200个类别的ILSVRC2013检测数据集上，R-CNN的mAP=31.4%，优于当时的最佳方法OverFeat（mAP=24.3%，OverFeat使用的方法是基于[滑动窗口](http://shichaoxin.com/2020/08/23/深度学习基础-第三十三课-基于滑动窗口的目标检测算法/)的CNN）。
 
@@ -71,7 +71,7 @@ CNN部分使用了[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageN
 
 R-CNN需要将不同尺寸的region proposal统一变换为$227 \times 227$大小（作为CNN网络部分的输入）。具体变换方法见Appendix A部分。warp的结果见Fig2。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/3.png)
 
 ## 2.2.检测阶段耗时测试（Test-time detection）
 
@@ -122,17 +122,17 @@ R-CNN可以被轻易的扩展到100k个类别，在多核CPU上运行也仅需�
 
 Table1列出了R-CNN与四个优秀的baseline方法在VOC2010数据集上的性能对比。显然，R-CNN BB（R-CNN with bounding-box regression）取得了最好的性能，mAP=53.7%。此外，在VOC2011/12的测试集上，R-CNN BB也取得了类似的性能，mAP=53.3%。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/4.png)
 
 ## 2.5.在ILSVRC2013上的表现（Results on ILSVRC2013 detection）
 
 作者也在ILSVRC2013检测任务（共200个类别）的数据集上进行了测试，共提交了两个版本：一个带BB（即Bounding Box Regression），一个不带BB。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/5.png)
 
 Fig3展示了R-CNN和其他算法（在ILSVRC2013检测任务中表现优异的算法）的对比结果。R-CNN的mAP=31.4%，明显优于其他算法。R-CNN在每个类别上的AP值见下表（Table8）。Fig3中的许多算法都应用了CNN，这说明CNN使用方式的不同会造成结果的极大差异。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/6.png)
 
 在第4部分，作者给出了R-CNN在ILSVRC2013检测数据集上的实现细节。
 
@@ -148,7 +148,7 @@ Fig3展示了R-CNN和其他算法（在ILSVRC2013检测任务中表现优异的�
 
 Fig4的每一行代表POOL5中的某一神经元（共展示了6个神经元的结果），针对每个神经元，共展示了激活值最大的16个region proposal。白色框为该神经元对应的感受野，左上角的白色数字为激活值（经过了归一化处理，归一化方式为除以该神经元所在通道的所有神经元的最大激活值）。从Fig4可以很明显的看出，第一行所代表的神经元主要学到了人物信息，第二行学到了点阵信息，第四行学到了数字信息，第六行学到了反光物体信息。更多可视化结果见Appendix D。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/7.png)
 
 ## 3.2.消融研究（Ablation studies）
 
@@ -158,7 +158,7 @@ Fig4的每一行代表POOL5中的某一神经元（共展示了6个神经元的�
 
 为了找出CNN中哪一层对检测性能才是至关重要的，作者针对CNN网络部分的最后三层（POOL5、FC6、FC7）进行了消融研究。首先考虑去掉fine-tune步骤可能会出现什么结果。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/8.png)
 
 其结果可见表2的第一到第三行（这三行的结果均去掉了fine-tune步骤）。第一行指的是CNN网络部分去掉FC6和FC7；第二行指的是CNN网络部分仅去掉FC7；第三行则保留CNN网络的全部后三层。基于PASCAL得到的该测试结果。所有的CNN网络参数都在ILSVRC2012上预训练过。可以看出在去掉fine-tune步骤的前提下，FC7层并没有什么作用，这就意味着CNN网络部分29%的参数（即FC7层的参数占比，FC7层共有参数：$4096 \times 4096= 16777216 \approx 16.8M$）是可以被移除的。令人惊讶的是第一行的结果，网络参数只占原来的6%，却取得了相当不错的性能。由此看来，CNN的强大能力主要是来自卷积层，而不是全连接层。
 
@@ -174,7 +174,7 @@ Fig4的每一行代表POOL5中的某一神经元（共展示了6个神经元的�
 
 本文的大部分结果所用的网络结构都来自[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)。并且作者发现网络结构的选择对R-CNN的检测性能有着很大的影响。表3列出了将AlexNet替换为[VGG16](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)在VOC2007数据集上进行测试的结果。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/9.png)
 
 表3的第一行为网络部分使用AlexNet，第二行在此基础上又添加了bounding box回归。第三行和第四行的网络部分为VGG16，第四行又额外添加了bounding box回归。
 
@@ -184,9 +184,9 @@ Fig4的每一行代表POOL5中的某一神经元（共展示了6个神经元的�
 
 作者使用了D. Hoiem, Y. Chodpathumwan, and Q. Dai. Diagnosing error in object detectors. In ECCV. 2012.一文中的错误分析工具进行错误分析。此举为了揭示作者所用方法的错误模式，fine-tune是如何优化这些错误的以及和DPM相比，作者所用方法错误类型的异同。分析结果见Fig5和Fig6。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/10.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/11.png)
 
 ## 3.5.Bounding-box回归（Bounding-box regression）
 
@@ -196,13 +196,13 @@ Fig4的每一行代表POOL5中的某一神经元（共展示了6个神经元的�
 
 在ILSVRC2013上的定性检测结果见Fig8和Fig9。图片是从$val_2$数据集（mAP=31.0%）中随机选取的，展示了准确率大于0.5的结果。更多的定性结果见Fig10和Fig11（也是准确率大于0.5的结果才展示出来）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/12.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/13.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/14.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/15.png)
 
 Fig8-Fig11中bounding-box的左上角为预测类别和准确度（precision value）。
 
@@ -241,7 +241,7 @@ Region proposals的产生方法和之前一样，也是selective search。采用
 
 消融研究的结果见表4。首先，使用测试集或使用$val_2$进行测试，得到的最好结果相差不大（31.0% vs. 31.4%）。说明在$val_2$上的测试结果可以很好的代表其在测试集上的测试结果。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/16.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/16.png)
 
 ## 4.6.与OverFeat的关系（Relationship to OverFeat）
 
@@ -263,7 +263,7 @@ R-CNN所用的CNN网络的输入大下为$227 \times 227$，但是region proposa
 
 第一种方法为：tightest square with context。将每个object proposal按照长边扩展为正方形（扩展部分用context填充），然后将其等比例缩放到$227 \times 227$大小作为CNN的输入（见Fig7的B列）。这种方法还有一种变体：tightest square without context，唯一的不同是填充的内容，该变体不用context进行填充，可以选择使用某一常数进行填充，例如Fig7的C列。第二种方法为：warp。直接各向异性的将每个object proposal缩放到CNN所需要的尺寸，见Fig7的D列。Fig7的A列为目标区域在原始图像中的真实大小。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/17.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/17.png)
 
 此外，作者还考虑到了context的影响。对原始的object proposal进行扩展（基于原始图像），即padding，padding的值为p（即扩展的圈数）。Fig7中每个例子的第一行，p=0，即没有padding；第二行，p=16。如果proposal的范围延伸到了图像外面，则会用图像像素值的平均进行填充（在进入CNN之前会被减去）。实验表明，warp+padding（p=16）的方法是最优的。
 
@@ -351,7 +351,7 @@ $$t_h = \log (G_h / P_h) \tag{9}$$
 
 Fig12展示了POOL5层中20个神经元的可视化结果。针对每个神经元，展示了激活值最大的24个region proposal。Fig12中每个神经元可视化结果的上方都标注了该神经元的位置：$(y,x,channel)$。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/RCNN/18.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/18.png)
 
 # 8.原文链接
 

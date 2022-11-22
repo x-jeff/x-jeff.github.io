@@ -37,7 +37,7 @@ Mat对象有以下6种构建方法：
 
 `Mat::eye(3,3,type)`构造一个3行3列（即3*3）的图像，并且对角线上每个像素点的第一个通道赋值为1，其余均为0，对如上语句，如果type为3通道图像的话，得到的图像数组矩阵见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson4/4x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson4/4x1.png)
 
 类似的还有：
 

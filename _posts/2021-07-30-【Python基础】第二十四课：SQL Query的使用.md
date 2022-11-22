@@ -23,7 +23,7 @@ df = pd.read_csv("Region_Data.csv", encoding='gb2312', skiprows=3, skipfooter=2,
 
 数据见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson24/24x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson24/24x1.png)
 
 # 2.数据转换
 
@@ -33,7 +33,7 @@ df = pd.read_csv("Region_Data.csv", encoding='gb2312', skiprows=3, skipfooter=2,
 df = pd.melt(df, col_level=0, id_vars="地区")
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson24/24x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson24/24x2.png)
 
 >`pandas.melt`的用法见本文2.1部分。
 
@@ -43,7 +43,7 @@ df = pd.melt(df, col_level=0, id_vars="地区")
 df['variable'] = df['variable'].map(lambda e: int(e.strip('年')))
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson24/24x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson24/24x3.png)
 
 >`map`的用法见：[map](http://shichaoxin.com/2020/07/08/Python基础-第十四课-资料转换/#31map)。
 >
@@ -55,7 +55,7 @@ df['variable'] = df['variable'].map(lambda e: int(e.strip('年')))
 df.columns = ['area', 'year', 'gross_product']
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson24/24x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson24/24x4.png)
 
 ## 2.1.`pandas.melt`
 

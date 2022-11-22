@@ -15,7 +15,7 @@ tags:
 
 传统的模式识别（traditional pattern recognition）通常分为两步：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/LeNet5/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/LeNet5/1.png)
 
 即：1）从原始数据中提取特征；2）用提取的特征训练分类器。
 
@@ -33,7 +33,7 @@ tags:
 
 ## 2.1.详细结构
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/LeNet5/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/LeNet5/2.png)
 
 LeNet-5不算输入层，一共有7层。卷积层用$C_x$表示，下采样层用$S_x$表示，全连接层用$F_x$表示，其中$x$为层数。
 
@@ -57,7 +57,7 @@ LeNet-5不算输入层，一共有7层。卷积层用$C_x$表示，下采样层�
 
 使用的卷积核数量为16。如果想要得到$10\times 10\times 16$的feature map，按照现在普遍的做法，每个卷积核的大小应该为$5\times 5\times 6$（步长为1），但是LeNet-5并不是这么做的。在LeNet-5中，每个卷积核的大小并不完全一样，如下图所示：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/LeNet5/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/LeNet5/3.png)
 
 上图中，每一列可以看成每一个卷积核（一共16个），每一行为$S_2$层的每一个feature map（一共6个）。以第0列为例：第0个卷积核只和$S_2$层的前3个feature map进行了卷积运算，因此该卷积核大小应该为$5\times 5\times 3$。因此该层的参数数量为：$5\times 5\times 3\times 6+5\times 5\times 4\times 9+5\times 5\times 6\times 1+16=1516$。
 
@@ -87,7 +87,7 @@ $$f(a)=A tanh(Sa)$$
 
 将$F_6$层设置为84个神经元的原因：标准的字符比特图（bitmap）是$7\times 12$像素的，共有$16\times 6$个标准的字符比特图：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/LeNet5/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/LeNet5/4.png)
 
 $F_6$层中84个神经元的值只有-1（白色）或+1（黑色）两种选择，因此这84个神经元便可看作一个$7\times 12$像素的比特图，然后计算该比特图和上图中标准的字符比特图的接近程度，最接近哪个字符比特图，预测结果便可判定为该字符。
 
@@ -101,7 +101,7 @@ $$y_i=\sum_j(x_j-w_{ij})^2$$
 
 公式含义图解见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/LeNet5/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/LeNet5/5.png)
 
 权重矩阵大小为$84 \times 10$，每一行为一个字符比特图，共10行（0-9）。上式的意义其实就是相当于将$F_6$层预测出来的$7 \times 12 =84$像素的比特图与标准的0-9字符比特图做比较，求其对应位置上像素值的均方误差。
 
@@ -109,7 +109,7 @@ $$y_i=\sum_j(x_j-w_{ij})^2$$
 
 LeNet-5完整的预测流程（以数字“3”为例，输出层vector为1110111111）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/LeNet5/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/LeNet5/6.png)
 
 ## 2.3.loss function
 

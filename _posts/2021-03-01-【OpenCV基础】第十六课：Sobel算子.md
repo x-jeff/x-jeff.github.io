@@ -15,13 +15,13 @@ tags:
 
 **图像的边缘**是像素值发生跃迁的地方，是图像的显著特征之一，在图像特征提取、对象检测、模式识别等方面都有重要的作用。如下图红圈处所示，即为图像的一个边缘：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson16/16x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson16/16x1.png)
 
 如何捕捉/提取边缘：对图像求它的一阶导数。$\delta=f(x)-f(x-1)$，$\delta$越大，说明像素在X方向变化越大，边缘信号越强。例如上图红圈处的像素变化以及其一阶导数变化：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson16/16x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson16/16x2.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson16/16x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson16/16x3.png)
 
 Sobel算子便可用于图像边缘提取。
 
@@ -99,7 +99,7 @@ cv::Scharr(
 
 构造Sobel算子的理论基础是帕斯卡三角形（Pascal's triangle）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson16/16x4.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson16/16x4.jpg)
 
 帕斯卡三角形的构建公式为（$n$为行数，$k$为列数）：
 

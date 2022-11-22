@@ -93,7 +93,7 @@ saver.restore(sess,model_file)
 
 使用`saver.save()`将模型保存为ckpt格式，会生成以下四个文件：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson9/9x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson9/9x1.png)
 
 1. `my_net.ckpt.meta`：保存了Tensorflow计算图的结构，即网络结构。
 2. `my_net.ckpt.index`和`my_net.ckpt.data-00000-of-00001`：保存了所有变量的取值。

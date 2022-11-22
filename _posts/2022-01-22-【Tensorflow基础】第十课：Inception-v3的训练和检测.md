@@ -80,7 +80,7 @@ with tf.Session() as sess:
 2. dirs：是一个list，内容是该文件夹中所有的目录的名字（不包括子目录）。
 3. files：同样是list，内容是该文件夹中所有的文件（不包括子目录）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson10/10x1.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson10/10x1.jpg)
 
 例如上图的分类结果（列出了概率最高的5个类别）为：
 

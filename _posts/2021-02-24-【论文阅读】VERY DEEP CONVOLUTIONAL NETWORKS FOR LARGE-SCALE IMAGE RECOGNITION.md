@@ -31,7 +31,7 @@ VGG中所有卷积层的设置都是一样的。
 
 作者根据深度的不同列出了从A到E等6种不同的配置（即不同层数的VGG网络结构）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/VGG/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/VGG/1.png)
 
 所有的参数设置都遵循2.1部分。卷积核的个数从64开始，每经过一个max-pooling，卷积核的个数就翻倍（乘2）一次。表1中需要注意的一点就是卷积核的表示方法：conv<卷积核大小>-<卷积核个数>，例如conv3-64表示卷积核的大小为3*3，个数为64。
 
@@ -39,13 +39,13 @@ VGG中所有卷积层的设置都是一样的。
 
 每种配置的参数数量见下。可以看出，相比于较浅的网络但是使用较大的卷积核的情况，虽然VGG网络的深度很深，但其参数数量并不多。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/VGG/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/VGG/2.png)
 
 ## 2.3.讨论（DISCUSSION）
 
 与AlexNet(ILSVRC2012)、ZFNet(ILSVRC2013)、OverFeat(ILSVRC2013)这些已经在ILSVRC2012-2013中取得优异成绩的网络结构相比，VGG并没有在第一个卷积层就使用很大的卷积核（AlexNet在第一个卷积层使用的卷积核大小为$11\times 11$，步长为4；ZFNet和OverFeat在第一个卷积层使用的卷积核大小为$7\times 7$，步长为2）。VGG网络基本全部使用$3\times 3$大小的卷积核，并且步长均为1，并且在输入层之后，可能连续会有多个卷积层的堆叠（中间不再pooling），这样做的效果是（示意图见下）：当有两个卷积层堆叠时，第二个卷积层的$3\times 3$感受野映射到输入层就是$5\times 5$；当有三个卷积层堆叠时，第三个卷积层的$3\times 3$感受野映射到输入层就是$7\times 7$。即将大的卷积核拆分成小的卷积核搭配多个堆叠的卷积层。这样做的好处有以下几点：1）多个堆叠的卷积层可以使用多次ReLU激活函数，相比只有一层使用一次ReLU激活函数，前者使得网络对特征的学习能力更强；2）有效的降低了网络参数数量，比如三个堆叠的卷积层搭配$3\times 3$的卷积核的参数数量为$3\times 3\times 3\times C\times C=27C^2$，而一个卷积层搭配$7\times 7$的卷积核的参数数量为$7\times 7\times C\times C=49C^2$（假设输入数据的通道数和卷积核的个数均为$C$）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/VGG/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/VGG/3.png)
 
 >AlexNet博客讲解及原文：[【论文阅读】ImageNet Classification with Deep Convolutional Neural Networks](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)。
 >
@@ -95,7 +95,7 @@ dense evaluation和multi-crop evaluation还有一个区别在于padding的填补
 
 ## 4.1.单尺度评估（SINGLE SCALE EVALUATION）
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/VGG/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/VGG/4.png)
 
 当S为定值（S=256或者S=384）时，有Q=S；当S在$[S_{min},S_{max}]$（即[256,512]）之间随机取值时，有$Q=0.5\times (S_{min}+S_{max})$。
 
@@ -109,7 +109,7 @@ dense evaluation和multi-crop evaluation还有一个区别在于padding的填补
 
 ## 4.2.多尺度评估（MULTI-SCALE EVALUATION）
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/VGG/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/VGG/5.png)
 
 对于固定的S，Q取三个值：S-32、S、S+32；对于随机的S，Q取三个值：$S_{min}$、$0.5\times (S_{min}+S_{max})$、$S_{max}$。最终结果取三个Q值对应结果的平均。
 
@@ -117,7 +117,7 @@ dense evaluation和multi-crop evaluation还有一个区别在于padding的填补
 
 ## 4.3.多裁剪评估（MULTI-CROP EVALUATION）
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/VGG/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/VGG/6.png)
 
 从Table-5中可以看出，multi-crop evaluation比dense evaluation的表现略好。作者还将multi-crop evaluation和dense evaluation的softmax层的输出做了平均，作为multi-crop&dense的结果展示在上表中。可以看到，multi-crop&dense的结果是最好的。作者猜测这是由于两种评估的padding方式不一样而引起的。
 
@@ -125,13 +125,13 @@ dense evaluation和multi-crop evaluation还有一个区别在于padding的填补
 
 4.1-4.3部分我们评估的都是单个的卷积神经网络模型。在这一部分中，作者结合了多个模型的输出结果（即取softmax层输出的平均）。结果如下表所示：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/VGG/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/VGG/7.png)
 
 作者提交给ILSVRC的结果是7种网络组合得到的预测结果，列在Table6的ILSVRC submission栏位中。其中对于模型(D/[256;512]/256,384,512)，作者只是fine-tune了FC层，并没有训练所有的层。在提交了ILSVRC结果之后，作者又尝试了多种组合方式，发现了性能更好的组合。最终，VGG在测试集上的top-5错误率低至6.8%（但是在官方提交的版本中，VGG在测试集上的top-5错误率为7.3%）。
 
 ## 4.5.结果对比（COMPARISON WITH THE STATE OF THE ART）
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/VGG/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/VGG/8.png)
 
 VGG在ILSVRC-2014中以7.3%的测试集top-5错误率取得了分类任务第二名的成绩。GoogLeNet在ILSVRC-2014中以6.7%的测试集top-5错误率取得了分类任务第一名的成绩。
 

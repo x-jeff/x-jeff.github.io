@@ -17,11 +17,11 @@ MNIST数据集来自美国国家标准与技术研究所（National Institute of
 
 MNIST官网：[http://yann.lecun.com/exdb/mnist/](http://yann.lecun.com/exdb/mnist/)。其中包含60000个训练样本和10000个测试样本，每个样本都是一张28*28像素的灰度手写数字图片。如下图所示：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson4/4x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson4/4x1.png)
 
 我们将这样一张图像展成一个向量，大小为（$28\times 28 \times 1=$）784。因此，MNIST训练集中mnist.train.images是一个形状为$[60000,784]$的张量。并且图片中的像素被归一化至$[0,1]$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson4/4x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson4/4x2.png)
 
 同理，测试集的大小为$[10000,784]$。
 
@@ -156,7 +156,7 @@ n_batch=mnist.train.num_examples // batch_size
 
 迭代过程见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson4/4x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson4/4x3.png)
 
 # 3.代码地址
 

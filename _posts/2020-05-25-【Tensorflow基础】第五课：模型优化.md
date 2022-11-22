@@ -25,7 +25,7 @@ loss=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y,logits=pred
 
 结果对比见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson5/5x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson5/5x1.png)
 
 很明显，交叉熵损失函数效果更好，收敛速度更快。
 
@@ -86,7 +86,7 @@ truncated_normal(
 
 修改后预测结果为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson5/5x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson5/5x2.png)
 
 相比第2部分，结果又有了进一步的提升。
 
@@ -104,7 +104,7 @@ truncated_normal(
 train_step=tf.train.AdamOptimizer(1e-2).minimize(loss)
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson5/5x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson5/5x3.png)
 
 模型表现相比第3部分又有提升。
 
@@ -118,7 +118,7 @@ tf.assign(lr,0.001*(0.95**epoch))
 
 执行之后模型的性能有了进一步的提升：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson5/5x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson5/5x4.png)
 
 # 6.代码地址
 

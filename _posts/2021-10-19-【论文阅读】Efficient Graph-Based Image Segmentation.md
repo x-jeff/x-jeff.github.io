@@ -19,7 +19,7 @@ tags:
 
 举个例子：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/1.png)
 
 对于Fig1左上角的图像，人类可以很容易的将其视为三个区域：一个矩形像素值渐变的区域（左侧部分）；一个矩形像素值恒定的区域（右侧部分）；一个像素值变化比较剧烈的区域（右侧小矩形）。这就是我们所说的人类视觉上觉得重要的区域，也是我们希望算法可以分割出来的。这个例子也说明我们不能只依据像素值进行区域的划分。例如左上角图像的左侧区域以及右侧小矩形都有大范围的灰度值变化，但其却应该被视为一个区域，不应被分割。所以作者的方法在判定区域边界时既考虑了边界附近像素值的差异也考虑了区域内部相邻像素点的像素值差异。
 
@@ -100,13 +100,13 @@ k是一个超参数。k越大，最终分割出来的区域越少，每个区域
 
 一些结果见下（分割区域的颜色是随机的）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/2.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/3.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/4.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/5.png)
 
 # 6.Results for Nearest Neighbor Graphs
 
@@ -126,19 +126,19 @@ k是一个超参数。k越大，最终分割出来的区域越少，每个区域
 
 例如针对下图求MST：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/6.png)
 
 MST的生成步骤见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/7.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/8.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/9.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/10.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/11.png)  
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/11.png)  
  
 至此，得到MST。
 
@@ -148,19 +148,19 @@ MST的生成步骤见下：
 
 例如针对下图求MST：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/12.png)
 
 从顶点$v1$开始：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/13.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/14.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/15.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/16.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/16.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/EGBIS/17.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/EGBIS/17.png)
 
 至此，得到MST。
 

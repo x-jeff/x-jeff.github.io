@@ -21,7 +21,7 @@ tags:
 
 首先解释下角点的概念。如果我们在图像上滑动一个小窗口：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x1.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x1.jpg)
 
 * 如果在任何方向上滑动窗口，窗口内的灰度都没什么变化，则这是一个均匀区域。
 * 如果窗口内的灰度只在一个方向上滑动时才会有变化，则这可能是一个边缘。
@@ -65,13 +65,13 @@ $$\begin{align} E(u,v) &\approx \begin{bmatrix} u & v \end{bmatrix} M \begin{bma
 
 其中，$\lambda_1,\lambda_2$为矩阵$M$的[特征值](http://shichaoxin.com/2020/08/12/数学基础-第十五课-矩阵的相似变换和相合变换/#121矩阵的特征值和特征向量)。根据[【数学基础】第十五课：矩阵的相似变换和相合变换](http://shichaoxin.com/2020/08/12/数学基础-第十五课-矩阵的相似变换和相合变换/)一文和本文第2.2部分，我们知道相似矩阵的几何意义就是同一个线性变换在不同的基下的表达形式。所以式(8)相当于是换了一组基，此时我们得到了一个标准的椭圆方程（椭圆相关内容见本文第2.3部分）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x10.png)
 
 上图中，$\lambda_{max}=\max(\lambda_1,\lambda_2),\lambda_{min}=\min(\lambda_1,\lambda_2)$。
 
 如果$\lambda_1,\lambda_2$只有一个很大，则意味着（在新基下）只沿着一个方向，$E(u,v)$会发生较大变化，所以这很有可能是个边缘，而不是角点。只有$\lambda_1,\lambda_2$都很大，即无论沿着哪个方向，$E(u,v)$都会发生较大变化，这才非常有可能是一个角点：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x11.png)
 
 而在实际计算时，我们并不真的计算矩阵$M$的特征值，而是构建一个响应函数$R$：
 
@@ -85,7 +85,7 @@ $k$是一个经验常数，范围通常在$(0.04,0.06)$之间。Harris角点检�
 
 ⚠️Harris检测器具有旋转不变性，但不具有尺度不变性，也就是说尺度变化可能会导致角点变为边缘，例如：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x12.png)
 
 >尺度不变性可使用SIFT特征。
 
@@ -129,33 +129,33 @@ $$A \simeq B$$
 
 我们知道，线性映射是将一个向量映射到另一个向量，比如这里将$\mathbf{x}$映射成$\mathbf{y}$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x2.png)
 
 将$\mathbf{x}$在自然基下的坐标向量用$[\mathbf{x}]\_{\epsilon}$表示，$\mathbf{y}$在自然基下的坐标向量用$[\mathbf{y}]\_{\epsilon}$表示。矩阵$A$就是将坐标向量$[\mathbf{x}]\_{\epsilon}$映射到坐标向量$[\mathbf{y}]\_{\epsilon}$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x3.png)
 
 这里坐标向量$[\mathbf{x}]\_{\epsilon}=\begin{pmatrix} 0 \\\ 2 \end{pmatrix}$，坐标向量$[\mathbf{y}]\_{\epsilon}=\begin{pmatrix} 3 \\\ 1 \end{pmatrix}$，矩阵$A$就是把$\begin{pmatrix} 0 \\\ 2 \end{pmatrix}$转换为$\begin{pmatrix} 3 \\\ 1 \end{pmatrix}$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x4.png)
 
 还是将$\mathbf{x}$映射成$\mathbf{y}$，现在将这个映射表示在非自然基下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x5.gif)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x5.gif)
 
 将$\mathbf{x}$在非自然基下的坐标向量用$[\mathbf{x}]\_{\mathcal{P}}$表示，$\mathbf{y}$在非自然基下的坐标向量用$[\mathbf{y}]\_{\mathcal{P}}$表示。矩阵$B$就是将坐标向量$[\mathbf{x}]\_{\mathcal{P}}$映射到坐标向量$[\mathbf{y}]\_{\mathcal{P}}$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x6.png)
 
 这里坐标向量$[\mathbf{x}]\_{\mathcal{P}} = \begin{pmatrix} 1 \\\ 2 \end{pmatrix}, [\mathbf{y}]\_{\mathcal{P}} = \begin{pmatrix} 2 \\\ 1 \end{pmatrix}$。矩阵$B$就是把$\begin{pmatrix} 1 \\\ 2 \end{pmatrix}$转换为$\begin{pmatrix} 2 \\\ 1 \end{pmatrix}$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x7.png)
 
 也就是说矩阵$A$，矩阵$B$，都是将$\mathbf{x}$映射到向量$\mathbf{y}$，而它们只是不同基下的不同代数表达。
 
 假如我们可以通过某矩阵$P$，将坐标向量$[\mathbf{x}]\_{\mathcal{P}}$变换为坐标向量$[\mathbf{x}]\_{\epsilon}$；矩阵$P^{-1}$，将坐标向量$[\mathbf{y}]\_{\epsilon}$变换为坐标向量$[\mathbf{y}]\_{\mathcal{P}}$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x8.png)
 
 这个时候$B$和$P^{-1}AP$都是将$[\mathbf{x}]\_{\mathcal{P}}$映射为$[\mathbf{y}]\_{\mathcal{P}}$，因此它们是相等的，即：
 
@@ -172,7 +172,7 @@ $$\lvert PF_1 \rvert + \lvert PF_2 \rvert = 2a$$
 椭圆截与两焦点连线重合的直线所得的弦为**长轴**，长度为$2a$
 。椭圆截垂直平分两焦点连线的直线所得弦为**短轴**，长度为$2b$。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson32/32x9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson32/32x9.png)
 
 椭圆的标准方程（这里的“标准”指的是中心在原点，对称轴为坐标轴）有两种：
 

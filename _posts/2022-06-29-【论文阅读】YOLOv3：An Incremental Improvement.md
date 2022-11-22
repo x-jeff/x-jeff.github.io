@@ -15,7 +15,7 @@ tags:
 
 我们针对YOLO框架（[YOLOv1](http://shichaoxin.com/2022/05/11/论文阅读-You-Only-Look-Once-Unified,-Real-Time-Object-Detection/)，[YOLOv2、YOLO9000](http://shichaoxin.com/2022/06/01/论文阅读-YOLO9000-Better,-Faster,-Stronger/)）只是做了一些小的改动和优化，形成了YOLOv3。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv3/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv3/1.png)
 
 # 2.The Deal
 
@@ -31,7 +31,7 @@ $$b_w = p_w e^{t_w}$$
 
 $$b_h = p_h e^{t_h}$$
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv3/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv3/2.png)
 
 训练使用均方误差（sum of squared error loss）。
 
@@ -47,7 +47,7 @@ bounding box的类别标签可能有多个（比如某一object既属于woman，
 
 >对于聚类产生anchor，在[YOLOv2](http://shichaoxin.com/2022/06/01/论文阅读-YOLO9000-Better,-Faster,-Stronger/)中，是不是也有这种可能：对于整幅图像来说，整个数据集聚类得到k种anchor box的大小，如果是针对每个grid cell，好像没这个必要。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv3/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv3/3.png)
 
 我们使用了3种不同scale的feature map来预测box（见上图）。对于每种scale的feature map，每个grid cell都负责预测3个box，所以输出的tensor维度为：$N \times N \times [ 3 * (4+1+80) ]$，4为bounding box的offset，1为objectness prediction，80为COCO数据集的类别数。
 
@@ -57,11 +57,11 @@ bounding box的类别标签可能有多个（比如某一object既属于woman，
 
 我们使用一个新的网络用于特征提取，这个新的网络基于[YOLOv2](http://shichaoxin.com/2022/06/01/论文阅读-YOLO9000-Better,-Faster,-Stronger/)中的Darknet-19，我们添加了[残差连接](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)，我们将这个网络称之为Darknet-53：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv3/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv3/4.png)
 
 Darknet-53比Darknet-19性能更好，比[ResNet-101、ResNet-152](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)效率更高，其在ImageNet上的测试结果见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv3/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv3/5.png)
 
 每个网络的参数配置都一样，图像大小均为$256 \times 256$，统计single crop准确率。run time在Titan X上进行测试。Darknet-53和SOTA分类器的性能相当，但是计算成本更低，速度更快。Darknet-53性能比[ResNet-101](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)要高，并且速度是[ResNet-101](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)的1.5倍快。Darknet-53和[ResNet-152](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)的性能相近，但是速度却是[ResNet-152](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)的2倍快。
 
@@ -75,7 +75,7 @@ Darknet-53每秒执行的浮点数计算（floating point operations）是最多
 
 YOLOv3的结果相当好，见表3。使用了COCO中各种奇怪的AP指标作为评价标准，YOLOv3和SSD变体的性能相近，但速度快了3倍。但YOLOv3的性能远落后于RetinaNet。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv3/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv3/6.png)
 
 但是如果我们看一些老的常用的AP指标，例如$AP_{50}$（即IoU阈值为0.5时的mAP），YOLOv3的性能还是非常不错的，其和RetinaNet性能相当，且远优于SSD变体。但是当IoU的阈值变大时，例如$AP_{75}$，YOLOv3的性能会出现大幅的下滑。
 
@@ -105,9 +105,9 @@ YOLOv3的结果相当好，见表3。使用了COCO中各种奇怪的AP指标作�
 
 YOLOv3速度快，精度高。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv3/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv3/7.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv3/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv3/8.png)
 
 # 6.原文链接
 

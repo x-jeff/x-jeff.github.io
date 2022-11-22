@@ -29,7 +29,7 @@ y_data=np.square(x_data)+noise
 
 最终生成的训练数据分布见下图：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson3/3x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson3/3x1.png)
 
 >使用numpy生成随机数的几种方式：
 >
@@ -120,7 +120,7 @@ for _ in range(2000):
 
 最后拟合出来的模型见下图红线所示：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson3/3x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson3/3x2.png)
 
 结果很不错。
 

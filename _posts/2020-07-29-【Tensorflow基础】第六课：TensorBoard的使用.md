@@ -29,7 +29,7 @@ TensorBoard 提供机器学习实验所需的可视化功能和工具：
 
 TensorBoard有很多栏目，例如：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x9.png)
 
 接下来我们介绍常用的几个。
 
@@ -57,43 +57,43 @@ writer=tf.summary.FileWriter("logs/",sess.graph)
 
 运行代码，在`logs`文件夹下生成了保存模型信息的文件：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x1.png)
 
 打开终端，输入：`tensorboard --logdir=<log_path>`
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x2.png)
 
 将红框中的网址粘贴到谷歌浏览器中：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x3.png)
 
 关于图中一些基本符号的解释可在上图左下角处找到。
 
 双击`input`（即我们之前定义的`name_scope`）进行查看：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x4.png)
 
 可以看到我们定义的`x-input`和`y-input`。我们也可以查看某一节点的输入和输出：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x5.png)
 
 可以看到，和我们代码中定义的`MatMul`计算都是可以对应上的。
 
 此外， 我们在图的右侧可以看到一些“孤立”的节点，这些节点实际是在主图中的，只是被抽离出来显示详细信息了而已。单击该节点即可看到其在主图中的位置：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x6.png)
 
 当然我们也可以选择让该节点不孤立显示，回到主图中：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x7.png)
 
 选择`Add to main graph`即可：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x8.png)
 
 同理，我们也可以将其从主图移除：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x10.png)
 
 对网络的输出层进行如下改动，重新生成log文件：
 
@@ -112,11 +112,11 @@ with tf.name_scope("layer"):
 
 graph中输出层结构的变化：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x11.png)
 
 可以双击任意命名空间查看更加详细的信息，例如：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x12.png)
 
 将程序中的其他部分也添加命名空间：
 
@@ -141,13 +141,13 @@ with tf.name_scope("accuracy"):
 
 重新生成log文件并加载graph：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x13.png)
 
 将网络的各个部分定义命名空间之后，网络图明显简单易懂了许多。
 
 可以把所有命名空间都从主图移除：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x14.png)
 
 ## 2.2.`SCALARS`
 
@@ -169,17 +169,17 @@ with tf.name_scope("loss"):
 
 进入tensorboard的界面，点击`SCALARS`，可以看到accuracy随着epoch的变化：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x15.png)
 
 通过调节左侧的Smoothing使曲线变得平滑：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x16.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x16.png)
 
 上图背景中被虚化的曲线为未平滑时的曲线。
 
 同样的，我们也可以查看loss随着epoch的变化：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x17.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x17.png)
 
 ## 2.3.`DISTRIBUTIONS`和`HISTOGRAMS`
 
@@ -193,11 +193,11 @@ tf.summary.histogram('histogram',var)#直方图
 
 例如我们通过`DISTRIBUTIONS`查看weights的变化：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x18.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x18.png)
 
 通过`HISTOGRAMS`查看weights的变化：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x19.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x19.png)
 
 鼠标悬停在不同的epoch上，可以查看该epoch下，weights的分布情况。
 
@@ -231,11 +231,11 @@ with tf.Session() as sess:
 	print("f:\n",sess.run(f))
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x20.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x20.png)
 
 ✓`mnist.test.images[:image_num]`表示前image_num张测试图片。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x21.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x21.png)
 
 ✓`trainable=False`时，该变量不会被优化器更新，即无法更改。可用于定义训练过程中不用或不能被更新的参数。
 
@@ -275,7 +275,7 @@ projector.visualize_embeddings(projector_writer, config)
 
 成功运行代码之后，可以发现`projector`文件夹下生成了很多文件：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x22.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x22.png)
 
 打开终端，输入（改为自己的路径）：
 
@@ -298,7 +298,7 @@ with tf.name_scope('input_reshape'):
 
 在tensorboard中显示的结果：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x23.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x23.png)
 
 ## 3.2.`PROJECTOR`
 
@@ -306,15 +306,15 @@ with tf.name_scope('input_reshape'):
 
 点击`PROJECTOR`，可以看到数据的原始分布见如下动图：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x24.gif)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x24.gif)
 
 通过左侧的“Color by”可以将不同的数字标识为不同的颜色：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x25.gif)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x25.gif)
 
 点击左侧的“T-SNE”，可以直观的观察其训练过程，并且可以调整不同的学习率：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson6/6x26.gif)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson6/6x26.gif)
 
 # 4.代码地址
 

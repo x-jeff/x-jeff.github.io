@@ -29,7 +29,7 @@ GoogLeNet的参数数量比[AlexNet](http://shichaoxin.com/2021/02/03/论文阅�
 
 第一个缺点：更大的网络意味着更多的参数，这使得训练很容易过拟合，尤其当数据量有限的时候。因此，数据集会是一个主要的瓶颈。并且，构建一个高质量的训练集非常棘手且成本高昂，尤其在一些情况下还需要专业人员的参与，例如对下图中两个狗的品种进行标注：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/1.png)
 
 第二个缺点：网络大小的增加会显著提升其对计算资源的占用。并且如果计算资源没有被充分利用（例如大量的权重趋于零），也会造成资源的浪费。在实际问题中，计算资源通常是有限的，有效合理的利用计算资源比盲目增加网络大小更为重要，虽然增加网络大小的目的是为了提升模型性能。
 
@@ -39,7 +39,7 @@ GoogLeNet的参数数量比[AlexNet](http://shichaoxin.com/2021/02/03/论文阅�
 >
 >Hebbian学习规则通常使用双极性激活函数，即激活函数的取值范围是[-1,1]。当输入与输出同号（+或-）时，加大权重，否则，降低权重。
 >
->双极性激活函数：![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/2.png)
+>双极性激活函数：![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/2.png)
 >
 >因此，Hebbian学习规则通常用当前神经元的输入与输出的乘积更新自己的权重。
 >
@@ -47,7 +47,7 @@ GoogLeNet的参数数量比[AlexNet](http://shichaoxin.com/2021/02/03/论文阅�
 >
 >其中，$o_j$是第$j$个神经元的输出，$x_i$是神经元的第$i$个输入。$w_{ij}$是神经元$j$与第$i$个输入数据$x_i$之间的权重。
 >
->以单个神经元的单个输入为例：![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/3.png)
+>以单个神经元的单个输入为例：![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/3.png)
 >
 >假设共有3个样本，分别为：$x_1=(1,-2,1.5,0);x_2=(1,-0.5,-2,-1.5);x_3=(0,1,-1,1.5)$。初始权重为$w(0)=(1,-1,0,0.5)$。设$\eta=1,T=1$。则Hebbian的学习过程为：
 >
@@ -57,7 +57,7 @@ GoogLeNet的参数数量比[AlexNet](http://shichaoxin.com/2021/02/03/论文阅�
 
 # 4.结构细节（Architectural Details）
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/4.png)
 
 关于结构细节，我之前有一篇博客已经介绍过了，在此不再赘述，请戳链接：[【深度学习基础】第三十一课：Inception网络](http://shichaoxin.com/2020/08/02/深度学习基础-第三十一课-Inception网络/)。
 
@@ -69,7 +69,7 @@ Inception模块对计算资源的优化利用使得我们可以增加每层的�
 
 # 5.GoogLeNet
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/5.png)
 
 作者省略了网络的细节，因为他们的实验表明：对于特定的某一结构，参数的影响相对而言是很微小的。
 
@@ -77,11 +77,11 @@ Inception模块对计算资源的优化利用使得我们可以增加每层的�
 
 Table1可以搭配Figure3一起来看：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/6.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/6.jpg)
 
 Table1中，“depth”一列指的是层数，例如inception(3a)包含了两层，该列加起来一共是22层（不计pooling层，如果计上pooling层，则一共为27层）。5~10列是filter的数量，以inception(3a)为例（64+128+32+32=256）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/7.png)
 
 “params”列是参数数量，”ops”列是计算量。
 
@@ -91,9 +91,9 @@ GoogLeNet在softmax层之前使用了average pooling（这一做法将top1正确
 
 一方面为了避免[梯度消失/梯度爆炸](http://shichaoxin.com/2020/02/07/深度学习基础-第十三课-梯度消失和梯度爆炸/)问题，另一方面有时中间层的特征也非常具有辨识度，因此GoogLeNet在inception(4a)和inception(4d)后添加了辅助分类器（auxiliary classifiers）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/8.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/9.png)
  
 在训练阶段，辅助分类器的loss会被加到总loss内，但其权重只有0.3。在预测阶段，辅助分类器会被舍弃掉。
 
@@ -125,11 +125,11 @@ GoogLeNet的训练没有使用外部数据（即只使用比赛提供的训练�
 
 作者最终提交给ILSVRC2014分类任务的模型，其在验证集和测试集上的top-5错误率为6.67%，排名第一。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/10.png)
 
 作者还测试了不同数量的模型搭配不同数量的扩展测试图像的错误率（验证集）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/11.png)
 
 # 8.ILSVRC 2014 Detection Challenge Setup and Results
 
@@ -141,23 +141,23 @@ ILSVRC检测任务是使用bounding box圈出目标的位置。一共有200个�
 >
 >mAP的计算过程有点类似于[绘制P-R曲线](http://shichaoxin.com/2018/12/03/机器学习基础-第三课-模型性能度量/#31p-r曲线)。以图像分类任务中的类别“猫”为例，假设测试集共有8个样本，共预测出15只猫，按bounding box的概率从高到底排序如下：
 >
->![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/12.png)
+>![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/12.png)
 >
 >根据绘制P-R曲线的规则，我们可以得到15个混淆矩阵，也就是说可以计算出15个precision和recall：
 >
->![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/13.png)
+>![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/13.png)
 >
 >0.662就是该类别的AP（average precision）值。mAP就是所有类别AP值的平均。
 
 GoogLeNet的检测策略类似于[R-CNN](http://shichaoxin.com/2021/09/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)，但是限于时间，GoogLeNet并没有使用[R-CNN](http://shichaoxin.com/2021/09/20/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)中的bounding  box regression。GoogLeNet在检测任务中使用了6个网络的组合，其表现见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/14.png)
 
 从表4中可以看出，ILSVRC2014检测任务的前三名均使用了CNN，并且都使用了额外的数据进行训练，此外，也都集成了多个模型进行最终结果的预测。
 
 作者也比较了单个模型的性能，统计结果见表5：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GoogLeNet/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GoogLeNet/15.png)
 
 在仅使用一个模型的情况下，Deep Insight取得了最好的成绩，但是相比其集成3个模型的最终结果（40.2% vs. 40.5%），仅有0.3%的提升。但是GoogLeNet在集成多个模型之后（38.02% vs. 43.9%），结果有着显著的提升。
 

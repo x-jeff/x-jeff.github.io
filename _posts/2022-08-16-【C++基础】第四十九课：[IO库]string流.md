@@ -18,7 +18,7 @@ sstream头文件定义了三个类型来支持内存IO，这些类型可以向st
 
 **istringstream**从string读取数据，**ostringstream**向string写入数据，而头文件**stringstream**既可从string读数据也可向string写数据。与[fstream类型](http://shichaoxin.com/2022/08/09/C++基础-第四十八课-IO库-文件输入输出/)类似，头文件sstream中定义的类型都继承自我们已经使用过的[iostream](http://shichaoxin.com/2022/07/31/C++基础-第四十七课-IO库-IO类/)头文件中定义的类型。除了继承得来的操作，sstream中定义的类型还增加了一些成员来管理与流相关联的string。下表列出了这些操作，可以对stringstream对象调用这些操作，但不能对其他IO类型调用这些操作。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/CPPSeries/Lesson49/49x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/CPPSeries/Lesson49/49x1.png)
 
 >[explicit的用法](http://shichaoxin.com/2022/07/13/C++基础-第四十五课-类-构造函数再探/#43抑制构造函数定义的隐式转换)。
 

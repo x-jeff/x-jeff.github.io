@@ -37,7 +37,7 @@ tags:
 
 得益于[ViT](http://shichaoxin.com/2022/09/22/论文阅读-AN-IMAGE-IS-WORTH-16X16-WORDS-TRANSFORMERS-FOR-IMAGE-RECOGNITION-AT-SCALE/)强大的feature representation ability，ViTPose的框架相当简单。例如，它不需要特定的领域知识来精心的设计backbone。这种简单的结构使得ViTPose具有良好的并行性，从而在推理速度和性能方面达到了新的Pareto front，详见Fig1。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/1.png)
 
 Fig1中，bubble的大小代表模型的参数数量。
 
@@ -83,7 +83,7 @@ $$F'_{i+1} = F_i + \text{MHSA} ( \text{LN} (F_i)), F_{i+1} = F'_{i+1} + \text{FF
 
 其中，$F_0 = \text{PatchEmbed} (X)$，即patch embedding layer得到的特征。对于每个transformer layer，维度都是固定一样的。所以，backbone的输出维度为$F_{out} \in \mathcal{R} ^ {\frac{H}{d} \times \frac{W}{d} \times C}$。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/2.png)
 
 我们采用了两种轻量级的decoder来处理backbone提取到的特征并定位关节点。第一种是classic decoder。它包含两个反卷积blocks，每个block包含一个反卷积层、[batch normalization](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)层和[ReLU](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#22relu函数)层。每个block将feature map上采样2倍。最后通过一个kernel size为$1\times 1$的卷积层得到用于定位关节点的heatmap，即：
 
@@ -170,7 +170,7 @@ $L_{t \to s}^{td}$表示的是token distillation loss，$L_{t \to s}^{tod}$表�
 
 ViTPose遵循人体姿态估计中常见的top-down setting，即detector用于检测person instances，ViTPose用于检测instances的关节点。我们分别使用[ViT-B，ViT-L，ViT-H](http://shichaoxin.com/2022/09/22/论文阅读-AN-IMAGE-IS-WORTH-16X16-WORDS-TRANSFORMERS-FOR-IMAGE-RECOGNITION-AT-SCALE/#41setup)作为backbones，并将相应的模型表示为ViTPose-B，ViTPose-L，ViTPose-H。模型基于mmpose codebase，在8块A100 GPU上进行训练。使用MAE对backbones进行预训练。使用mmpose中的默认训练设置来训练ViTPose模型，即，输入分辨率为$256 \times 192$，AdamW optimizer（学习率为5e-4）。Udp被用于后处理。模型一共训练了210个epochs，其中在第170和200个epoch时学习率衰减10倍。此外，我们还对每个模型都使用了layer-wise learning rate decay（一种对学习率逐层修正的策略）和drop path（将深度学习网络中的多分支结构随机删除的一种正则化方法）。经过我们的实验，在表1中列出了最优的参数设置：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/3.png)
 
 表1中列出了训练ViTPose的最优超参数，其中，斜杠前的参数表示仅在MS COCO数据集上训练，斜杠后的参数表示在multi-dataset上训练。
 
@@ -190,19 +190,19 @@ ViTPose遵循人体姿态估计中常见的top-down setting，即detector用于�
 
 >SimpleBaseline：B. Xiao, H. Wu, and Y. Wei. Simple baselines for human pose estimation and tracking. In Proceedings of the European conference on computer vision (ECCV), 2018.。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/4.png)
 
 👉**The influence of pre-training data.**
 
 为了评估ImageNet-1K数据集对于姿态估计任务是否是必要的，我们使用不同的数据集对backbone进行了预训练，比如：ImageNet-1K，MS COCO以及MS COCO和AI Challenger的联合数据集。为了和ImageNet-1K数据集类似，我们将MS COCO和AI Challenger中的图像裁剪得到person instances，用作预训练的数据集。模型在这三个数据集上都分别预训练了1600个epoch，然后在MS COCO数据集上finetune了210个epoch。结果见表3。可以看到，使用MS COCO和AI Challenger联合数据集进行预训练的结果和使用ImageNet-1k差不多。但是其数据量只是ImageNet-1k的一半左右。这验证了ViTPose在预训练数据方面的flexibility。然而，如果仅使用MS COCO数据集进行预训练会导致AP下降1.3个点左右。这可能是因为MS COCO数据集的数据量过小，MS COCO中的instances数量比MS COCO和AI Challenger联合数据集少了大约3倍。此外，如果使用MS COCO和AI Challenger联合数据集进行预训练，无论是否裁剪，最终结果都差不多。这些发现验证了以下结论：下游任务本身的数据可以在预训练阶段带来更好的数据效率。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/5.png)
 
 👉**The influence of input resolution.**
 
 为了评估ViTPose是否可以很好的适应不同的输入分辨率，我们使用不同的输入图像尺寸来训练ViTPose，最终结果见表4。随着输入分辨率的增加，ViTPose-B的性能也一直在提升。此外，我们还注意到，平方输入虽然具有更高的分辨率，但并没有带来太多的性能提升，比如，$256 \times 256$ vs. $256 \times 192$。原因可能是因为MS COCO数据集中human instances的平均长宽比为$4:3$，而平方输入不满足这一统计信息。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/6.png)
 
 👉**The influence of attention type.**
 
@@ -212,7 +212,7 @@ HRNet和HRFormer提出高分辨率feature maps有利于姿态估计任务。ViTP
 >
 >ViTDet：Y. Li, H. Mao, R. Girshick, and K. He. Exploring plain vision transformer backbones for object detection. In Proceedings of the European Conference on Computer Vision (ECCV), 2022.。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/7.png)
 
 表5是ViTPose搭配1/8 feature size在MS COCO val set上的表现。`*`表示由于硬件内存限制，在训练时使用了fp16精度。对于full attention（'Full'）和window attention（'Window'）的联合策略，我们遵循ViTDet中的设置。
 
@@ -220,37 +220,37 @@ HRNet和HRFormer提出高分辨率feature maps有利于姿态估计任务。ViTP
 
 为了评估ViT是否可以通过部分finetune来适应姿态估计任务，我们通过3种不同的方式来finetune ViTPose-B：1）fully finetuning；2）冻结MHSA模块；3）冻结FFN模块。结果见表6，相比fully finetuning，冻结MHSA模块导致了轻微的性能下降（75.1 AP v.s. 75.8 AP），但是这两种方式的$\text{AP}_{50}$差不多。但是如果冻结FFN模块，AP会显著下降3.0个点。这一发现说明ViT的FFN模块会更负责特定任务（task-specific）的建模。相比之下，MHSA模块更具有任务无关性（task-agnostic）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/8.png)
 
 👉**The influence of multi-dataset training.**
 
 由于ViTPose的decoder相当简单且轻量级，我们可以通过为每个数据集使用共享的backbone和单独的decoder，从而轻松的将ViTPose扩展到多数据集联合训练。我们使用MS COCO、AI Challenger和MPII来进行多数据集联合训练实验。在MS COCO val set上的实验结果见表7。更多数据集的实验结果见附录。需要注意的是，我们直接使用训练后的模型进行评估，并没有在MS COCO上进一步finetune。从表7中可以看到，随着更多的数据集加入训练，ViTPose的性能也在稳步提升（75.8 AP到77.1 AP）。尽管与MS COCO+AI Challenger的联合数据集相比，MPII数据集的数据量要小很多（40K v.s. 500K），但MPII的加入还是让AP提升了0.1个点，这说明ViTPose可以很好的利用不同数据集中的不同数据。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/9.png)
 
 👉**The analysis of transferability.**
 
 为了评估ViTPose的transferability，我们使用了2种方法来将ViTPose-L的knowledge迁移给ViTPose-B，一种方法是第3.4部分中简单的distillation方法（表8中的'Heatmap'），另一种是我们提出来的token-based distillation方法（表8中的'Token'）。实验结果见表8。从表8中可以看到，token-based distillation方法给ViTPose-B带来了0.2 AP的提升，并且内存占用没有增加很多，而简单的distillation方法带来了0.5 AP的增长。此外，这两种方法是互补的，可以一起使用，最终得到76.6的AP，这些结果说明了ViTPose具有优秀的transferability。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/10.png)
 
 ## 4.3.Comparison with SOTA methods
 
 基于先前的分析，我们使用$256 \times 192$的输入分辨率，进行多数据集联合训练，并在MS COCO val and test-dev set上进行验证，结果见表9和表10。所有方法的速度测试都基于单块A100 GPU，batch size=64。从结果中可以看出，尽管ViTPose的模型很大，但它在throughput和accuracy之间有着很好的trade-off，这表明plain vision transformer有着很强的representation能力，并且对硬件友好。此外，backbone越大，ViTPose的性能越好。比如，ViTPose-L的表现要比ViTPose-B好（78.3 AP v.s. 75.8 AP，83.5 AR v.s. 81.1 AR）。ViTPose-L的表现优于之前SOTA的CNN模型和transformer模型。在仅使用MS COCO数据集用于训练的情况下，ViTPose-H的性能和推理速度均优于HRFormer-B（79.1 AP v.s. 75.6 AP，241 fps v.s. 158 fps）。相比HRFormer-B，ViTPose具有更快的推理速度，因为其结构仅包含一个branch，并且在相对较小的feature分辨率上操作（1/4 v.s. 1/16）。如果使用多数据集联合训练，ViTPose的性能得到进一步的提升，这意味着ViTPose有着良好的scalability和flexibility。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/11.png)
 
 表9是在MS COCO val set上，ViTPose和SOTA方法的比较结果。`*`表示多数据集联合训练。
 
 此外，我们还构建了一个更强壮的模型ViTPose-G，即使用ViTAE-G作为backbone，参数量达到了1B，有着更大的输入分辨率（$576 \times 432$），在MS COCO+AI Challenger联合数据集上进行训练。和其他SOTA方法的比较见表10，在MS COCO test-dev set上，单个的ViTPose-G模型优于之前所有的SOTA方法，达到了80.9的AP，之前最优的方法UDP++，集成了17个模型才达到80.8的AP。如果集成3个模型，ViTPose最终达到81.1的AP。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/12.png)
 
 ## 4.4.Subjective results
 
 我们还可视化了ViTPose在MS COCO数据集上的姿态估计结果。结果见Fig3，对于一些具有挑战性的case，比如很严重的遮挡、不同的姿势、不同的大小，ViTPose总能预测出准确的姿态估计结果。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/13.png)
 
 # 5.Limitation and Discussion
 
@@ -270,19 +270,19 @@ HRNet和HRFormer提出高分辨率feature maps有利于姿态估计任务。ViTP
 
 >MIPNet：R. Khirodkar, V. Chari, A. Agrawal, and A. Tyagi. Multi-instance pose networks: Rethinking top-down pose estimation. In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV), pages 3122–3131, 2021.。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/14.png)
 
 👉**MPII val set.**
 
 同样，我们也在MPII val set上做了实验。遵循MPII的默认设置，我们使用PCKh作为性能评估指标。如表12所示，无论是单个关节点评估还是平均评估，ViTPose都取得了更好的成绩，比如ViTPose-B、ViTPose-L和ViTPose-H分别取得了93.3、94.0和94.1的平均PCKh，并且输入分辨率更小（$256 \times 192$ v.s. $256 \times 256$）。如果使用更大的输入分辨率和更大的backbone，比如ViTPose-G，性能达到了新的SOTA，即94.3的PCKh。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/15.png)
 
 👉**AI Challenger val set.**
 
 类似的，在AI Challenger val set上，我们也评估了ViTPose（搭配相应的decoder head）的表现。结果见表13，和之前基于CNN和基于transformer的优秀模型相比，ViTPose的表现更好，比如，ViTPose-H的AP为35.4，HRNet-w48的AP为33.5，HRFromer base的AP为34.4。如果使用更大的backbone和更大的输入分辨率，ViTPose-G刷新了这个数据集的最好成绩，取得了43.2的AP。但是模型在AI Challenger set这个数据集上的表现依然不够好，后续需要进一步的努力提升。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/16.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/16.png)
 
 # 7.B.Detailed dataset details.
 
@@ -292,11 +292,11 @@ HRNet和HRFormer提出高分辨率feature maps有利于姿态估计任务。ViTP
 
 本节列出了ViTPose的一些可视化结果。AI Challenger的结果见Fig4，OCHuman的结果见Fig5，MPII的结果见Fig6。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/17.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/17.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/18.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/18.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/ViTPose/19.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/19.png)
 
 # 8.原文链接
 

@@ -31,7 +31,7 @@ ImageNet包含不同分辨率的图片，但是AlexNet要求输入的维度是�
 
 AlexNet的结构如下图所示：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/AlexNet/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/AlexNet/1.png)
 
 以下是AlexNet相较于之前的神经网络架构，比较创新和重要的特点。
 
@@ -39,7 +39,7 @@ AlexNet的结构如下图所示：
 
 在AlexNet之前的神经网络架构通常使用sigmoid或者tanh作为激活函数。在AlexNet中，提出使用ReLU函数作为激活函数，模型可以更快的收敛：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/AlexNet/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/AlexNet/2.png)
 
 上图中，实线为使用ReLU函数作为激活函数；虚线为使用tanh函数作为激活函数。前者比后者快了6倍左右。
 
@@ -53,7 +53,7 @@ AlexNet的结构如下图所示：
 
 $$b^i_{x,y}=\frac{a^i_{x,y}}{( k+ \alpha \sum _{j=\max (0,i-n/2)}^{\min (N-1,i+n/2)} (a^i_{x,y})^2 )^{\beta}}$$
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/AlexNet/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/AlexNet/3.png)
 
 $a$为经过激活函数得到的值，$i$表示第$i$个通道，$(x,y)$为坐标位置。$b$为$a$经过LRN后得到的值。$N$为通道的总数目。
 
@@ -135,11 +135,11 @@ AlexNet作者在训练时，一共进行了3次学习率的调整，训练集使
 
 ILSVRC2010比赛冠军方法是Sparse coding，AlexNet与其比较：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/AlexNet/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/AlexNet/4.png)
 
 ILSVRC-2012，AlexNet参加比赛，获得冠军，远超第二名SIFT+FVs：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/AlexNet/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/AlexNet/5.png)
 
 # 7.讨论（Discussion）
 

@@ -23,7 +23,7 @@ Selective Search需考虑以下设计因素：
 
 图像中的目标可能是任意尺寸。并且，有些目标的边缘可能并不清晰。所以，Selective Search需要将所有尺寸的目标都纳入考虑。如Fig2所示，Selective Search找到了很多不同尺寸的目标。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SelectiveSearch/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SelectiveSearch/1.png)
 
 这部分通过一个分层算法来实现（an hierarchical algorithm）。
 
@@ -31,7 +31,7 @@ Selective Search需考虑以下设计因素：
 
 区域的产生不是只有一个最优的策略。如Fig1所示，区域的产生可以来自很多不同的原因。在Fig1(b)中，我们可以通过颜色来区分这两只猫。在Fig1(c)中，我们可以通过纹理来区分叶子和变色龙。在Fig1(d)中，我们可以区分出车轮是因为它们是车的一部分，而不是因为颜色或者纹理相近。所以，在找寻这些目标时，有必要使用多样化的策略。并且，图像的本质是分层的（类似于PS中图层的概念），通俗点说就是多个目标位于不同的图层，之间可能会有遮挡。例如在Fig1(a)中，我们看不到完整的桌子、碗以及勺子等目标物体。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SelectiveSearch/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SelectiveSearch/2.png)
 
 此外，光线的明暗（例如阴影）以及颜色的亮度也会影响区域的产生。所以为了能够解决所有可能的情况，我们需要一个多样化的策略。
 
@@ -47,7 +47,7 @@ Selective Search的目标是在实际的目标检测框架下，为其生成一�
 
 我们的分组过程见下。首先我们使用[“Felzenszwalb and Huttenlocher (2004)”的方法](http://shichaoxin.com/2021/10/19/论文阅读-Efficient-Graph-Based-Image-Segmentation/)来产生初始划分区域。然后我们应用贪心算法迭代的整合这些区域：首先计算所有相邻区域的相似度。相似度最高的一组相邻区域将会被整合在一起，即合并为一个新的区域。然后我们会重复这个步骤直至整幅图像变成一个单一的区域。详细的实现细节见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SelectiveSearch/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SelectiveSearch/3.png)
 
 >这里需要注意下，集合S里的元素随着区域的合并是不断减少的，直至其为空集。但是集合R里的元素是逐渐变多的，里面存储了最初始的划分区域以及后续每一次合并得到的新区域。这样的话就保证了R里面的区域有大有小，适用于不同尺寸的object。
 
@@ -80,7 +80,7 @@ Analysis and Machine Intelligence, 23, 1338–1350.。
 
 上述8种色彩空间的不变性见表1：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/SelectiveSearch/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SelectiveSearch/4.png)
 
 其中，“+/-”表示部分不变性（“+”表示全部都有变化，“-”表示全部都没有变化）。分数，例如$\frac{1}{3}$表示三个通道中有一个通道具有不变性。表1是从亮度、阴影以及高亮三个维度来测试是否具有不变性（可以理解为：如果色彩空间变化后对这三个维度的敏感程度没有变化，即可视为不变）。从表1中可以看出，色彩空间从1到8的不变性是逐渐降低的。
 

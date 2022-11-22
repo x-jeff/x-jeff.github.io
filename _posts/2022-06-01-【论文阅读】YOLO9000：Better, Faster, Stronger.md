@@ -23,7 +23,7 @@ tags:
 
 基于此，我们训练了YOLO9000，一个real-time的目标检测器，可以检测超过9000个不同类别的object。首先，我们对[YOLOv1](http://shichaoxin.com/2022/05/11/论文阅读-You-Only-Look-Once-Unified,-Real-Time-Object-Detection/)进行了优化，得到YOLOv2。然后通过我们的数据集结合方法以及联合训练算法将模型训练至支持超过9000个类别（来自ImageNet和COCO）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/1.png)
 
 代码和pre-trained的模型见：[http://pjreddie.com/yolo9000/](http://pjreddie.com/yolo9000/)。
 
@@ -33,7 +33,7 @@ tags:
 
 我们并不想通过使用更大、更深的网络来增加性能，因为这样会损失速度。最后我们优化的过程见表2：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/2.png)
 
 接下来我们来逐个看下这些优化策略。
 
@@ -53,7 +53,7 @@ tags:
 
 此外，对于每一个anchor box，我们都配备了一个条件类别概率：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/3.png)
 
 confidence的定义和算法与[YOLOv1](http://shichaoxin.com/2022/05/11/论文阅读-You-Only-Look-Once-Unified,-Real-Time-Object-Detection/)一样，即该anchor box存在object的概率。
 
@@ -77,13 +77,13 @@ $$d(\text{box},\text{centroid})=1-\text{IOU}(\text{box},\text{centroid})$$
 
 >个人理解：可以先计算每个簇内两两box的IoU的均值，然后再计算k个簇的IoU的均值。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/4.png)
 
 根据Fig2，在权衡了recall和模型复杂度后，我们最终选择了k=5。从Fig2右可以看出，聚类的结果（即the cluster centroids）和以前人为设定的anchor box维度很不一样。
 
 我们将[k-means聚类](http://shichaoxin.com/2022/03/21/机器学习基础-第三十五课-聚类之原型聚类/#2k均值算法)得到的平均IoU和其他进行了比较，见表1。表1中第三行（“Anchor Boxes”）为[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)的结果，其一共人为设定了9种不同维度的anchor box，平均IoU为60.9。当我们使用k=5时，平均IoU就达到了61.0，如果使用k=9，平均IoU更是达到了67.2。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/5.png)
 
 **Direct location prediction**
 
@@ -99,7 +99,7 @@ $$y=(t_y * h_a) - y_a$$
 
 因此，我们即要预测offset又要保证box不会移动的过远。在YOLOv2中，每个cell预测5个bounding box。每个bounding box包含5个预测值：$t_x,t_y,t_w,t_h,t_o$。我们通过逻辑回归将$t_x,t_y,t_w,t_h$的值限制在0~1之间（和[YOLOv1]()一样），如Fig3所示，假设某cell左上角在全图里的坐标为$(c_x,c_y)$，$\sigma(t_x)$可以简单的理解为$t_x \times cell.width$，同理，$\sigma(t_y)$可理解为$t_y \times cell.height$。$p_w,p_h$为先验box（其实就是聚类得到的anchor box）的宽和高，$t_x,t_y,t_w,t_h$为相对于anchor box的offset，$b_x,b_y,b_w,b_h$为预测得到的box（即经过offset的anchor box）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/6.png)
 
 这样就相当于是将预测的box和对应的anchor box限制在同一个cell里，这使得网络学习更为容易，模型也更加稳定。上一部分的Dimension Clusters和这一部分的Direct location prediction的搭配使用使得mAP提升了将近5%（69.6%到74.4%）。
 
@@ -109,7 +109,7 @@ YOLOv2得到的feature map为$13 \times 13 \times 1024$。对于large object来�
 
 我们添加了一个passthrough layer，将$26 \times 26$的卷积层和$13\times 13$的卷积层concat起来。操作流程就是，将$26 \times 26 \times 512$的feature map拆分为4个$13 \times 13 \times 512$的feature map，拆分方法见如下示意图：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/7.png)
 
 然后这4个$13 \times 13 \times 512$的feature map就可以concat为$13 \times 13 \times 2048$的feature map了。这一操作带来了1%的性能提升（74.4%到75.4%）。
 
@@ -123,21 +123,21 @@ YOLOv2得到的feature map为$13 \times 13 \times 1024$。对于large object来�
 
 这也意味着我们的模型可以预测不同尺寸的图像。尺寸越小，预测速度越快。在PASCAL VOC 2007上的测试结果见表3：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/8.png)
 
 当预测图像尺寸为$288 \times 288$时，YOLOv2可以达到90fps，并且和[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)的mAP差不多。在比较高的分辨率（$544 \times 544$）上，YOLOv2达到了SOTA的mAP（78.6%）。可视化结果见Fig4：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/9.png)
 
 **Further Experiments**
 
 在VOC 2012上训练YOLOv2，测试结果及和其他方法的比较见表4，YOLOv2的mAP和SOTA方法不相上下，但是速度却快得多。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/10.png)
 
 同样，我们也在COCO数据集上进行了训练和测试，结果见表5：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/11.png)
 
 # 3.Faster
 
@@ -153,7 +153,7 @@ YOLOv2得到的feature map为$13 \times 13 \times 1024$。对于large object来�
 
 我们将这个模型称为Darknet-19，共有19个卷积层和5个maxpooling层。具体结构见表6。Darknet-19处理一张图像只需要55亿8000万次运算，在ImageNet上，top-1精度为72.9%，top-5精度为91.2%。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/12.png)
 
 **Training for classification**
 
@@ -187,11 +187,11 @@ ImageNet的标签来自WordNet。在WordNet中，Norfolk terrier的层级关系�
 
 使用WordTree时，我们会计算每个下位词的条件概率，比如：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/13.png)
 
 如果我们想求某个节点的绝对概率，可以将其在WordTree里的路径上的条件概率相乘，比如：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/14.png)
 
 对于分类目的，我们假定图像一定包含object，即：
 
@@ -199,7 +199,7 @@ $$Pr(\text{physical object})=1$$
 
 为了验证这个方法，我们使用1000个类别的ImageNet，基于WordTree训练了一个Darknet-19模型。为了构建WordTree1k，我们将类别从1000扩充到了1369，见Fig5。在训练过程中，以Norfolk terrier为例，根据WordTree1k，其会有多个GT标签，比如Norfolk terrier、terrier、dog、mammal等。不像ImageNet，通常都使用一个softmax函数，对于WordTree1k，我们使用多个softmax函数，见Fig5（个人理解：级联softmax。比如，先用一个softmax预测该图像属于和Norfolk terrier一层的所有类别的概率，再用另一个softmax预测该图像属于和terrier一层的所有类别的概率，然后再用一个新的softmax预测图像属于和hunting dog一层的所有类别的概率，剩下的以此类推）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/15.png)
 
 使用和之前一样的训练参数，Darknet-19的top-1准确率为71.9%，top-5准确率为90.4%。尽管增加了额外的369个概念，但模型的准确率只是略有下降，并且这种方法还有一些其他的优点。比如，模型有时候可能不确定dog的品种，但其至少能以很高的置信度预测其为dog，只是dog下位词的置信度较低。
 
@@ -207,13 +207,13 @@ $$Pr(\text{physical object})=1$$
 
 >个人理解：将Fig5下所示的结构作为每个bounding box的类别概率部分，大概是这个意思：
 >
->![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/16.png)
+>![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/16.png)
 
 **Dataset combination with WordTree**
 
 我们可以通过WordTree将多个数据集合理的组合在一起。例如Fig6，我们将ImageNet和COCO数据集的标签通过WordTree合并在了一起：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv2/17.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv2/17.png)
 
 **Joint classification and detection**
 

@@ -57,7 +57,7 @@ def __init__(
 
 假设有如下手写图像：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson39/39x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson39/39x1.png)
 
 👉将图像读取成numpy array：
 
@@ -128,7 +128,7 @@ plt.scatter(imagedata[0], imagedata[1], s=100, c='red', label="Cluster 1")
 plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson39/39x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson39/39x2.png)
 
 👉使用KMeans聚类：
 
@@ -149,7 +149,7 @@ plt.scatter(X[y_kmeans == 1, 0], X[y_kmeans == 1, 1], s=100, c="blue", label="Cl
 plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson39/39x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson39/39x3.png)
 
 👉使用DBSCAN聚类：
 
@@ -163,7 +163,7 @@ plt.scatter(X[y_dbs == 1, 0], X[y_dbs == 1, 1], s=100, c="blue", label="Cluster 
 plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson39/39x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson39/39x4.png)
 
 可以看到，DBSCAN将数字1和数字8分成了两群，聚类效果要比KMeans好很多。
 

@@ -18,7 +18,7 @@ tags:
 
 使用$x^{\<t\>}$表示输入句子中的第t个单词，$y^{\<t\>}$表示输出句子中的第t个单词：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson46/46x1.png)
 
 >本文所用的方法主要来自以下两篇文献：
 >
@@ -28,11 +28,11 @@ tags:
 
 首先，使用RNN构建一个编码器（encoder，下图绿色部分），待输入序列接收完毕后，接一个RNN构建的解码器（decoder，下图紫色部分），用于输出：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson46/46x2.png)
 
 以上便是一个简单的seq2seq模型。再举另外一个seq2seq的例子：image captioning。即输入是一张图像（可以看作是一个序列），输出是对该图像的描述。我们同样使用encoder-decoder的模式来实现，将[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)作为encoder（此处去掉输出层），后接一个RNN作为decoder：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson46/46x3.png)
 
 >image captioning相关文献：
 >
@@ -52,17 +52,17 @@ Beam Search就是可以帮助我们实现这一目标的最常用的方法之一
 
 首先，我们先考虑翻译的第一个英语单词，假设我们所用的词汇表中共有10000个单词（本例中，我们忽略大小写，所有单词均使用小写）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson46/46x4.png)
 
 Beam Search的第一步我们使用如下的网络部分（绿色是编码部分，紫色是解码部分）来评估第一个单词的概率（即$P(y^{<1>} \mid x)$，$x$为输入的法语句子）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson46/46x5.png)
 
 对于Greedy Search来说，它会选出最可能的那一个单词，然后继续。而Beam Search则会考虑多个选择，我们这里假设Beam Search的参数Beam Width等于3，这就意味着Beam Search一次会考虑3个最可能的结果。假设我们最后找到的最有可能作为英语输出的第一个单词的三个选项为：in,jane,september。Beam Search会将这三个单词存入计算机内存里，以便后续使用。如果我们设置Beam Width=10，那么算法便会跟踪10个最有可能作为第一个单词的选择。所以，Beam Search的第一步就是输入法语句子到编码网络，然后解码这个网络，第一个单词对应的softmax层会输出词汇表中10000个单词的概率值，最后取前三个存起来。
 
 接下来Beam Search的第二步会针对每一个可能的第一个英语单词，考虑第二个单词是什么。为了评估输出英语句子中的第二个单词，我们使用如下神经网络的部分（假设第一个单词我们暂时选择in）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson46/46x6.png)
 
 >因为Beam Width=3，所以我们会有三个这样的网络副本。
 
@@ -76,13 +76,13 @@ $$P(y^{<1>},y^{<2>} \mid x)=P(y^{<1>} \mid x) P(y^{<2>} \mid x,y^{<1>})$$
 2. 第二个单词=is $\mid$ 第一个单词=jane
 3. 第二个单词=visits $\mid$ 第一个单词=jane
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson46/46x7.png)
 
 此外，我们不再选择september作为英语翻译结果的第一个单词。
 
 Beam Search的第三步和第二步类似：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson46/46x8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson46/46x8.png)
 
 后续步骤与之类似，不再赘述。
 

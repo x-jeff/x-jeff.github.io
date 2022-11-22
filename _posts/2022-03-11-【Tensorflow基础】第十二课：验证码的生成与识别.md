@@ -28,7 +28,7 @@ captcha = image.generate('1316') #生成1316的验证码
 image.write('1316', 'captcha/images/1316.jpg') #将生成的验证码保存为图片
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson12/12x1.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson12/12x1.jpg)
 
 ```python
 class ImageCaptcha(_Captcha):
@@ -117,7 +117,7 @@ def read_and_decode(filename):
 
 解析器首先读取解析队列，返回`serialized_example`对象，之后调用`tf.parse_single_example`操作将Example协议缓冲区（protocol buffer）解析为张量。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson12/12x2.gif)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson12/12x2.gif)
 
 在生成tfrecord时，我们将图片存为`tf.train.BytesList`的形式，也就是字符串，所以这里使用`tf.decode_raw`将原来编码为字符串类型的变量重新变回来。[`tf.cast`](http://shichaoxin.com/2020/03/26/Tensorflow基础-第四课-手写数字识别/#225统计预测结果)在这里的作用也类似，用于数据类型的转变。
 

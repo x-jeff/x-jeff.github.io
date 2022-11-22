@@ -179,7 +179,7 @@ batch, labels = generate_batch(batch_size=8, num_skips=2, skip_window=1)
 
 举个例子解释一下，数据集中前6个单词在单词表中的索引见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson13/13x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson13/13x1.png)
 
 如果以第1个单词（3081）为中心，则其上下文为第0个单词（5234）和第2个单词（12）；如果以第2个单词（12）为中心，则其上下文为第1个单词（3081）和第3个单词（6）；剩余以此类推，则此时`generate_batch`函数返回的batch为：
 
@@ -419,7 +419,7 @@ print((-a[0,:]).argsort()) #array([2, 0, 1])
 
 👉使用TSNE进行降维可视化：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson13/13x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson13/13x2.png)
 
 # 3.代码地址
 

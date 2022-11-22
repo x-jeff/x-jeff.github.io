@@ -63,15 +63,15 @@ OpenCV的两种下载方法：
 CMake官方网站：[CMake](https://cmake.org)
 
 点击`Download`进入下载页面，选择适合的`Platform`进行下载，我选择的是`Mac OS`：
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson1/1x1.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson1/1x1.jpg)
 
 但是，下载完成之后，在终端依旧无法使用cmake命令，这时需要进一步的设置：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson1/1x2.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson1/1x2.jpg)
 
 点击`How to Install For Command Line Use`，出现以下提示：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson1/1x3.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson1/1x3.jpg)
 
 选择第二种方法，在终端输入：
 
@@ -128,7 +128,7 @@ int main() {
 ```
 
 输出结果：
-![](https://github.com/x-jeff/BlogImage/raw/master/OpenCVSeries/Lesson1/1x4.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson1/1x4.jpg)
 
 OpenCV配置成功！
 

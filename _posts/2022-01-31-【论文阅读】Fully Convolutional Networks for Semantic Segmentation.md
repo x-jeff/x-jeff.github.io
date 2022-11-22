@@ -17,7 +17,7 @@ tags:
 
 可以很自然的想到定位任务的下一步应该是语义分割（semantic segmentation），其实就是每一个像素点都有一个所属的类别标签。但是之前的方法或多或少都有一些缺点，而本文提出的方法可以解决这些缺点。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/4.png)
 
 在本文中，我们提出FCN（fully convolutional network），是一种端到端、像素到像素的语义分割方法，超过了现有的顶尖算法。我们是第一个训练端到端的FCN：1）像素级别的预测；2）有监督的预训练。现有网络的全卷积版本可以预测任意大小输入的dense output。网络的训练和推理都是通过密集（dense）的前向计算和后向传播一次完成的。在网络中，上采样层（upsampling layers）通过subsampled pooling实现像素级别的预测和学习。
 
@@ -37,7 +37,7 @@ tags:
 
 我们的方法借鉴了在图像分类和迁移学习方面的成功经验。迁移学习在识别任务、检测任务、实例分割（instance segmentation）、语义分割方面都有应用。我们重新构建并fine-tune了这些分类网络，使其可以直接dense prediction，进行语义分割。
 
->![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/1.jpg)
+>![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/1.jpg)
 
 👉**Fully convolutional networks**
 
@@ -73,7 +73,7 @@ tags:
 >2. 来自3个城市，464个场景。
 >3. 407024张没有标注的图片。
 >
->![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/2.png)
+>![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/2.png)
 
 我们跨层融合特征以定义非线性局部到全局的表示，并对其进行端到端的调整。
 
@@ -117,7 +117,7 @@ $$\ell (\mathbf{x};\theta) = \sum_{ij} \ell ' (\mathbf{x}_{ij};\theta)$$
 
 典型的识别网络，例如[LeNet](http://shichaoxin.com/2020/10/13/论文阅读-Gradient-Based-Learning-Applied-to-Document-Recognition/)、[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)以及后续更深的网络框架，其输入大小都是固定的，然后产生非空间型的输出（即输出是一个类别而不是一个map）。并且这些网络全连接层的大小都是固定的，丢弃了空间坐标。但是这些全连接层也可以被视为卷积层。这样网络就可以接受任意大小的输入并输出分类图（classification maps）了。转换示意图见Fig2。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/3.png)
 
 Fig2展示了如何将全连接层转换成卷积层使其可以输出heatmap。添加层和spatial loss（如Fig1所示）可以为端到端的dense learning提供有效的机制。
 
@@ -137,7 +137,7 @@ Fig2展示了如何将全连接层转换成卷积层使其可以输出heatmap。
 
 举个例子，假设网络只有一层$2\times 2$的max pooling，且stride=2，所以有$f=2$，output map中每个点对应的感受野大小为$2\times 2$，将右下角的位置视为感受野的中心：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/5.jpeg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/5.jpeg)
 
 >这个其实有点类似[滑动窗口](http://shichaoxin.com/2020/08/23/深度学习基础-第三十三课-基于滑动窗口的目标检测算法/#2卷积的滑动窗口实现)的思想，只不过是不修改输出的维度（如果是分类模型，则输出就是$1\times C$，$C$为类别数），变为移动input，使input的每个像素点轮流作为感受野的中心。
 
@@ -150,15 +150,15 @@ shift-and-stitch这个方法会使计算成本增加$f^2$倍，但是有一个tr
 
 如果按照方式1继续下一层的卷积：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/6.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/6.jpg)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/7.png)
 
 如果按照方式2继续下一层的卷积：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/8.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/8.jpg)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/9.png)
 
 可以看到，两种策略得到的结果是一样的。
 
@@ -174,9 +174,9 @@ shift-and-stitch这个方法会使计算成本增加$f^2$倍，但是有一个tr
 
 反卷积（backwards convolution或deconvolution）是一种自然的上采样方式。通过插值+卷积的方式实现，有两种实现方式：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/10.gif)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/10.gif)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/11.gif)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/11.gif)
 
 >在网络上查阅资料时，也有人说[ZFNet](http://shichaoxin.com/2021/05/02/论文阅读-Visualizing-and-Understanding-Convolutional-Networks/#21通过反卷积网络进行可视化visualization-with-a-deconvnet)中的反卷积方法才是标准的。
 
@@ -200,7 +200,7 @@ patchwise的训练和全卷积训练都可以产生任意的分布，其计算�
 
 我们考虑了[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)（使用Caffe提供的版本）、[VGG16](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)（使用Caffe提供的版本）和[GoogLeNet](http://shichaoxin.com/2021/06/01/论文阅读-Going-deeper-with-convolutions/)（目前没有GoogLeNet的官方公开版本，所以这里我们使用自己实现的版本，在ILSVRC上获得了68.5%的top-1准确率和88.4%的top-5准确率）。在这个任务下，我们发现[VGG16](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)和[VGG19](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)有着一样的表现。对于[GoogLeNet](http://shichaoxin.com/2021/06/01/论文阅读-Going-deeper-with-convolutions/)，我们只使用了最后的loss layer，并通过去掉最后的average pooling layer提升了模型性能。对于每个分类网络模型，最后的分类层都被丢弃，并将FC层转换成卷积层。测试结果见表1：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/12.png)
 
 在表1中，我们将这三个分类模型都扩展为FCN。基于PASCAL VOC 2011验证集，我们比较了三种FCN模型的平均IoU（即mean IU）以及推理时间（取20次实验的均值，输入为$500\times 500$大小，使用的显卡为NVIDIA Tesla K40c）。我们还列出了一些其他的细节：参数层的数量、感受野的大小（rf size）以及最大步长。这些结果是基于固定学习率得到的最优结果。
 
@@ -212,11 +212,11 @@ fine-tune由分类模型转换得到的分割模型。即使是最差的模型�
 
 除了基于原有的分类模型进行改造，我们也提出了一个新的用于分割的FCN模型，见Fig3：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/13.png)
 
 Fig3也很好理解，第一行为普通的FCN结构，通过32倍上采样（即5次上采样），称为FCN-32s（第4.1部分的模型基本都属于FCN-32s）。为了能让浅层精细的信息和深层粗糙的信息结合起来，作者添加了skip。Fig3的第二行将conv7上采样一次（即2x）后和pool4相结合（可以理解为拼接在一起，二者维度是一样的），然后上采样4次（即16x），这种结构称为FCN-16s。类似的，Fig3的第三行，conv7上采样2次+pool4上采样1次+pool3拼接在一起，然后上采样3次（即8x），这样的结构称为FCN-8s。3种结构的结果见Fig4：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/14.png)
 
 FCN-32s的分割效果最差。FCN-16s稍微好一点，FCN-8s效果最优。
 
@@ -224,7 +224,7 @@ FCN-32s的分割效果最差。FCN-16s稍微好一点，FCN-8s效果最优。
 
 skip结构的加入将FCN-16s在验证集上的mean IU提升至62.4，FCN-8s在验证集上的mean IU提升至62.7。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/15.png)
 
 表2中，FCN-32s-fixed指的是只有最后一层被fine-tune，FCN-32s基于[VGG16](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)。
 
@@ -244,7 +244,7 @@ skip结构的加入将FCN-16s在验证集上的mean IU提升至62.4，FCN-8s在�
 
 👉**Patch Sampling：**如Fig5所示，全图训练和patch sampling的效果差不多（见Fig5左），但是全图训练的收敛速度更快（见Fig5右）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/16.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/16.png)
 
 👉**Class Balancing：**全卷积训练可以通过加权或采样的方法来进行类别平衡。虽然我们的类别很不平衡（大约3/4都是背景），但是我们发现类别平衡不是必要的。
 
@@ -278,11 +278,11 @@ skip结构的加入将FCN-16s在验证集上的mean IU提升至62.4，FCN-8s在�
 
 👉**PASCAL VOC：**FCN-8s在PASCAL VOC 2011和2012测试集上的表现见表3。并和之前SOTA的方法：SDS、[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)进行比较。FCN-8s取得了最高的mean IU，并且推理速度也快了很多。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/17.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/17.png)
 
 在Fig6中，基于PASCAL数据集，我们展示了我们的最优模型FCN-8s和之前SOTA的方法SDS的结果对比。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/20.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/20.png)
 
 👉**NYUDv2：**我们的测试结果基于标准的数据集：795张训练图像和654张测试图像。测试结果见表4。加入深度信息后，结果稍微变好了一点（FCN-32s RGB vs. FCN-32s RGBD）。我们也尝试了以HHA作为输入。最终，FCN-16s RGB-HHA取得了最好的结果。
 
@@ -292,11 +292,11 @@ skip结构的加入将FCN-16s在验证集上的mean IU提升至62.4，FCN-8s在�
 >* H：height above ground，离地高度。
 >* A：the angle of the local surface normal with the inferred gravity direction，局部表面法线与推断重力方向的角度。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/18.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/18.png)
 
 👉**SIFT Flow：**该数据集包含有2688张带像素标签的图像，共有33个语义类别（例如桥、山、太阳等）和3个几何类别（水平、垂直和天空）。FCN可以学习并预测两种类型标签的联合表示。结果见表5。数据集划分为2488张训练图像和200张测试图像。FCN-16s在两种标签任务中都是表现最优的。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/FCN/19.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FCN/19.png)
 
 # 6.Conclusion
 

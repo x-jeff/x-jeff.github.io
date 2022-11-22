@@ -47,7 +47,7 @@ tags:
  
 以上定义的图示举例：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BorderFollowing/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BorderFollowing/1.png)
 
 # 3.THE BORDER FOLLOWING ALGORITHM FOR TOPOLOGICAL ANALYSIS
 
@@ -59,11 +59,11 @@ tags:
 >
 >NBD：the sequential number of the current border。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BorderFollowing/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BorderFollowing/2.png)
 
 接下来确定新找到的边界的父边界。假设LNBD为找到该新边界之前上一个找到的边界的序号。序号为LNBD的边界要么是当前边界的父边界，要么和当前边界有着同一父边界：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BorderFollowing/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BorderFollowing/3.png)
 
 一些标记的规则：
 
@@ -77,7 +77,7 @@ tags:
 
 >算法的详细说明见APPENDIX I。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BorderFollowing/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BorderFollowing/4.png)
 
 接下来尝试推导一下Fig3所示的流程。假设有二值图像：
 
@@ -129,7 +129,7 @@ $$\begin{bmatrix} 0 & 0 &0 &0 &0 &0 &0 &0 &0 &0 &0 &0 \\ 0 & 0 & 1 &  1 & 1 & 1 
 
 由算法1得到的边界间的拓扑结构表示见Fig4：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/BorderFollowing/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BorderFollowing/5.png)
 
 # 4.THE BORDER FOLLOWING ALGORITHM FOR EXTRACTING ONLY THE OUTERMOST BORDERS
 

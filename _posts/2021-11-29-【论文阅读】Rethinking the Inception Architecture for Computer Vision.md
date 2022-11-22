@@ -38,11 +38,11 @@ Inception网络的计算成本也远低于[VGGNet](http://shichaoxin.com/2021/02
 
 使用较大的卷积核会造成计算成本的显著增加。例如，$5\times 5$卷积核的参数数量是$3\times 3$卷积核参数数量的$25/9=2.78$倍。但是使用大的卷积核可以捕获更多的依赖关系，因此，如果只是单纯的缩小卷积核的尺寸，会造成信息的损失，在一定程度上影响到模型性能。所以我们考虑将一个$5\times 5$的卷积层拆分为两个连续的$3\times 3$卷积层：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/1.png)
 
 这样既使用了小卷积核来降低计算量（两个$3\times 3$卷积核的参数数量为$9+9=18$，依然小于$5\times 5$卷积核的参数数量），又保证了每个输出神经元的感受野依然是$5\times 5$。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/2.png)
 
 作者还尝试了使用不同的激活函数：一、（分解为两个$3\times 3$卷积层后）第一层使用线性激活函数，第二层使用ReLU激活函数；二、两层都使用ReLU激活函数。从Fig2可以看出，第二种情况的top-1准确率更高。
 
@@ -50,13 +50,13 @@ Inception网络的计算成本也远低于[VGGNet](http://shichaoxin.com/2021/02
 
 基于3.1部分的结果，我们是否可将$3\times 3$卷积核进一步拆分成更小的卷积核呢？答案是可以的，我们在这里尝试使用$n\times 1$这种不对称的卷积核。例如，将$3\times 3$卷积核拆分为$3\times 1$和$1\times 3$两个不对称的卷积核：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/3.png)
 
 参数数量由9降为6，降低了33%。作为对比，如果将$3\times 3$卷积核拆分为两个$2\times 2$卷积核，仅将参数数量降低了11%（参数数量由9降为8）。
 
 理论上，我们可以用$1\times n$卷积核搭配$n\times 1$卷积核去拆分任意$n\times n$的卷积核，并且n越大，节省的计算成本越显著，例如inception模块可拆分为如Fig6所示：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/4.png)
 
 作者还发现，在网络的前几层使用这种拆分策略效果并不好。该拆分策略比较适用于适当大小的feature map（假设feature map的维度为$m\times m$，最好m可以位于12至20之内）。基于这种维度的feature map（$12 \leqslant m \leqslant 20$），当n=7时可以获得很好的结果。
 
@@ -72,11 +72,11 @@ Inception网络的计算成本也远低于[VGGNet](http://shichaoxin.com/2021/02
 
 CNN通常使用pooling来降低feature map的grid size（即维度）。并且在pooling层前，我们通常会进行padding+卷积的操作，以防止feature map的维度降低的太快，从而出现representational bottleneck。举个例子，假设grid size为$d\times d$，有k个卷积核（可理解为feature map的维度为$d\times d \times k$），现在想要得到$\frac{d}{2} \times \frac{d}{2} \times 2k$的维度，有两种方式降维：1）先卷积后pooling（见Fig9右图）；2）先pooling后卷积（见Fig9左图）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/5.png)
 
 对于方式1，其计算量（因为卷积操作是计算量的主要占比，所以此处只考虑卷积操作的计算量）为$2d^2 m^2 k^2$（假设padding=SAME，卷积核大小为$m\times m$，stride=1，下同）；对于方式2，其计算量为$\frac{1}{2} d^2 m^2 k^2$。很明显，方式2的计算量更小，仅为方式1的四分之一，但是方式2违背了原则1（见第2部分）。为了兼顾计算量和原则1，我们提出了以下框架：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/6.png)
 
 在Fig10右图中，我们创立了两个并行的分支：P（表示pooling层，stride=2）和C（表示卷积层，stride=2）。Fig10左图的inception模块，同样也是兼顾了计算量和原则1的一种实现方式。
 
@@ -86,23 +86,23 @@ CNN通常使用pooling来降低feature map的grid size（即维度）。并且�
 
 基于ILSVRC2012分类任务的benchmark，我们给出一种新的优化框架见Table1：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/7.png)
 
 在该框架中，标记padded的地方以及inception模块内部的padding方式均为SAME（且均用0填充）。该框架的构建也兼顾了原则4（见第2部分）。
 
 >Table1中，在3$\times $Inception的上一行，这里应该是conv padded，因为这一层的输入为$35 \times 35 \times 192$，卷积核为$3\times 3$，步长为1，如果不做padding，输出应该为$33 \times 33 \times 288$。
 >
->![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/8.png)
+>![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/8.png)
 
 我们将$7\times 7$的卷积拆分为三个$3\times 3$的卷积。该框架使用了三种inception模块：
 
-1. 见Fig5。因为inception模块内部均使用padding=SAME，所以在经历了3个inception模块后，输出维度应该是$35 \times 35 \times 768$，个人理解这里是用了一个“$3\times 3/2$”的pooling将维度最终降到了$17 \times 17 \times 768$。另一种可能：这3个inception模块的最后一个并不和Fig5完全一样，而是借用了Fig10左图的思想进行改造，以达到降维的目的，例如：![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/9.png)
-2. 见Fig6。其中，$n=7$，padding=SAME。最后也是通过一个“$3\times 3/2$”的pooling将维度降到$8 \times 8 \times 1280$。这里同样存在另一种可能性，例如：![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/10.png)
+1. 见Fig5。因为inception模块内部均使用padding=SAME，所以在经历了3个inception模块后，输出维度应该是$35 \times 35 \times 768$，个人理解这里是用了一个“$3\times 3/2$”的pooling将维度最终降到了$17 \times 17 \times 768$。另一种可能：这3个inception模块的最后一个并不和Fig5完全一样，而是借用了Fig10左图的思想进行改造，以达到降维的目的，例如：![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/9.png)
+2. 见Fig6。其中，$n=7$，padding=SAME。最后也是通过一个“$3\times 3/2$”的pooling将维度降到$8 \times 8 \times 1280$。这里同样存在另一种可能性，例如：![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/10.png)
 3. 见Fig7。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/11.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/12.png)
 
 并且，作者发现只要遵守第2部分提到的原则，网络质量就会比较稳定。虽然该框架有42层，并且计算量是[GoogLeNet](http://shichaoxin.com/2021/06/01/论文阅读-Going-deeper-with-convolutions/)的2.5倍多，但是其相比[VGGNet](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)仍然是很高效的。
 
@@ -156,7 +156,7 @@ LSR使模型的top-1和top-5错误率均下降了0.2%左右。
 
 上述3种情况得到的输出维度是一样的，计算量也差不多。将其均训练至收敛，在ILSVRC2012上的结果见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/13.png)
 
 从Table2可以看出，第3种情况的准确率已经相当接近第1种情况了。但是如果针对低分辨率的图像，只是简单的缩小网络的size可能会导致性能的大幅下滑。
 
@@ -164,7 +164,7 @@ LSR使模型的top-1和top-5错误率均下降了0.2%左右。
 
 在第6部分介绍的inception-v2的实验结果见Table3。每一行的inception-v2结构都相较前一行累加了一个新的修改。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/14.png)
 
 >个人的一些疑惑（但是并不影响理解这篇文章的核心思想）：
 >
@@ -176,11 +176,11 @@ LSR使模型的top-1和top-5错误率均下降了0.2%左右。
 
 作者将Table3最后一行最优的inception网络称之为inception-v3（即inception-v2+[RMSProp](http://shichaoxin.com/2020/03/13/深度学习基础-第十八课-RMSprop/)+LSR+BN-auxiliary）。Table3的结果是基于single-crop的，multi-crop的测试结果见Table4：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/15.png)
 
 多个模型集成的测试结果见Table5：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv3/16.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv3/16.png)
 
 评估结果统一基于ILSVRC-2012的验证集。
 

@@ -43,7 +43,7 @@ $$x\sigma (1.702x)$$
 
 我们可以使用不同的CDF（即上式中的$\sigma(\cdot)$函数）。例如，我们可以将CDF $\sigma(x)$定义为Logistic Distribution，此时我们将其称为Sigmoid Linear Unit（SiLU）：$x\sigma (x)$。此外，我们也可以将CDF定义为正态分布$\mathcal{N} (\mu,\sigma^2)$，此时$\mu,\sigma$为可学习的超参数，在我们的实验中使用$\mu=0,\sigma=1$。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GELU/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GELU/1.png)
 
 # 3.GELU EXPERIMENTS
 
@@ -61,13 +61,13 @@ $$x\sigma (1.702x)$$
 
 使用一个8层的全连接神经网络，每层128个神经元，训练50个epoch，mini-batch size=128，使用[Adam优化算法](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)。根据5k的验证集对学习率进行调整：$\{ 10^{-3},10^{-4},10^{-5} \}$，最终结果取5次（每一次对应一种权重初始化方式）运行结果的平均。Fig3显示了GELU对噪声的鲁棒性。Fig2展示了几种激活函数在使用或不使用dropout时的log loss的变化。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GELU/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GELU/2.png)
 
 ## 3.2.MNIST AUTOENCODER
 
 设置网络每层的神经元数为1000,500,250,30,250,500,1000。mini-batch size=64，使用[Adam优化算法](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)。loss使用均方误差。学习率从$10^{-3}$变化至$10^{-4}$。我们也尝试了学习率设为0.01，但是[ELUs](http://shichaoxin.com/2022/04/08/论文阅读-FAST-AND-ACCURATE-DEEP-NETWORK-LEARNING-BY-EXPONENTIAL-LINEAR-UNITS-(ELUS)/)不收敛，GELUs和[ReLUs](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#22relu函数)收敛效果很差。对比结果见Fig4：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GELU/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GELU/3.png)
 
 ## 3.3.TWITTER POS TAGGING
 
@@ -79,7 +79,7 @@ NLP中的许多数据集都相对较小，所以用于NLP的激活函数也得�
 
 对比结果见Fig5：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GELU/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GELU/4.png)
 
 >任务描述以及模型细节不再赘述，有需要的可以自行查看博文末尾的全文链接。
 
@@ -89,15 +89,15 @@ NLP中的许多数据集都相对较小，所以用于NLP的激活函数也得�
 
 在CIFAR-10数据集上，我们所用的CNN只有9层，使用了[BatchNorm](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)。模型结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GELU/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GELU/5.png)
 
 训练阶段没有使用data augmentation。学习率调整策略同第3.1部分。使用[Adam优化算法](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)，运行了200个epoch。结果见Fig6。最终，GELU的错误率为7.89%，[ReLU](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#22relu函数)的错误率为8.16%，[ELU](http://shichaoxin.com/2022/04/08/论文阅读-FAST-AND-ACCURATE-DEEP-NETWORK-LEARNING-BY-EXPONENTIAL-LINEAR-UNITS-(ELUS)/)的错误率为8.41%。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GELU/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GELU/6.png)
 
 对于CIFAR-100数据集，我们使用一个40层的[残差网络](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)。模型结构及训练细节不再赘述，结果见Fig7。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GELU/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GELU/7.png)
 
 # 4.DISCUSSION
 

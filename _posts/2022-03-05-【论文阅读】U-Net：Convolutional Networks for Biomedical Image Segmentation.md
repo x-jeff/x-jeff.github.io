@@ -17,13 +17,13 @@ tags:
 
 本文我们基于[FCN](http://shichaoxin.com/2022/01/31/论文阅读-Fully-Convolutional-Networks-for-Semantic-Segmentation/)提出一种更简洁的网络结构（见Fig1），其只需要少量的训练数据就可产生不错的分割结果。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/UNet/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/UNet/1.png)
 
 Fig1中，每个蓝色块代表一个多通道的feature map，通道的数量标注在蓝色块的上方。feature map的x,y大小标注在蓝色块的左侧。白色块表示是拷贝过来的feature map。不同颜色的箭头代表不同的操作。
 
 相比[FCN](http://shichaoxin.com/2022/01/31/论文阅读-Fully-Convolutional-Networks-for-Semantic-Segmentation/)，U-Net的一个重要修改是在上采样时，增加了feature map的通道数，方便网络将信息更好的传递到高分辨率层。U-Net呈U型结构，网络左侧的contracting path和右侧的expansive path基本是对称的。U-Net没有使用全连接层，padding方式均为[VALID](http://shichaoxin.com/2020/07/04/深度学习基础-第二十八课-卷积神经网络基础/#22valid)。U-Net可以通过overlap-tile策略对任意大小的图像进行无空隙的分割（见Fig2）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/UNet/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/UNet/2.png)
 
 通过U-Net的结构可以发现，其输出的维度是小于输入维度的。因此在Fig2中，蓝色框是输入的大小，黄色框是输出的结果。如果蓝色框里的数据不完整，则通过镜像的方式补全。这种tiling的策略对于将U-Net应用于大型图像非常重要，否则容易受到GPU内存的限制。
 
@@ -31,7 +31,7 @@ Fig1中，每个蓝色块代表一个多通道的feature map，通道的数量�
 
 对于许多细胞分割任务来说，另一个挑战是区分互相接触且属于同一类别的目标（见Fig3）。因此，我们建议使用加权loss，将互相接触的细胞分割开来的区域（即被预测为背景）应该赋予更大的loss权重。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/UNet/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/UNet/3.png)
 
 由此产生的网络适用于各种医学图像分割问题。
 
@@ -71,11 +71,11 @@ $w_c$是一个weight map，用于解决类别不平衡。$d_1$是到最近的细
 
 我们在三个不同的分割任务上测试了u-net。第一个任务是分割电子显微镜下的神经元结构。数据集示例以及我们的分割结果见Fig2。训练集有30张图像（$512\times 512$）。训练集中每幅图像都有GT。测试集误差从三个方面评估，分别是：warping error、rand error和pixel error，比较结果见表1：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/UNet/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/UNet/4.png)
 
 第二个和第三个任务是细胞分割。第二个任务使用“PhC-U373”数据集，训练集包含35张部分标记的图像，u-net的结果见Fig4的a列和b列，平均IoU达到了92%。第三个任务使用“DIC-HeLa”数据集（见Fig3和Fig4c），训练集包含20张部分标记的图像，我们方法的平均IoU达到了77.5%。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/UNet/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/UNet/5.png)
 
 # 5.Conclusion
 

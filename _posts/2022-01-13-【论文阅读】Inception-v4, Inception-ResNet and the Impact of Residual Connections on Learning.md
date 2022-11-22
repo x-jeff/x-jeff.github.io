@@ -17,9 +17,9 @@ tags:
 
 本文，我们探究了两种目前最新技术的结合：[残差连接](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)和最新版本的[Inception](http://shichaoxin.com/2021/11/29/论文阅读-Rethinking-the-Inception-Architecture-for-Computer-Vision/)。[残差连接](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)对于训练极深网络非常重要。因为Inception网络有发展的更深的趋势，所以添加[残差连接](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)可能是个不错的方案。这使得Inception在保留其计算效率的同时可以获得残差方法所带来的所有益处。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/1.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/2.png)
 
 除了直接集成外，我们还研究了Inception模块是否可以通过将其本身变得更深和更宽来变得更高效。出于此目的，我们提出了Inception-v4，相比[Inception-v3](http://shichaoxin.com/2021/11/29/论文阅读-Rethinking-the-Inception-Architecture-for-Computer-Vision/)，Inception-v4的框架更简洁且包含更多的Inception模块。之前版本的Inception框架在技术上的限制主要来自需要使用DistBelief对分布式训练模型进行划分。现在，我们使用TensorFlow以解除这种限制，这使得我们的框架可以更为简洁。在第3部分将会详细介绍这种简洁的框架。
 
@@ -47,35 +47,35 @@ tags:
 
 Inception框架是高度可调的，这意味着不同层中的filter数量可能会有很多变化，这些变化不会影响经过充分训练的网络的质量。Inception-v4的整体框架见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/3.png)
 
 Fig9中的Stem结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/4.png)
 
 Fig9中的Inception-A结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/5.png)
 
 Fig9中的Inception-B结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/6.png)
 
 Fig9中的Inception-C结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/7.png)
 
 Fig9中的Reduction-A结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/8.png)
 
 Inception-v4、Inception-ResNet-v1和Inception-ResNet-v2均使用了Reduction-A的不同变体（即不同的filter数量），详见表1。Fig7中的k,l,m,n表示filter的数量。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/9.png)
 
 Fig9中的Reduction-B结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/10.png)
 
 图中的标记“V”表示padding方式为[VALID](http://shichaoxin.com/2020/07/04/深度学习基础-第二十八课-卷积神经网络基础/#22valid)，未标记“V”则表示padding方式为[SAME](http://shichaoxin.com/2020/07/04/深度学习基础-第二十八课-卷积神经网络基础/#21same)。
 
@@ -85,51 +85,51 @@ Fig9中的Reduction-B结构见下：
 
 我们尝试了几种不同的Inception-ResNet。这里详细的介绍两种，一个是Inception-ResNet-v1（和[Inception-v3](http://shichaoxin.com/2021/11/29/论文阅读-Rethinking-the-Inception-Architecture-for-Computer-Vision/)的计算成本相近），另一个是Inception-ResNet-v2（和Inception-v4的计算成本相近）。Inception-ResNet-v1/v2的结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/11.png)
 
 Inception-ResNet-v1/v2使用的整体框架是一样的，但是组件细节不同。
 
 Inception-ResNet-v1中Stem的结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/12.png)
 
 Inception-ResNet-v1中Inception-ResNet-A的结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/13.png)
 
 Inception-ResNet-v1中Reduction-A的结构见Fig7。
 
 Inception-ResNet-v1中Inception-ResNet-B的结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/14.png)
 
 Inception-ResNet-v1中Reduction-B的结构见下（和Inception-v4使用的Reduction-B不一样）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/15.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/15.png)
 
 Inception-ResNet-v1中Inception-ResNet-C的结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/16.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/16.png)
 
 Inception-ResNet-v2中Stem的结构见Fig3（和Inception-v4的Stem一样）。
 
 Inception-ResNet-v2中Inception-ResNet-A的结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/17.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/17.png)
 
 Inception-ResNet-v2中Reduction-A的结构见Fig7。
 
 Inception-ResNet-v2中Inception-ResNet-B的结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/18.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/18.png)
 
 Inception-ResNet-v2中Reduction-B的结构见下（和Inception-ResNet-v1以及Inception-v4的Reduction-B都不相同）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/19.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/19.png)
 
 Inception-ResNet-v2中Inception-ResNet-C的结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/20.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/20.png)
 
 Inception和Inception-ResNet在实现上的另外一个不同之处：对于Inception-ResNet，我们只在顶端的传统卷积层中使用了[BN](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)。虽然所有部分都使用[BN](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)应该会更好，但是为了使单个模型在一块GPU上训练是可行的，所以才使用了这种策略。结果证明较大激活值的层占了GPU大量资源。因此我们省略部分层的[BN](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)以能够显著增加Inception block的数量。如果GPU资源充沛，就没必要采取这种策略了。
 
@@ -139,7 +139,7 @@ Inception和Inception-ResNet在实现上的另外一个不同之处：对于Ince
 
 因此我们在残差加到上一层激活值前对其进行缩小操作，这使得训练更加稳定。缩小比例通常在0.1到0.3之间。示意图见Fig20：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/21.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/21.png)
 
 我们期望这种解决办法对普通的ResNet也适用。scaling block仅缩放最后一个线性激活，缩放因子通常为0.1。
 
@@ -155,41 +155,41 @@ Inception和Inception-ResNet在实现上的另外一个不同之处：对于Ince
 
 pure Inception-v3和Inception-ResNet-v1有着近似的计算成本，在ILSVRC-2012的验证集（single crop）上，二者的top-1（Fig21）和top-5（Fig22）错误率变化趋势见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/22.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/22.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/23.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/23.png)
 
 加入残差连接之后，训练速度显著加快。类似的，Inception-v4和Inception-ResNet-v2的计算成本相近，在ILSVRC-2012的验证集（single crop）上，二者的top-1（Fig23）和top-5（Fig24）错误率变化趋势见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/24.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/24.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/25.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/25.png)
 
 加入残差连接之后，训练速度显著加快，且模型性能有微小的提升。
 
 所有以上四个模型的top-1（Fig26）和top-5（Fig25）错误率变化趋势见Fig25-26（single model+single crop）。Fig25-26展示了模型的size扩大对性能的提升。虽然加入残差连接使得收敛更快，但是模型最终的性能主要还是取绝于模型的size。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/26.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/26.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/27.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/27.png)
 
 表2是single-model+single crop的top-1和top-5错误率：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/28.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/28.png)
 
 表3是multi-crop的结果，ResNet使用10 crop，Inception使用12 crop：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/29.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/29.png)
 
 更多crop的结果：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/30.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/30.png)
 
 >dense evaluation的介绍请见：[链接](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/#32测试testing)。
 
 集成模型的结果见表5，ResNet-151使用6个模型的dense evaluation。Inception网络使用4个模型（表5第二行：四个Inception-v3，表5第三行：一个Inception-v4+三个Inception-ResNet-v2）+144 crop：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Inceptionv4/31.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Inceptionv4/31.png)
 
 # 6.Conclusions
 

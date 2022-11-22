@@ -17,7 +17,7 @@ CNN通常应用于计算机视觉领域。但近几年CNN也开始应用于自�
 
 CNN应用于NLP任务，处理的往往是以矩阵形式表达的句子或文本。矩阵中的每一行对应于一个分词元素，一般是一个单词，也可以是一个字符。假设我们一共有10个词，每个词都用128维的向量表示，那么我们就可以得到一个$10 \times 128$维的矩阵。比如：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson14/14x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson14/14x1.png)
 
 # 2.代码实现
 
@@ -273,7 +273,7 @@ x = np.array(list(vocab_processor.fit_transform(x_text)))
 
 Tensorflow提供了`VocabularyProcessor`函数用于构建词典，得到的数组`x`中的每一行对应一个句子，数字对应单词在词典中的索引，`x`的列数通常设为最长句子的单词数，单词数不足的句子用0补齐：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson14/14x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson14/14x2.png)
 
 👉将数据打乱：
 

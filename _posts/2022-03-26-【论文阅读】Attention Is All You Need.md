@@ -21,7 +21,7 @@ tags:
 
 因此本文提出一种新的框架：Transformer。完全抛弃[RNN](http://shichaoxin.com/2020/11/22/深度学习基础-第四十课-循环神经网络/)那一套理论，只依靠注意力机制来构建输入和输出之间的全局依赖关系。并且，Transformer可以很好的实现并行化且在翻译质量上达到了SOTA的水平。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/3.png)
 
 # 2.Background
 
@@ -33,7 +33,7 @@ tags:
 
 Transformer的总体框架见下（左半部分为编码器，右半部分为解码器）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/1.png)
 
 ## 3.1.Encoder and Decoder Stacks
 
@@ -45,7 +45,7 @@ Transformer的总体框架见下（左半部分为编码器，右半部分为解
 
 解码器也是由6个相同的层构成（即Fig1中右半部分，$N=6$）。每个层包含有三个子层，其中一个子层对编码器的输出执行多头注意力。和编码器一样，我们对解码器中的每个子层也都使用了[残差连接](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)和[Layer Normalization](http://shichaoxin.com/2022/03/19/论文阅读-Layer-Normalization/)。解码器中有一个子层是Masked Multi-Head Attention，是基于Multi-Head Attention修改得来的，其作用是确保位置$i$的预测只能依赖于位置小于$i$的已知输出。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/4.png)
 
 ⚠️只有编码器的最后一层和解码器的每一层相连。
 
@@ -53,7 +53,7 @@ Transformer的总体框架见下（左半部分为编码器，右半部分为解
 
 注意力功能（an attention function）可以描述为一个query和一组key-value对通过映射得到output，这里的query、keys、values和output都是向量（个人理解：句子中的每个单词都会有自己的query、key、value和output）。通过对values进行加权求和可得到output，而每一个value的权值则通过query和对应的key计算得到。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/2.png)
 
 ### 3.2.1.Scaled Dot-Product Attention
 
@@ -61,15 +61,15 @@ Transformer的总体框架见下（左半部分为编码器，右半部分为解
 
 假设注意力机制的输入为$\mathbf{x}$（假设我们的句子只有两个单词），输出为$\mathbf{z}$：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/5.png)
 
 首先我们需要将每个单词的[词嵌入向量](http://shichaoxin.com/2021/01/17/深度学习基础-第四十五课-自然语言处理与词嵌入/)（我们使用的[词嵌入向量](http://shichaoxin.com/2021/01/17/深度学习基础-第四十五课-自然语言处理与词嵌入/)的维度为$d_{model}=512$，详见第3.2.2部分）转化为我们需要的维度（即$d_k$或$d_v$，转化矩阵$W$的解释详见第3.2.2部分）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/6.png)
 
 则第一个单词的output的计算可表示为下图：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/7.png)
 
 >个人理解：$\mathbf{z}_1 = 0.88 \mathbf{v}_1 + 0.12 \mathbf{v}_2$。所以是一个单词的输出结果会考虑到序列中的所有单词。计算第二个单词的输出时会重新计算各个value的权值。
 
@@ -79,9 +79,9 @@ $$Attention(Q,K,V)=softmax\left( \frac{QK^T}{\sqrt{d_k}} \right)V \tag{1}$$
 
 用图可表示为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/8.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/9.png)
 
 有两种常见的注意力：加法注意力（additive attention）和点积注意力（dot-product (multiplicative) attention）。在理论上，两种注意力的复杂度相近，但是点积注意力可以利用矩阵乘法，所以在实际操作中，点积注意力速度更快，空间效率（space-efficient）更高。因此，我们选择使用点积注意力。
 
@@ -103,15 +103,15 @@ $W$为参数矩阵：$W_i^Q \in \mathbb{R}^{d_{model} \times d_k}, W_i^K \in \ma
 
 用图可表示为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/10.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/11.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/12.png)
 
 汇总到一张图：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/13.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/13.png)
 
 >因为有[残差连接](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)，所以子层的输入和输出维度应该保持一致。
 
@@ -121,7 +121,7 @@ $W$为参数矩阵：$W_i^Q \in \mathbb{R}^{d_{model} \times d_k}, W_i^K \in \ma
 
 Transformer通过三种不同的方式使用多头注意力，见下图的1，2，3：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/14.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/14.png)
 
 每个部分的解释见下：
 
@@ -129,13 +129,13 @@ Transformer通过三种不同的方式使用多头注意力，见下图的1，2�
 2. 编码器中包含的自注意力层（self-attention layers），其所有的keys，values和queries都来自上一层的输出。编码器中的每个位置都能注意到上一层的所有位置（个人理解：类似在第1点中提到的，“其所有的keys，values和queries都来自上一层的输出”也可以有3种方式，个人觉得应该是根据上一层的输出自行学习自己的转换矩阵）。
 3. 该自注意力层是为了让每个位置注意到该位置以及之前所有的位置，而不关注该位置之后的位置。个人理解这个Masked Multi-Head Attention主要是在训练时起作用，因为测试阶段，单词是一个接一个的被预测出来的，不存在知道后续位置信息的情况。只有在训练阶段，我们已经知道了整个翻译好的GT，所以在模拟逐个单词被翻译出来的场景时，需要屏蔽掉后续位置上的单词。Mask的处理方式为将非法连接在Scaled Dot-Product Attention中对应的softmax输出置为$-\infty$：
 
-	![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/15.png)
+	![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/15.png)
 	
-	![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/16.png)
+	![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/16.png)
 	
 后续又在网上查了一些关于Masked Multi-Head Attention的介绍，我比较赞同的一种说法是Masked Multi-Head Attention主要是为了支持训练的并行化。Transformer是一个auto-regressive的序列模型（见下图左，下图右为非auto-regressive的序列模型）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/17.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/17.png)
 
 auto-regressive的预测单词是一个接一个出来的，而非auto-regressive的预测单词是一起出来的。假如编码器的输入为“I love China”，GT为“我爱中国”，我们将GT作为解码器的输入，并行化分为5个分支：
 
@@ -153,7 +153,7 @@ auto-regressive的预测单词是一个接一个出来的，而非auto-regressiv
 
 编码器或解码器中每个层（block）除了注意力子层，还有一个全连接前馈网络（feed-forward network，FFN），这个网络分别作用于每个位置，如下图所示：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/5.png)
 
 FFN其实只有一层（共有$d_{ff}=2048$个神经元），激活函数为ReLU函数：
 
@@ -165,7 +165,7 @@ $$FFN(x) = \max (0,xW_1+b_1)W_2+b_2 \tag{2}$$
 
 和其他序列转化模型类似，我们使用学习好的[词嵌入矩阵](http://shichaoxin.com/2021/01/17/深度学习基础-第四十五课-自然语言处理与词嵌入/#3嵌入矩阵)将input tokens和output tokens转化为$d_{model}$维的向量。我们还使用了softmax来预测下一个token的概率。在两个embedding layers（下图中1，2）和pre-softmax linear transformation中（下图中3）使用同一个权重矩阵。但在embedding layers中，我们将权重矩阵乘以$\sqrt{d_{model}}$（即之前提到的[词嵌入矩阵](http://shichaoxin.com/2021/01/17/深度学习基础-第四十五课-自然语言处理与词嵌入/#3嵌入矩阵)）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/18.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/18.png)
 
 ## 3.5.Positional Encoding
 
@@ -191,7 +191,7 @@ $$PE_{pos} = PE_1 = [\sin(1/10000^{0/512}), \cos(1/10000^{0/512}), \sin(1/10000^
 
 第三点是网络中长期依赖关系之间的路径长度。在许多序列转换任务中，学习长期依赖关系是一个关键挑战。而信号在网络中穿过的路径长度是学习长期依赖关系的一个重要因素。路径越短，越容易学习长期依赖关系。因此，我们还比较了上述三种方式中任意两个输入和输出位置之间的最大路径长度。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/19.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/19.png)
 
 对比结果见表1。就计算复杂度来说，如果$n<d$，则self-attention layers比recurrent快。为了提高较长序列的计算性能，self-attention可以限制为只关注以目标位置为中心，大小为$r$的邻域。但这也会导致最大路径长度的增加。我们计划在未来的工作中进一步研究这种方式。
 
@@ -199,17 +199,17 @@ $$PE_{pos} = PE_1 = [\sin(1/10000^{0/512}), \cos(1/10000^{0/512}), \sin(1/10000^
 
 注意力的可视化：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/20.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/20.png)
 
 Fig3为编码器第5层自注意力机制长期依赖关系的一个例子。可以看到单词“making”注意到了很多距离较远的单词，完成了词组“making ... more difficult”。
 
 >并且从Fig3中可以看出序列使用了padding mask，使用标识`<pad>`将序列长度保持一致。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/21.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/21.png)
 
 Fig4也是编码器第5层，上面为第5个头的注意力可视化，下面为单词“its”的第5，6个头的注意力可视化。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/22.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/22.png)
 
 不同的注意力头可以学到不同的句子结构，见Fig5，是来自编码器第5层两个不同的头的可视化结果。
 
@@ -251,7 +251,7 @@ $$lrate = d_{model}^{-0.5} \cdot \min (step\_ num^{-0.5},step\_num \cdot warmup\
 
 ## 6.1.Machine Translation
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/23.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/23.png)
 
 在WMT 2014 English-to-German翻译任务中，我们big model（见表3）的[BLEU分数](http://shichaoxin.com/2021/03/03/深度学习基础-第四十七课-BLEU得分/)比之前最好成绩还高2.0，达到了SOTA的28.4。在8块P100 GPUs上训练了3.5天。即使是我们的base model也比之前最好的成绩要高，并且其训练成本是所有模型中最低的。
 
@@ -263,7 +263,7 @@ $$lrate = d_{model}^{-0.5} \cdot \min (step\_ num^{-0.5},step\_num \cdot warmup\
 
 为了评估Transformer模型中不同组件的重要程度，我们对base model进行了多种方式的改造，并在English-to-German翻译任务的development set，newstest2013数据集上进行性能度量。这里同样也使用了[Beam Search](http://shichaoxin.com/2021/02/23/深度学习基础-第四十六课-Beam-Search/)，参数设置和第6.1部分相同。实验结果见表3：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/24.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/24.png)
 
 表3中的A行，我们改变了头的个数以及key和value的维度。可以看出，头太多或者太少都会导致[BLEU分数](http://shichaoxin.com/2021/03/03/深度学习基础-第四十七课-BLEU得分/)的下降。
 
@@ -273,7 +273,7 @@ $$lrate = d_{model}^{-0.5} \cdot \min (step\_ num^{-0.5},step\_num \cdot warmup\
 
 为了评估Transformer是否可以推广到其他任务，我们对English Constituency Parsing任务进行了实验，本部分不再详述，结果见表4：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/Transformer/25.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/Transformer/25.png)
 
 结论就是Transformer在English Constituency Parsing任务上表现也很优异。
 

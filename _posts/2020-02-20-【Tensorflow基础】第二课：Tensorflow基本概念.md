@@ -58,7 +58,7 @@ tags:
 
 如下图所示的网络结构中，调用`Tensor_2`对象的`consumers()`函数，返回的是`[op_1,op_2]`。`Tensor_3`的op属性指向的是`op_1`。`op_1`的inputs属性指向的是`[Tensor_1,Tensor_2]`，`op_1`的outputs属性指向的是`[Tensor_3]`。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson2/2x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson2/2x2.png)
 
 ## 1.5.Feed、Fetch
 
@@ -66,7 +66,7 @@ tags:
 
 ## 1.6.例子
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson2/2x1.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson2/2x1.jpg)
 
 如上图中的例子，一个Session中有两个Graph。
 

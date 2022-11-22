@@ -15,7 +15,7 @@ tags:
 
 将数据以[结构化方式](http://shichaoxin.com/2019/03/26/Python基础-第四课-数据类型/#21结构化数据)做存储，让用户可以通过**结构化查询语言（Structured Query Language，简称SQL）**快速获取及维护数据。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson22/22x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson22/22x1.png)
 
 👉**关系数据库（relational database）**：
 
@@ -32,11 +32,11 @@ tags:
 
 数据库中含多个数据表：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson22/22x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson22/22x2.png)
 
 数据表包含的内容：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson22/22x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson22/22x3.png)
 
 # 2.SQLite
 

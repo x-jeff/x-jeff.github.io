@@ -94,7 +94,7 @@ with tf.Session() as sess:
 
 得到最终预测结果，模型准确率见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson8/8x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson8/8x5.png)
 
 # 3.`tf.nn.rnn_cell.BasicLSTMCell`
 
@@ -116,7 +116,7 @@ with tf.Session() as sess:
 
 👉`num_units`：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson8/8x1.jpeg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson8/8x1.jpeg)
 
 如上图所示，每个cell中的每一个小黄框都代表着一个前馈网络层。参数`num_units`就是这个层的隐藏神经元个数。其中第1，2，4个小黄框的激活函数是sigmoid，第3个小黄框的激活函数是tanh。
 
@@ -126,9 +126,9 @@ with tf.Session() as sess:
 
 👉`state_is_tuple`：默认为True。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson8/8x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson8/8x2.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson8/8x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson8/8x3.png)
 
 `state_is_tuple=True`返回的是一个表示state的tuple：`(c=array([[]]), h=array([[]])`。其中$c$代表cell输出的$C_t$，$h$代表cell输出的$h_t$。
 
@@ -170,7 +170,7 @@ def dynamic_rnn(cell,
 
 👉`parallel_iterations`：并行运行的迭代次数，默认为32。个人理解指的是下图中四个并行的小黄框所代表的网络的迭代次数：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson8/8x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson8/8x4.png)
 
 👉`swap_memory`：Transparently swap the tensors produced in forward inference but needed for back prop from GPU to CPU.  This allows training RNNs which would typically not fit on a single GPU, with very minimal (or no) performance penalty.
 
@@ -182,7 +182,7 @@ def dynamic_rnn(cell,
 
 举个例子说明一下，假设我们的LSTM网络只有一层，包含两个cell（即`max_time=2`）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/TensorflowSeries/Lesson8/8x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/TensorflowSeries/Lesson8/8x6.png)
 
 并且设输入的维度为[batch\_size=3,max\_time=2,embed\_size=4]，`num_units=5`。则outputs的维度应该是[batch\_size=3,max\_time=2,num\_units=5]（即$a^{<1>},a^{<2>}$），states的维度应该是[2,batch\_size=3,num\_units=5]（即$c^{<2>},a^{<2>}$）。巧合的是，因为网络只有一层，所以在这个例子中有outputs[3,2,:]=states[2,3,:]。
 

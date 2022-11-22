@@ -25,7 +25,7 @@ tags:
 
 YOLO的结构很简单，见Fig1。只依靠一个卷积网络就同时预测出多个bounding box及各box的类别概率。YOLO直接在full image上进行训练。和传统的目标检测方法相比，YOLO有多个优点。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/1.png)
 
 Fig1展示了YOLO检测的过程：1）将输入图像resize到$448 \times 448$；2）运行一个CNN；3）根据模型置信度设立阈值并输出检测结果。
 
@@ -58,7 +58,7 @@ $$\text{Pr} ( \text{Class}_i \mid \text{Object} ) * \text{Pr}(\text{Object}) * \
 
 我们在PASCAL VOC上测试了YOLO，设置$S=7,B=2$。PASCAL VOC一共有20个带标签的类别（这20个类别不包含背景），所以有$C=20$。最终输出为$7\times 7 \times 30$的tensor。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/2.png)
 
 上述流程的示意图见Fig2。最终输出的维度为$S \times S \times (B * 5 + C)$。
 
@@ -66,10 +66,10 @@ $$\text{Pr} ( \text{Class}_i \mid \text{Object} ) * \text{Pr}(\text{Object}) * \
 
 我们的网络结构受到了[GoogLeNet](http://shichaoxin.com/2021/06/01/论文阅读-Going-deeper-with-convolutions/)的启发。我们的网络有24个卷积层和2个FC层。我们并没有使用[GoogLeNet](http://shichaoxin.com/2021/06/01/论文阅读-Going-deeper-with-convolutions/)的Inception模块，我们只是简单的在$3\times 3$卷积层后接一个$1 \times 1$卷积层。网络结构见Fig3。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/3.png)
 
 >个人理解：先将$7 \times 7 \times 1024$的卷积层和$4096$的FC层相连，然后$4096$的FC层连接到一个$1470$的FC层，最后将这个$1470$的FC层再reshape成$7 \times 7 \times 30$。   
->![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/4.png)
+>![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/4.png)
 
 我们的模型在ImageNet上进行了pretrain。
 
@@ -97,13 +97,13 @@ YOLO针对每个grid cell会预测多个bounding box。在训练阶段，和GT�
 
 训练阶段，我们所用的loss function见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/5.png)
 
 其中，$\mathbb{1}\_i^{obj}$表示第$i$个grid cell内是否存在object（个人理解：存在为1，不存在为0）。$\mathbb{1}\_{ij}^{obj}$表示第$i$个grid cell中的第$j$个bounding box被选择为该object的预测结果（个人理解：如果这个bounding box负责对该object的预测，则该项为1，否则为0）。
 
 loss function的拆解见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/6.png)
 
 黄色框为localization loss，绿色框为confidence loss，蓝色框为classification loss。localization loss部分比较简单明了，每个grid cell，只考虑负责object预测的那个box。confidence loss部分，$C_i$就是该box可能包含object的概率再乘上一个和GT的IoU（见前文confidence score的定义），个人理解$\hat{C}_i$指的是如果存在object，该项就为1（这样就迫使$C_i$在预测是否有object的准确率上以及预测出来的box都朝着更准确的方向前进），否则就为0。classification loss部分，$p_i(c)$为该grid cell内的object属于每个类别的概率，$\hat{p}_i(c)$为GT，即只有一个类别为1，其他类别标记为0。
 
@@ -143,7 +143,7 @@ YOLO的局限性在于每个grid cell只能预测2个bounding box，且只能有
 
 ## 4.1.Comparison to Other Real-Time Systems
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/7.png)
 
 据我们所知，在PASCAL数据集上，Fast YOLO是最快的，并且mAP（52.7%）是其他real-time检测算法的两倍多。YOLO在保证real-time的前提下，将mAP提升至63.4%。
 
@@ -163,7 +163,7 @@ YOLO的局限性在于每个grid cell只能预测2个bounding box，且只能有
 
 20个类别的平均结果见Fig4：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/8.png)
 
 从Fig4中可以看出，YOLO在定位准确方面做的不好。[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)的localization error比YOLO低，但是background error更高（假阳率高达13.6%，是YOLO（4.75%）的将近三倍）。
 
@@ -173,7 +173,7 @@ YOLO的局限性在于每个grid cell只能预测2个bounding box，且只能有
 
 在VOC 2007 test set数据集上，最好的[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)模型达到了71.8%的mAP。当结合YOLO后，mAP提升到了75.0%。我们也尝试和其他版本的[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)进行了集成，mAP都有0.3%到0.6%的小幅提升。结果见表2：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/9.png)
 
 然而，如果只将不同版本的[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)集成却几乎得不到提升。正是因为YOLO和[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)的错误类型分布不一样，和YOLO集成才能带来性能的提升。
 
@@ -183,7 +183,7 @@ YOLO的局限性在于每个grid cell只能预测2个bounding box，且只能有
 
 在VOC 2012 test set中，YOLO达到了57.9%的mAP，低于目前SOTA的方法，和[R-CNN（VGG-16）](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)的精度接近，见表3。和精度相近的一些方法比较，YOLO难以处理小的object。比如，在bottle、sheep、tv/monitor这三个类别中，相比[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)和Feature Edit，YOLO的mAP要低上8%-10%左右。但是在其他类别，比如cat和train，YOLO的精度更高。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/10.png)
 
 [Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)+YOLO的模型表现相当不错，mAP达到了70.7%。
 
@@ -193,11 +193,11 @@ YOLO的局限性在于每个grid cell只能预测2个bounding box，且只能有
 
 结果见Fig5。在Fig5（b）中的VOC 2007列，该列所有模型都只在VOC 2007 data上进行训练，该列只给出person类别的AP。Picasso列的模型都是在VOC 2012上训练的，People-Art列的模型都是在VOC 2010上训练的。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/11.png)
 
 [R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)在VOC 2007上的AP很高，但是其在artwork上的表现却很不好。DPM在artwork上的表现还不错。YOLO在VOC 2007上的表现也很不错，并且相比其他方法，YOLO在artwork上的表现是最好的，mAP没有过多的降低。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/YOLOv1/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv1/12.png)
 
 # 5.Real-Time Detection In The Wild
 

@@ -13,7 +13,7 @@ tags:
 
 # 1.Python语法之for循环，if分支语句
 ## 1.1.for循环，if分支语句
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson2/2x1.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson2/2x1.jpg)
 （%表示取余数。）
 
 需要注意几点：
@@ -22,13 +22,13 @@ tags:
 2. for语句和if语句的后面都需要有冒号“：”。
 
 如果语句前面没有缩排（空格），python就会认为此语句和之前的for循环没有关系。例如：
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson2/2x2.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson2/2x2.jpg)
 
 相同缩排的语句在同一结构下，例如：
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson2/2x3.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson2/2x3.jpg)
 
 ## 1.2.if,elif,else
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson2/2x4.jpg)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson2/2x4.jpg)
 （python中的逻辑运算符：and、or、not。）
 
 # 2.Python语法之函数

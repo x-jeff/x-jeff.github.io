@@ -70,9 +70,9 @@ plot_estimator(clf1, X, y, "SVM")
 plot_estimator(clf2, X, y, "LogisticRegression")
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson29/29x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson29/29x1.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson29/29x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson29/29x2.png)
 
 👉设置[正则化项](http://shichaoxin.com/2021/03/27/机器学习基础-第十九课-支持向量机之软间隔与正则化/#2正则化)：
 
@@ -94,9 +94,9 @@ clf.fit(X, Y)
 plot_estimator(clf, X, Y, "narrow_margin")
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson29/29x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson29/29x3.png)
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson29/29x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson29/29x4.png)
 
 👉使用不同的[核函数](http://shichaoxin.com/2021/01/03/机器学习基础-第十八课-支持向量机之核函数/)：
 
@@ -136,7 +136,7 @@ for idx, clf, title in zip([0, 1, 2], [clf1, clf2, clf3], ['rbf', 'poly', 'linea
 plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson29/29x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson29/29x5.png)
 
 # 3.numpy数组中冒号的使用
 

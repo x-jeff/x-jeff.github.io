@@ -17,7 +17,7 @@ tags:
 
 假设有csv数据`demo.csv`，内容如下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson6/6x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson6/6x1.png)
 
 👉方法一：
 
@@ -28,7 +28,7 @@ with open('demo.csv','r') as f:
 
 输出见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson6/6x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson6/6x2.png)
 
 如果csv中有的中文无法正确识别，可加上`encoding='UTF-8'`。
 
@@ -42,7 +42,7 @@ df=pandas.read_csv('demo.csv')
 
 输出结果为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson6/6x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson6/6x3.png)
 
 可以看出结果中多出了一列，即第一列，为行号。
 
@@ -52,11 +52,11 @@ df=pandas.read_csv('demo.csv')
 
 * `df[0]`、`df[1]`均报错，因为不存在名字为0或1的列，[]里应该为列名，比如：`df['name']`，输出为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson6/6x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson6/6x4.png)
 
 * `df[0:3]`输出第0、1、2行的数据，`df[1:3]`输出第1、2行的数据。例如`df[0:3]`的输出见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson6/6x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson6/6x5.png)
 
 👉方法二：
 
@@ -71,7 +71,7 @@ df=pandas.read_csv('demo.csv')
 
 `.iloc`用**位置**选取元素，区别于`.loc`用标签选取。例如：`df.iloc[0:3,0:2]`输出第0、1、2行且第0、1列的数据，即：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson6/6x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson6/6x6.png)
 
 其中，`df.iloc[0,1]`为Tom。`df.iloc[[0,2,4]]`输出第0、2、4行的数据。
 

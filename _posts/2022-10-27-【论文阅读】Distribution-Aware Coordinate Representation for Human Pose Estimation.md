@@ -19,7 +19,7 @@ tags:
 
 对于heatmap label representation，一个弊端就是其计算成本是输入图像分辨率的二次函数，这使得CNN模型无法处理高分辨率的原始图像（个人理解：高分辨率的原始图像会导致计算成本过高）。为了降低计算成本，通常的做法是通过图像预处理将人单独裁剪出来（并且需要resize到一样的固定尺寸）作为模型的输入（见Fig1）。为了获得原始分辨率下的关节点坐标，我们还需要将heatmap预测的坐标还原到原始的坐标空间。最终的预测位置通常在heatmap中具有最大的激活值。我们把从heatmap中提取关节点坐标的过程称为coordinate decoding。但是需要注意的是，在预处理模型输入的时候（从高分辨率到低分辨率）可能会引入量化误差（quantisation error）。为了缓解这个问题，在现有的coordinate decoding过程中，通常会将预测位置从最大激活值向第二大激活值做一个位移（后文称这种方法为Standard Shifting）。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/1.png)
 
 Fig1展示了人体姿态估计系统的pipeline。为了提高效率，通常会对裁剪的人物图像以及对应的ground-truth heatmap进行下采样，即降低分辨率。因此，模型直接处理低分辨率图像。在推理阶段，关节点坐标会被恢复至原始图像分辨率（resolution recovery）。
 
@@ -121,7 +121,7 @@ $$\mathbf{\mu} = \mathbf{m} - (\mathcal{D}''(\mathbf{m}))^{-1} \mathcal{D}' (\ma
 
 因为我们的方法基于高斯分布的假设，所以我们有必要检查该假设的满足程度。我们发现，与训练的heatmap（个人理解：即ground-truth heatmap）相比，预测得到的heatmap通常不能呈现出一个良好的高斯分布结构。如Fig3所示，预测的heatmap在最大激活值附近常呈多峰分布。这可能会对我们的方法造成不好的影响。为了解决这个问题，我们建议预先修改heatmap分布。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/2.png)
 
 Fig3中，(a)为预测得到的heatmap分布，(b)为修改后的heatmap分布。
 
@@ -147,7 +147,7 @@ $$\mathbf{h}' = \frac{\mathbf{h}' - \min (\mathbf{h}')}{\max (\mathbf{h}') - \mi
 
 这些步骤都不会产生很高的计算成本，因此可以高效的嵌入现有其他模型中。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/3.png)
 
 ## 3.2.Coordinate Encoding
 
@@ -173,7 +173,7 @@ $(x,y)$为heatmap中某一像素点的坐标。
 
 显然，因为取整操作导致的量化误差（quantisation error），使其生成的heatmap是不准确且有偏差的（inaccurate and biased）（见Fig4）。这有可能导致模型学习的目标本身就是有偏差的，从而导致模型性能下降。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/4.png)
 
 Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表示准确的关节点坐标（即$\mathbf{g}'$）。如果采用向下取整的策略，则红色的箭头就代表了量化误差。其他的量化方法也存在同样的问题。
 
@@ -210,24 +210,24 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ### 4.1.1.Coordinate decoding
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/5.png)
 
 我们评估了坐标解码的效果，特别是shifting操作（即标准解码方法）和distribution modulation（即作者提出的方法）。使用常规的biased heatmap。我们首先比较了两种方法：1）无shifting操作，直接使用最大激活值；2）标准解码方法，即shifting操作（即式(1)）。我们从表1中有两个重要发现：
 
 1. 相比无shifting操作，标准解码方法将AP提升了5.7%，效果非常好。据我们所知，这是文献中首次报道的有效性分析，因为这一问题在很大程度上被以前的研究所忽视。这揭示了先前未发现的坐标解码过程对人体姿态估计的重要性。
 2. 尽管标准解码方法将性能提升了很多，但是我们的方法将AP在此基础上又提高了1.5%。这1.5%中有0.3%的提升来自distribution modulation，见表2。这验证了我们提出的解码方法的优越性。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/6.png)
 
 ### 4.1.2.Coordinate encoding
 
 我们也测试了坐标编码的有效性。我们比较了我们提出的unbiased encoding和standard biased encoding分别搭配standard decoding和我们提出的decoding方法的效果。结果见表3，我们发现无论是哪种解码方法，unbiased encoding总能带来性能上的提升（AP值的提升都大于1%）。这表明了坐标编码的重要性，而以前的研究也忽视了这一点。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/7.png)
 
 ### 4.1.3.Input resolution
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/8.png)
 
 考虑到输入图像的分辨率/大小是影响模型推理效率的一个重要因素，因此我们测试了不同输入图像大小。我们比较了我们的DARK模型（使用HRNet-W32作为backbone）和原始的HRNet-W32模型（训练阶段使用的是biased heatmap，推理阶段使用的是standard shifting）。从表4中我们有以下发现：
 
@@ -236,11 +236,11 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ### 4.1.4.Generality
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/9.png)
 
 除了SOTA的HRNet，我们还测试了另外两个具有代表性的人体姿态估计模型：SimpleBaseline和Hourglass。表5的结果表明，在大多数情况下，DARK为现有模型提供了显著的性能提升。这也表明我们的方法具有普遍的实用性。定性评估（qualitative evaluation）见Fig5。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/10.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/10.png)
 
 ### 4.1.5.Complexity
 
@@ -250,7 +250,7 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ### 4.2.1.Evaluation on COCO
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/11.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/11.png)
 
 我们将DARK方法和表现前几的方法进行了比较，这些方法有G-RMI，Integral Pose Regression，CPN，RMPE，SimpleBaseline和HRNet。表6展示了这些方法在COCO test-dev数据集上的表现。我们有以下发现：
 
@@ -266,7 +266,7 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ### 4.2.2.Evaluation on MPII
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/DistributionAware/12.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/12.png)
 
 我们在MPII验证集上比较了DARK和HRNet-W32。表7中的结果表明我们的方法通常表现更为优异。在更严格的PCKh@0.1指标下，DARK的提升幅度更大。并且，MPII的训练集比COCO小的多，这说明我们的方法适用于不同大小的训练集。
 

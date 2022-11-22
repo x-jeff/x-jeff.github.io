@@ -45,7 +45,7 @@ k-means++算法和[k-means聚类](http://shichaoxin.com/2022/03/21/机器学习�
 
 举个例子说明下k-means++初始聚类中心的选择过程，例如有8个样本见下（假设k=2）：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson38/38x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson38/38x1.png)
 
 假设随机选择样本6作为第一个初始聚类中心，依次计算剩余样本到第一个初始聚类中心的距离以及其被选中作为第二个初始聚类中心的概率：
 
@@ -57,7 +57,7 @@ k-means++算法和[k-means聚类](http://shichaoxin.com/2022/03/21/机器学习�
 
 上表中的最后一行是累加概率。k-means++并不是直接把概率最高的样本2作为第二个初始聚类中心，而是通过轮盘法选出第二个初始聚类中心。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson38/38x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson38/38x2.png)
 
 就像掷飞镖一样，靶子如上所示，通过掷飞镖的方式选择出第二个初始聚类中心，显然掷到样本1、样本2、样本3和样本4的概率是大的（其中，掷到样本2的概率是最大的），掷到这四个样本的概率高达90%，并且这4个样本正好是离第一个初始聚类中心比较远的4个点。在实际实现时，可在[0,1]范围内随机产生一个随机数，如果随机数落在[0,0.2)的区间内，则选择样本1作为第二个初始聚类中心，如果随机数落在[0.2,0.525)的区间内，则选择样本2作为第二个初始聚类中心，剩下的以此类推。
 
@@ -136,7 +136,7 @@ plt.legend()
 plt.show()
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson38/38x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson38/38x3.png)
 
 >因为画图只用了两个维度，所以有的样本看起来离所属的聚类中心并不是最近的。
 

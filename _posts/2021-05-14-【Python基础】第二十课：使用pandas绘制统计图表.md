@@ -21,7 +21,7 @@ df = pandas_datareader.DataReader('BABA', data_source='yahoo', start='2020-05-01
 print(df.head())
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson20/20x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson20/20x1.png)
 
 # 2.`pandas.DataFrame.plot()`
 
@@ -66,7 +66,7 @@ DataFrame.plot(x=None, y=None, kind='line', ax=None, subplots=False,
 df['Close'].plot(kind='line', figsize=[10, 5], title='BABA', legend=True, grid=True)
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson20/20x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson20/20x2.png)
 
 ## 2.2.绘制移动平均线
 
@@ -75,7 +75,7 @@ df['mvg30'] = df['Close'].rolling(window=30).mean()
 df[['Close', 'mvg30']].plot(kind='line', legend=True, figsize=[10, 5])
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson20/20x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson20/20x3.png)
 
 ### 2.2.1.`pandas.DataFrame.rolling()`
 
@@ -101,7 +101,7 @@ DataFrame.rolling(window, min_periods=None, center=False, win_type=None, on=None
 df.loc[df.index >= '2021-05-01', 'Volume'].plot(x='datetime', kind='bar', figsize=[10, 5], title='BABA', legend=True)
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson20/20x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson20/20x4.png)
 
 ## 2.4.饼图
 
@@ -112,7 +112,7 @@ df['fall'] = df['diff'] < 0
 df[['rise', 'fall']].sum().plot(kind='pie', figsize=[5, 5], counterclock=True, startangle=90, legend=True)
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson20/20x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson20/20x5.png)
 
 # 3.代码地址
 

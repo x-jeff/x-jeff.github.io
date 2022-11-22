@@ -129,7 +129,7 @@ df=pd.DataFrame([['Frank','M',29],['Mary','F',23],['Tom','M',35],['Ted','M',33],
 
 df的样式为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson9/9x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson9/9x1.png)
 
 新增字段名称（列名）：
 
@@ -139,13 +139,13 @@ df.columns=['name','gender','age']
 
 改完后的df样式为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson9/9x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson9/9x2.png)
 
 ### 3.1.1.快速查看DataFrame的信息
 
 👉查看df的有关信息`df.info()`：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson9/9x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson9/9x6.png)
 
 👉查看df的前几行和后几行（默认查看5行）：
 
@@ -158,7 +158,7 @@ df.tail(3) #查看后3行
 
 👉查看有关df的叙述性统计（针对连续型数据）`df.describe()`：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson9/9x7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson9/9x7.png)
 
 也可以用`df["age"].describe()['mean']`输出age属性的均值信息。
 
@@ -176,7 +176,7 @@ type=pd.Series([21,18,35])
 
 type输出为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson9/9x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson9/9x3.png)
 
 向Series中加入索引：
 
@@ -186,7 +186,7 @@ type=pd.Series([21,18,35],index=['A','B','C'])
 
 type输出为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson9/9x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson9/9x4.png)
 
 查看Series中的元素：
 
@@ -197,7 +197,7 @@ type['A'] #输出为21
 
 `type[0:2]`输出为前两行的数据：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson9/9x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson9/9x5.png)
 
 ❗️多维的Series组合在一起就成为了DataFrame。
 

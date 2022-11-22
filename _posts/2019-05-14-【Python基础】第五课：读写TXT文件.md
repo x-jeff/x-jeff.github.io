@@ -143,7 +143,7 @@ with open("temp.txt","r") as f:
 
 输出为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson5/5x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson5/5x1.png)
 
 👉`.readline()`
 
@@ -155,7 +155,7 @@ with open("temp.txt","r") as f:
 
 输出为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson5/5x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson5/5x2.png)
 
 👉`.readlines()`
 
@@ -167,7 +167,7 @@ with open("temp.txt","r") as f:
 
 输出为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson5/5x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson5/5x3.png)
 
 `hello`和`world`中间多了一个空行，这是`.readlines()`的特性，可以通过`.strip()`来删除空行：
 
@@ -179,7 +179,7 @@ with open("temp.txt","r") as f:
 
 输出为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson5/5x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson5/5x4.png)
 
 ### 2.4.1.`.strip()`
 

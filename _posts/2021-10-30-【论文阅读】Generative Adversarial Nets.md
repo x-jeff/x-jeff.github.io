@@ -34,13 +34,13 @@ $$\min \limits_{G} \  \max \limits_{D} V(D,G) = \mathbb{E}_{\mathbf x \sim p_{da
 
 更直观的解释请见图1：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GAN/1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GAN/1.png)
 
 图1中，黑色点可理解为真实样本图像，绿色实线为假的样本图像，蓝色虚线为判别模型D。最下方的横线为噪声图像$\mathbf z$，上方的横线为样本$\mathbf x$（真实样本或生成样本），中间的箭头表示一种映射关系（可理解为生成模型G）。图1(a)构建了D和G，图1(b)首先优化了模型D，紧跟着图1(c)中优化了模型G，如此迭代，直至模型D无法区分真实数据和假数据，即$D(\mathbf x)=\frac{1}{2}$。
 
 我们在优化模型D时不能总是用同样的数据集，这样容易造成过拟合。算法的详细过程见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GAN/2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GAN/2.png)
 
 可以注意到，在一次迭代里，模型D的参数可以更新k次（但是作者考虑到成本问题，设k=1），而模型G的参数只更新一次。此外，模型D的训练是梯度上升法，模型G的训练是梯度下降法。作者还使用了[momentum优化算法](http://shichaoxin.com/2020/03/05/深度学习基础-第十七课-Momentum梯度下降法/)。
 
@@ -132,7 +132,7 @@ $$C(G) = -\log(4)+2\cdot JSD(p_{data} \parallel p_g) \tag{6}$$
 
 经过训练后的模型G生成的图像见Fig2：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GAN/3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GAN/3.png)
 
 在Fig2中，每个block的前五列为模型G生成的图像，第六列为和第五列最为相似的训练数据。可以看出，生成的图像并不是训练数据的copy。Fig2(a)来自MNIST数据集，Fig2(b)来自TFD数据集，Fig2(c)和Fig2(d)来自CIFAR-10数据集。
 
@@ -148,7 +148,7 @@ GAN的优点是不再需要马尔科夫链和近似推理。
 
 # 8.maxout激活函数
 
-![](https://github.com/x-jeff/BlogImage/raw/master/AIPapers/GAN/4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GAN/4.png)
 
 maxout network可以看做是在两个相邻隐藏层之间又加入了一个激活函数层。隐藏层节点的输出表达式为：
 

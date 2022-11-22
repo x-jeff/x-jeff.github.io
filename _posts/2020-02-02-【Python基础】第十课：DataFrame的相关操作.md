@@ -23,7 +23,7 @@ df=pd.DataFrame([['Frank','M',29],['Mary','F',23],['Tom','M',35],['Ted','M',33],
 df.columns=['Name','Gender','Age']
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson10/10x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson10/10x1.png)
 
 # 2.数据的选取
 
@@ -33,11 +33,11 @@ df.columns=['Name','Gender','Age']
 
 比如现在我们需要挑选出所有男性的数据`df[df['Gender']=='M']`：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson10/10x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson10/10x2.png)
 
 其中`df['Gender']=='M'`为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson10/10x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson10/10x3.png)
 
 里面的元素均为布尔值，并且行的索引号得以保留。
 
@@ -58,7 +58,7 @@ df.columns=['Name','Gender','Age']
 
 `df['Level']=[1,2,3,4,5,6]`：新增`Level`列，该列的值依次为1,2,3,4,5,6。
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson10/10x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson10/10x4.png)
 
 ### 3.1.2.新增行
 
@@ -74,7 +74,7 @@ df.columns=['Name','Gender','Age']
 df = df.append(pd.DataFrame([{'Name':'James','Gender':'M','Age':32,'Employee':True,'Level':8}]),ignore_index=True,sort=False)
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson10/10x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson10/10x5.png)
 
 ⚠️`sort=False`指的是列标签不用重新排序（按照首字母排序）。`ignore_index=True`指的是新增的行的索引号不重新排序。
 
@@ -82,7 +82,7 @@ df = df.append(pd.DataFrame([{'Name':'James','Gender':'M','Age':32,'Employee':Tr
 df = df.append(pd.DataFrame([{'Name':'James','Gender':'M','Age':32,'Employee':True,'Level':8}]),ignore_index=False,sort=True)
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson10/10x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson10/10x6.png)
 
 ## 3.2.删除数据
 
@@ -107,7 +107,7 @@ df['UserID']=range(101,108)
 df.set_index('UserID',inplace=True)
 ```
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson10/10x7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson10/10x7.png)
 
 ❗️可以用`df.loc[101]`或者`df.iloc[0]`进行取值。
 

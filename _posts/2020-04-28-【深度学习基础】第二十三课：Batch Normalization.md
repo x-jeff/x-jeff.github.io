@@ -30,7 +30,7 @@ tags:
 
 将$z^{(i)}$转换成均值为0，方差为1的标准正态分布（前提假设：$z^{(i)}$服从正态分布）。但是有的时候，我们并不希望每个$z^{(i)}$的均值都为0，方差都为1，因为不同的分布可能会更有意义。比如对于sigmoid激活函数来说，我们可能希望$z^{(i)}$的方差更大一些，而不是全部集中在S型曲线中段近似线性的部分：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson23/23x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson23/23x1.png)
 
 因此，引进两个新的参数$\gamma,\beta$作为调整（此处的$\beta$不同于momentum中的$\beta$）：
 
@@ -48,11 +48,11 @@ $$\widetilde{z}^{(i)}=\gamma z^{(i)}_{norm} + \beta$$
 
 在第1部分我们介绍了Batch Norm在单个隐藏层中的应用，将其扩展到多层：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson23/23x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson23/23x2.png)
 
 该网络中涉及到的参数为：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson23/23x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson23/23x3.png)
 
 但是因为Batch Norm的存在，使得参数$b$失去了意义。因为$z^{[l]}=w^{[l]}a^{[l-1]}+b^{[l]}$，而Batch Norm中，$z^{[l]}$会减去其均值，此时$b^{[l]}$的作用便被消除了。所以我们可以省略掉参数$b$。$z^{[l]}$的计算简化为：$z^{[l]}=w^{[l]}a^{[l-1]}$。
 
@@ -64,7 +64,7 @@ $$\beta^{[l]} := \beta^{[l]} -\alpha d\beta^{[l]}$$
 
 ⚠️此外，通常情况下，Batch Norm通常和[mini-batch](http://shichaoxin.com/2020/02/20/深度学习基础-第十五课-mini-batch梯度下降法/)一起使用。以第一个mini-batch为例：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/DeepLearningSeries/Lesson23/23x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson23/23x4.png)
 
 其中，$X^{\\{1 \\}}$为第一个mini-batch的输入。
 

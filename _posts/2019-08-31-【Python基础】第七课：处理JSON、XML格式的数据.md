@@ -25,11 +25,11 @@ print(jd)
 
 结果见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson7/7x1.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson7/7x1.png)
 
 ❗️其中，`jd`为**字符串格式**(因为`.read()`返回的即为字符串格式)：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson7/7x2.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson7/7x2.png)
 
 将输出结果转换成**字典格式**：
 
@@ -41,7 +41,7 @@ print(dic)
 
 其中，`json.loads()`中必须放入字符串格式的数据。上述代码输出见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson7/7x3.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson7/7x3.png)
 
 将字典格式的json数据恢复成字符串类型：
 
@@ -52,7 +52,7 @@ print(jd2)
 
 结果和`jd`比对如下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson7/7x4.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson7/7x4.png)
 
 少了换行符。
 
@@ -74,13 +74,13 @@ print(df)
 
 输出为`DataFrame`格式：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson7/7x5.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson7/7x5.png)
 
 # 2.处理`XML`格式数据
 
 从[http://flash.weather.com.cn/wmaps/xml/china.xml](http://flash.weather.com.cn/wmaps/xml/china.xml)处下载中国气象网的xml数据，部分内容见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson7/7x6.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson7/7x6.png)
 
 ## 2.1.`XML`数据格式
 
@@ -124,7 +124,7 @@ root=tree.getroot()
 
 `ET.parse()`将xml文件解析成ElementTree格式文件(一个树形结构)，tree的结构见下：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson7/7x7.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson7/7x7.png)
 
 ## 2.2.2.获取根节点
 
@@ -140,7 +140,7 @@ for xx in root :
 
 `xx`依次为该根节点内的每个元素。上述代码输出为(部分)：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson7/7x8.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson7/7x8.png)
 
 也可以使用`.iter()`递归查询指定的子元素：
 
@@ -151,7 +151,7 @@ for city in root.iter('city')
 
 输出为(部分)：
 
-![](https://github.com/x-jeff/BlogImage/raw/master/PythonSeries/Lesson7/7x9.png)
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/PythonSeries/Lesson7/7x9.png)
 
 # 3.代码地址
 
