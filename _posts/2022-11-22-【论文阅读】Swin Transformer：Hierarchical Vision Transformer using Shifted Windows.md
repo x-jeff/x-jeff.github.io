@@ -99,7 +99,7 @@ Swin Transformer将标准的multi-head self attention（MSA）模块替换为了
 
 ## 3.2.Shifted Window based Self-Attention
 
-无论是标准的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)框架还是[ViT](http://shichaoxin.com/2022/09/22/论文阅读-AN-IMAGE-IS-WORTH-16X16-WORDS-TRANSFORMERS-FOR-IMAGE-RECOGNITION-AT-SCALE/)，都使用了全局自注意力，即计算了某一token和其他所有tokens之间的关系。全局计算使得计算复杂度和tokens数量呈二次相关，这导致它不适用于许多需要大量tokens进行dense prediction或使用高分辨率图像的CV任务。
+无论是标准的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)框架还是[ViT](http://shichaoxin.com/2022/09/22/论文阅读-AN-IMAGE-IS-WORTH-16X16-WORDS-TRANSFORMERS-FOR-IMAGE-RECOGNITION-AT-SCALE/)，都使用了全局自注意力，即计算了某一token和其他所有tokens之间的关系。全局计算使得计算复杂度和tokens数量呈二次相关，这导致它不适用于许多需要大量tokens进行dense prediction或使用高分辨率图像的CV任务。
 
 👉**Self-attention in non-overlapped windows**
 
