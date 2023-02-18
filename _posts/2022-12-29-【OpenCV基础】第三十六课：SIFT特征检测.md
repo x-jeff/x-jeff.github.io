@@ -139,7 +139,7 @@ $$H(x,y) = \begin{bmatrix} D_{xx}(x,y) & D_{xy}(x,y) \\ D_{yx}(x,y) & D_{yy}(x,y
 
 ## 1.3.确定关键点主方向
 
-假设经过第1.2部分之后，在高斯差分金字塔中确定了某一极值点的坐标为$(x',y',\sigma')$，设其在高斯金字塔中的坐标为$(x',y',\sigma'')$，其中$\sigma''$为高斯金字塔中最接近$\sigma'$的尺度，然后我们在高斯金字塔中尺度为$\sigma''$的那一层中以$(x',y')$为中心，$1.5\sigma''$为半径，统计范围内所有像素点的梯度方向（gradient orientation）以及梯度幅值（即模，gradient magnitude）。
+假设经过第1.2部分之后，在高斯差分金字塔中确定了某一极值点的坐标为$(x',y',\sigma')$，设其在高斯金字塔中的坐标为$(x',y',\sigma'')$，其中$\sigma^{\'\'}$为高斯金字塔中最接近$\sigma^{\'}$的尺度，然后我们在高斯金字塔中尺度为$\sigma^{\'\'}$的那一层中以$(x',y')$为中心，$1.5\sigma^{\'\'}$为半径，统计范围内所有像素点的梯度方向（gradient orientation）以及梯度幅值（即模，gradient magnitude）。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/OpenCVSeries/Lesson36/36x8.png)
 
