@@ -86,7 +86,7 @@ tags:
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HRNet/4.png)
 
 Fig3展示了一个融合3种分辨率representation的例子。其可以很容易的扩展到融合2种representation和融合4种representation。在Fig3中，输入包括3种representation：$\\{ \mathbf{R}^i_r, r=1,2,3 \\}$，$r$是分辨率索引，其对应的输出representation为$\\{\mathbf
-{R}_r^o, r=1,2,3 \\}$。每个输出representation都是三个输入representation经过处理后的总和：$\mathbf{R}_r^o=f_{1r}(\mathbf{R}_1^i)+f_{2r}(\mathbf{R}_2^i)+f_{3r}(\mathbf{R}_3^i)$。跨阶段（从阶段3到阶段4）的融合还有一个额外的输出：$\mathbf{R}_4^o=f_{14}(\mathbf{R}_1^i)+f_{24}(\mathbf{R}_2^i)+f_{34}(\mathbf{R}_3^i)$。
+{R}\_r^o, r=1,2,3 \\}$。每个输出representation都是三个输入representation经过处理后的总和：$\mathbf{R}\_r^o=f\_{1r}(\mathbf{R}\_1^i)+f\_{2r}(\mathbf{R}\_2^i)+f\_{3r}(\mathbf{R}\_3^i)$。跨阶段（从阶段3到阶段4）的融合还有一个额外的输出：$\mathbf{R}\_4^o=f\_{14}(\mathbf{R}\_1^i)+f\_{24}(\mathbf{R}\_2^i)+f\_{34}(\mathbf{R}\_3^i)$。
 
 $f_{xr}(\cdot)$的形式取决于输入分辨率索引$x$和输出分辨率索引$r$。如果$x=r$，则有$f_{xr}(\mathbf{R})=\mathbf{R}$。如果$x<r$，则$f_{xr}(\mathbf{R})$对输入representation $\mathbf{R}$进行$(r-x)$次步长为2的$3\times 3$卷积来实现下采样。比如，一次步长为2 的$3\times 3$卷积可实现2倍下采样，2个连续的步长为2的$3\times 3$卷积可以实现4倍下采样。如果$x>r$，则$f_{xr}(\mathbf{R})$通过双线性插值进行上采样，并使用$1\times 1$卷积对齐channel的数量。图见Fig3。
 
