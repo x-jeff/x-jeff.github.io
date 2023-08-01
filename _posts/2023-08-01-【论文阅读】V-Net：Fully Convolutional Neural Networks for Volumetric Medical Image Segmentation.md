@@ -85,3 +85,7 @@ CNN浅层可以捕捉局部信息，深层可以捕捉全局信息。本文的�
 # 5.Conclusion
 
 对全文的总结，不再详述。
+
+# 6.原文链接
+
+👽[V-Net：Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation](https://github.com/x-jeff/AI_Papers/blob/master/V-Net：Fully%20Convolutional%20Neural%20Networks%20for%20Volumetric%20Medical%20Image%20Segmentation.pdf)
