@@ -107,8 +107,8 @@ detector的性能对梯度的计算方式很敏感，但反而最简单的方法
 	* cubic-corrected：$[1,-8,0,8,-1]$
 2. $3 \times 3$ [Sobel](http://shichaoxin.com/2021/03/01/OpenCV基础-第十六课-Sobel算子/) masks
 3. $2 \times 2$ diagonal masks（最紧凑的2D导数mask）：
-	* $\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$
-	* $\begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}$
+	* $\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \end{pmatrix}$
+	* $\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \end{pmatrix}$
 
 最简单的$[-1,0,1]$搭配$\sigma=0$得到的结果最好。更大的mask会降低性能，并且平滑也会严重损害性能：对于高斯平滑，当FPPW为$10^{-4}$时，当$\sigma$从0变到2时，recall rate从89%降到了80%。当$\sigma = 0$时，与使用$[-1,0,1]$相比，如果使用cubic-corrected mask，$10^{-4}$ FPPW的性能降低1%，如果使用$2\times 2$ diagonal masks，性能降低1.5%。同样，使用centred的$[-1,1]$ mask也会导致1.5%的性能下降（FPPW=$10^{-4}$）。
 
@@ -136,7 +136,7 @@ Fig5展示了$10^{-4}$ FPPW下，在不同cell和block尺寸下，miss rate的�
 
 Fig5：当FPPW为$10^{-4}$时，cell、block大小和miss rate之间的关系。步长固定为block size的一半。
 
-和[SIFT](http://shichaoxin.com/2022/12/29/OpenCV基础-第三十六课-SIFT特征检测/)操作一样，在统计梯度直方图之前，会对梯度幅值做一个高斯加权（Gaussian spatial window），以降低边缘附近像素点的权重。当高斯的$\sigma=0.5 * block\_width$且FPPW为$10^{-4}$时，性能大约提升了1%。
+和[SIFT](http://shichaoxin.com/2022/12/29/OpenCV基础-第三十六课-SIFT特征检测/)操作一样，在统计梯度直方图之前，会对梯度幅值做一个高斯加权（Gaussian spatial window），以降低边缘附近像素点的权重。当高斯的$\sigma=0.5 * block\\_width$且FPPW为$10^{-4}$时，性能大约提升了1%。
 
 我们还尝试了同时使用多种不同的block，比如cell大小不同或block大小不同。当FPPW为$10^{-4}$时，性能提升了3%左右，但descriptor的size也急剧增加。
 
