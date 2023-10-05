@@ -33,7 +33,11 @@ tags:
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HOG/2.png)
 
-蓝圈像素的角度为80度，幅值为2，刚好可以把幅值2放在80对应的bin中。红圈像素的角度为10度，在0和20的正中间，所以其对应的幅值4按比例应该平均放在0和20对应的bin中，即各放入2即可。如果有像素的角度在160到180之间，则其对应的幅值就按比例分给0和160对应的bin。最终对于一个cell，就可以得到如下一个一维的直方图：
+蓝圈像素的角度为80度，幅值为2，刚好可以把幅值2放在80对应的bin中。红圈像素的角度为10度，在0和20的正中间，所以其对应的幅值4按比例应该平均放在0和20对应的bin中，即各放入2即可。如果有像素的角度在160到180之间，则其对应的幅值就按比例分给0和160对应的bin。另外一个例子：
+
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HOG/13.png)
+
+最终对于一个cell，就可以得到如下一个一维的直方图：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HOG/3.png)
 
@@ -171,6 +175,8 @@ Fig6：我们的HOG detector主要可以检测到人体轮廓（尤其是头部�
 
 检测窗口的大小是$64 \times 128$，在人物四周大约留出了16个像素的buffer。从Fig4(e)可以看出，该窗口大小性能是最好的。如果我们将buffer从16个像素降为8个像素（即检测窗口大小变为$48 \times 112$），FPPW=$10^{-4}$时的性能降低4%。如果保持窗口大小为$64 \times 128$，但增加人物的占比，也就相当于变相缩减了buffer，也会导致类似的性能损失。
 
+![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HOG/12.png)
+
 ## 6.6.Classifier
 
 默认情况下，我们使用$C=0.01$的[soft linear SVM](http://shichaoxin.com/2021/03/27/机器学习基础-第十九课-支持向量机之软间隔与正则化/)。使用[Gaussian kernel SVM](http://shichaoxin.com/2021/01/03/机器学习基础-第十八课-支持向量机之核函数/)可将FPPW在$10^{-4}$处的性能提升约3%，但也需要更多的运行时间。
@@ -197,3 +203,4 @@ Fig6：我们的HOG detector主要可以检测到人体轮廓（尤其是头部�
 
 1. [一文讲解方向梯度直方图（hog）](https://zhuanlan.zhihu.com/p/85829145)
 2. [【行人检测】miss rate versus false positives per image (FPPI) 前世今生（理论篇）](https://blog.csdn.net/weixin_38705903/article/details/109654157)
+3. [Histogram of Oriented Gradients explained using OpenCV](https://learnopencv.com/histogram-of-oriented-gradients/)
