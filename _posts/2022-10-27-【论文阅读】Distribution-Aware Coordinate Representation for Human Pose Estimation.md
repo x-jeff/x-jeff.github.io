@@ -23,11 +23,9 @@ tags:
 
 Fig1展示了人体姿态估计系统的pipeline。为了提高效率，通常会对裁剪的人物图像以及对应的ground-truth heatmap进行下采样，即降低分辨率。因此，模型直接处理低分辨率图像。在推理阶段，关节点坐标会被恢复至原始图像分辨率（resolution recovery）。
 
-尽管coordinate的encoding和decoding是模型中不可或缺的一部分，但其却很少受到重视。与目前大多研究都聚焦于设计更有效的CNN结构不同，我们揭示了coordinate representation在模型中的重要性远超预期。例如，SOTA的模型HRNet-W32在使用了Standard Shifting之后，其在COCO验证集上的AP提升了5.7%（见表1）。这种程度的性能提升已经远优于其他的一些先进优化方法。但是据我们所知，这一点从未在其他文献中得到过重视和仔细研究。
+尽管coordinate的encoding和decoding是模型中不可或缺的一部分，但其却很少受到重视。与目前大多研究都聚焦于设计更有效的CNN结构不同，我们揭示了coordinate representation在模型中的重要性远超预期。例如，SOTA的模型[HRNet-W32](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)在使用了Standard Shifting之后，其在COCO验证集上的AP提升了5.7%（见表1）。这种程度的性能提升已经远优于其他的一些先进优化方法。但是据我们所知，这一点从未在其他文献中得到过重视和仔细研究。
 
->HRNet-W32论文：Sun, K.; Xiao, B.; Liu, D.; and Wang, J. 2019. Deep high-resolution representation learning for human pose estimation. In IEEE Conference on Computer Vision and Pattern Recognition.。
-
-因此与现有的人体姿态估计研究不同，我们致力于研究关节点坐标的encoding和decoding。此外，我们还发现heatmap的分辨率是模型使用更小的输入分辨率以进行更快推理的一个主要障碍。使用HRNet-W32模型，当输入分辨率从$256 \times 192$降低到$128 \times 96$时，其在COCO验证集上的性能从74.4%降低到66.9%，尽管计算量从$7.1 \times 10^9$ FLOPs降至$1.8 \times 10^9$ FLOPs。
+因此与现有的人体姿态估计研究不同，我们致力于研究关节点坐标的encoding和decoding。此外，我们还发现heatmap的分辨率是模型使用更小的输入分辨率以进行更快推理的一个主要障碍。使用[HRNet-W32模型](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，当输入分辨率从$256 \times 192$降低到$128 \times 96$时，其在COCO验证集上的性能从74.4%降低到66.9%，尽管计算量从$7.1 \times 10^9$ FLOPs降至$1.8 \times 10^9$ FLOPs。
 
 我们对coordinate representation进行了深入研究，发现了coordinate decoding过程中的一个关键限制。虽然Standard Shifting已经取得了不错的效果，我们提出的基于分布感知的表示方式（distribution-aware representation）可以更精确的定位关节点位置（sub-pixel accuracy）。具体来说，就是用[泰勒展开](http://shichaoxin.com/2019/07/10/数学基础-第六课-梯度下降法和牛顿法/#1泰勒公式)来近似heatmap的分布信息。此外，我们发现标准方法生成ground-truth heatmap时存在量化误差，从而会影响到模型的训练和预测性能。为了解决这个问题，我们提出以sub-pixel位置为中心，通过高斯核（Gaussian kernel）生成无偏（unbiased）的heatmap。
 
@@ -198,7 +196,7 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 👉**Implementation details**
 
-针对模型训练，使用[Adam优化算法](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)。对于HRNet和Simple-Baseline，我们使用和原文一样的learning schedule和epochs。对于Hourglass模型，初始学习率调整为2.5e-4，在第90个epoch时降低至2.5e-5，在第120个epoch时降低至2.5e-6。一共执行140个epoch。在我们的实验中，使用了3种不同的input size（$128 \times 96$，$256 \times 192$，$384 \times 288$）。数据预处理方法和HRNet原文保持一致。
+针对模型训练，使用[Adam优化算法](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)。对于[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)和Simple-Baseline，我们使用和原文一样的learning schedule和epochs。对于Hourglass模型，初始学习率调整为2.5e-4，在第90个epoch时降低至2.5e-5，在第120个epoch时降低至2.5e-6。一共执行140个epoch。在我们的实验中，使用了3种不同的input size（$128 \times 96$，$256 \times 192$，$384 \times 288$）。数据预处理方法和[HRNet原文](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)保持一致。
 
 >Simple-Baseline原文：Xiao, B.; Wu, H.; and Wei, Y. 2018. Simple baselines for human pose estimation and tracking. In European Conference on Computer Vision.。
 >
@@ -206,7 +204,7 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ## 4.1.Evaluating Coordinate Representation
 
-作为这项工作的核心问题，首先研究了coordinate representation对模型性能的影响，以及其和输入图像分辨率之间的关系。在这项测试中，默认使用HRNet-W32作为backbone，input size为$128 \times 96$，在COCO验证集上进行测试。
+作为这项工作的核心问题，首先研究了coordinate representation对模型性能的影响，以及其和输入图像分辨率之间的关系。在这项测试中，默认使用[HRNet-W32](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)作为backbone，input size为$128 \times 96$，在COCO验证集上进行测试。
 
 ### 4.1.1.Coordinate decoding
 
@@ -229,7 +227,7 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/8.png)
 
-考虑到输入图像的分辨率/大小是影响模型推理效率的一个重要因素，因此我们测试了不同输入图像大小。我们比较了我们的DARK模型（使用HRNet-W32作为backbone）和原始的HRNet-W32模型（训练阶段使用的是biased heatmap，推理阶段使用的是standard shifting）。从表4中我们有以下发现：
+考虑到输入图像的分辨率/大小是影响模型推理效率的一个重要因素，因此我们测试了不同输入图像大小。我们比较了我们的DARK模型（使用[HRNet-W32](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)作为backbone）和原始的[HRNet-W32](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)模型（训练阶段使用的是biased heatmap，推理阶段使用的是standard shifting）。从表4中我们有以下发现：
 
 1. 正如预期的那样，随着输入图像尺寸的减小，模型性能不断下降，但是其推理成本也在明显下降。
 2. 在DARK的加持下，可以有效减轻模型性能的损失，特别是在输入分辨率非常小的时候。这有助于在低资源设备上部署人体姿态估计模型。
@@ -238,13 +236,13 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/9.png)
 
-除了SOTA的HRNet，我们还测试了另外两个具有代表性的人体姿态估计模型：SimpleBaseline和Hourglass。表5的结果表明，在大多数情况下，DARK为现有模型提供了显著的性能提升。这也表明我们的方法具有普遍的实用性。定性评估（qualitative evaluation）见Fig5。
+除了SOTA的[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，我们还测试了另外两个具有代表性的人体姿态估计模型：SimpleBaseline和Hourglass。表5的结果表明，在大多数情况下，DARK为现有模型提供了显著的性能提升。这也表明我们的方法具有普遍的实用性。定性评估（qualitative evaluation）见Fig5。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/10.png)
 
 ### 4.1.5.Complexity
 
-我们测试了DARK方法（HRNet-W32为backbone，输入大小为$128\times 96$）的推理效率。在Titan V GPU上，运行速度从360fps降低至320fps，降低了大约11%。我们认为这是完全可以接受的。
+我们测试了DARK方法（[HRNet-W32](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)为backbone，输入大小为$128\times 96$）的推理效率。在Titan V GPU上，运行速度从360fps降低至320fps，降低了大约11%。我们认为这是完全可以接受的。
 
 ## 4.2.Comparison to the State-of-the-Art Methods
 
@@ -252,9 +250,9 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/11.png)
 
-我们将DARK方法和表现前几的方法进行了比较，这些方法有G-RMI，Integral Pose Regression，CPN，RMPE，SimpleBaseline和HRNet。表6展示了这些方法在COCO test-dev数据集上的表现。我们有以下发现：
+我们将DARK方法和表现前几的方法进行了比较，这些方法有G-RMI，Integral Pose Regression，CPN，RMPE，SimpleBaseline和[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)。表6展示了这些方法在COCO test-dev数据集上的表现。我们有以下发现：
 
-1. 基于HRNet-W48且输入大小为$384 \times 288$的DARK模型准确率是最高的，并且计算成本只增加了一点点。尤其是和最强劲的对手（HRNet-W48，输入大小也为$384 \times 288$）比较时，DARK将AP提升了0.7%（76.2-75.5）。当和最有效率的模型（Integral Pose Regression，即GFLOPs最低）比较时，DARK（基于HRNet-W32）将AP提升了2.2%（70.0-67.8），但计算成本只有原来的16.4%（1.8/11.0 GFLOPs）。这些都表明了DARK在准确性和效率方面优于现有模型。
+1. 基于[HRNet-W48](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)且输入大小为$384 \times 288$的DARK模型准确率是最高的，并且计算成本只增加了一点点。尤其是和最强劲的对手（[HRNet-W48](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，输入大小也为$384 \times 288$）比较时，DARK将AP提升了0.7%（76.2-75.5）。当和最有效率的模型（Integral Pose Regression，即GFLOPs最低）比较时，DARK（基于[HRNet-W32](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)）将AP提升了2.2%（70.0-67.8），但计算成本只有原来的16.4%（1.8/11.0 GFLOPs）。这些都表明了DARK在准确性和效率方面优于现有模型。
 
 >G-RMI原文：Papandreou, G.; Zhu, T.; Kanazawa, N.; Toshev, A.; Tompson, J.; Bregler, C.; and Murphy, K. 2017. Towards accurate multi-person pose estimation in the wild. In IEEE Conference on Computer Vision and Pattern Recognition, 4903– 4911.。
 >
@@ -268,7 +266,7 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/12.png)
 
-我们在MPII验证集上比较了DARK和HRNet-W32。表7中的结果表明我们的方法通常表现更为优异。在更严格的PCKh@0.1指标下，DARK的提升幅度更大。并且，MPII的训练集比COCO小的多，这说明我们的方法适用于不同大小的训练集。
+我们在MPII验证集上比较了DARK和[HRNet-W32](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)。表7中的结果表明我们的方法通常表现更为优异。在更严格的PCKh@0.1指标下，DARK的提升幅度更大。并且，MPII的训练集比COCO小的多，这说明我们的方法适用于不同大小的训练集。
 
 # 5.Conclusion
 
