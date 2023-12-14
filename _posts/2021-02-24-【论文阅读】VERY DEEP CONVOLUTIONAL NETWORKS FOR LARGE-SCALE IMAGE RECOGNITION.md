@@ -53,7 +53,7 @@ VGG中所有卷积层的设置都是一样的。
 >
 >OverFeat原文：Sermanet, P., Eigen, D., Zhang, X., Mathieu, M., Fergus, R., and LeCun, Y. OverFeat: Integrated Recognition,Localization and Detection using Convolutional Networks. In Proc. ICLR, 2014.。
 
-此外，VGG配置C还使用了$1\times 1$的卷积核，借鉴自论文Lin, M., Chen, Q., and Yan, S. Network in network. In Proc. ICLR, 2014.。
+此外，VGG配置C还使用了$1\times 1$的卷积核，借鉴自[NIN](http://shichaoxin.com/2023/12/10/论文阅读-Network-In-Network/)。
 
 GoogLeNet作为ILSVRC-2014的冠军，和VGG类似，也采用了较深的网络结构以及较小的卷积核。
 

@@ -87,7 +87,7 @@ Table1中，“depth”一列指的是层数，例如inception(3a)包含了两�
 
 可根据输出维度，自行推测padding的值。Fig3中也标识了stride和padding的方式，例如$7\times 7+2(S)$指的是filter大小为$7\times 7$，步长为2，padding方式为[SAME](http://shichaoxin.com/2020/09/11/Tensorflow基础-第七课-卷积神经网络的实现/#211padding)（(V)表示padding方式为[VALID](http://shichaoxin.com/2020/09/11/Tensorflow基础-第七课-卷积神经网络的实现/#211padding)）。此外，从Fig3的网络结构中可以看出，GoogLeNet使用了[LRN(LocalRespNorm)](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/#33local-response-normalization)。
 
-GoogLeNet在softmax层之前使用了average pooling（这一做法将top1正确率提升了0.6%），这一处理方式借鉴自论文：Min Lin, Qiang Chen, and Shuicheng Yan. Network in network. CoRR, abs/1312.4400, 2013.，不同的是GoogLeNet在average pooling和softmax层之间还添加了额外的线性层（即FC层）。这一小的改动并没有对模型性能有什么影响，只是为了使用其他数据集训练时方便fine-tune。
+GoogLeNet在softmax层之前使用了average pooling（这一做法将top1正确率提升了0.6%），这一处理方式借鉴自[NIN](http://shichaoxin.com/2023/12/10/论文阅读-Network-In-Network/)，不同的是GoogLeNet在average pooling和softmax层之间还添加了额外的线性层（即FC层）。这一小的改动并没有对模型性能有什么影响，只是为了使用其他数据集训练时方便fine-tune。
 
 一方面为了避免[梯度消失/梯度爆炸](http://shichaoxin.com/2020/02/07/深度学习基础-第十三课-梯度消失和梯度爆炸/)问题，另一方面有时中间层的特征也非常具有辨识度，因此GoogLeNet在inception(4a)和inception(4d)后添加了辅助分类器（auxiliary classifiers）：
 

@@ -14,7 +14,7 @@ tags:
 
 # 1.$1\times 1$的卷积
 
-$1\times 1$的卷积（也称“network in network”）操作和我们之前介绍的卷积操作是完全一样的，只不过卷积核的维度为$1\times 1$而已。例如：
+$1\times 1$的卷积（也称[“network in network”](http://shichaoxin.com/2023/12/10/论文阅读-Network-In-Network/)）操作和我们之前介绍的卷积操作是完全一样的，只不过卷积核的维度为$1\times 1$而已。例如：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/DeepLearningSeries/Lesson31/31x1.png)
 
