@@ -30,7 +30,7 @@ tags:
 
 >PeleeNet：Robert J Wang, Xiang Li, and Charles X Ling. Pelee: A real-time object detection system on mobile devices. In Advances in Neural Information Processing Systems (NeurIPS), pages 1963–1972, 2018.
 
-我们提出的模型在GTX 1080ti上以109fps实现50% COCO AP$_{50}$，在Intel Core i9-9900K上以52fps实现40% COCO AP$_{50}$。
+我们提出的模型在GTX 1080ti上以109fps实现50% COCO AP$\_{50}$，在Intel Core i9-9900K上以52fps实现40% COCO AP$\_{50}$。
 
 # 2.Related work
 
@@ -58,7 +58,7 @@ $f$是权重更新的函数，$g_i$表示传播到第$i$个dense layer的梯度�
 
 👉**Cross Stage Partial DenseNet.**
 
-我们提出的CSPDenseNet框架中的一个阶段的结构如Fig2(b)所示。CSPDenseNet的一个阶段包括一个partial dense block和partial transition layer。在partial dense block中，将base layer沿着通道方向分成两部分：$x_0 = [x'_0,x''_0]$。前一部分直接链接到阶段尾部，后一部分正常穿过dense block。CSPDenseNet的前向传播和权重更新公式见下：
+我们提出的CSPDenseNet框架中的一个阶段的结构如Fig2(b)所示。CSPDenseNet的一个阶段包括一个partial dense block和partial transition layer。在partial dense block中，将base layer沿着通道方向分成两部分：$x_0 = [x^{'}_0,x^{''}_0]$。前一部分直接链接到阶段尾部，后一部分正常穿过dense block。CSPDenseNet的前向传播和权重更新公式见下：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/CSPNet/5.png)
 
