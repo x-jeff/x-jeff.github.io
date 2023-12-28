@@ -252,7 +252,7 @@ ViTPose遵循人体姿态估计中常见的top-down setting，即detector用于�
 
 # 5.Limitation and Discussion
 
-在本文中，我们提出了一种用于姿态估计的简单且有效的vision transformer baseline：ViTPose。尽管在结构上没有精心设计，但是ViTPose依然在MS COCO数据集上获得了SOTA的表现。但是ViTPose的潜力尚未被完全发掘，比如使用更复杂的decoders或FPN结构，都有可能使得性能被进一步提升。此外，我们相信ViTPose也可以被应用于其他姿态估计数据集，比如动物姿态估计，面部关键点检测等。未来有待进一步研究。
+在本文中，我们提出了一种用于姿态估计的简单且有效的vision transformer baseline：ViTPose。尽管在结构上没有精心设计，但是ViTPose依然在MS COCO数据集上获得了SOTA的表现。但是ViTPose的潜力尚未被完全发掘，比如使用更复杂的decoders或[FPN](http://shichaoxin.com/2023/12/19/论文阅读-Feature-Pyramid-Networks-for-Object-Detection/)结构，都有可能使得性能被进一步提升。此外，我们相信ViTPose也可以被应用于其他姿态估计数据集，比如动物姿态估计，面部关键点检测等。未来有待进一步研究。
 
 # 6.Conclusion
 
