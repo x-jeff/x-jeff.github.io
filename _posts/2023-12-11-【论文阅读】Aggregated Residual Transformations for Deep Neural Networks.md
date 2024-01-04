@@ -173,7 +173,7 @@ $$\begin{bmatrix} 1 \times 1,64 \\ 3 \times 3,64 \\ 1 \times 1, 256 \end{bmatrix
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNeXt/15.png)
 
-此外，Mask R-CNN也采用了ResNeXt，并在COCO实例分割和目标检测任务上都取得了SOTA的结果。
+此外，[Mask R-CNN](http://shichaoxin.com/2023/12/25/论文阅读-Mask-R-CNN/)也采用了ResNeXt，并在COCO实例分割和目标检测任务上都取得了SOTA的结果。
 
 # 6.Appendix
 

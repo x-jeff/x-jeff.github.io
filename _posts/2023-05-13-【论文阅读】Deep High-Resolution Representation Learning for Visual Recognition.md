@@ -31,7 +31,7 @@ tags:
 
 另一个版本为HRNetV2，它结合了所有从高分辨率到低分辨率并行流的representation。我们将其用于语义分割。在PASCAL-Context，Cityscapes以及LIP上，相比大小相近的模型，我们的方法达到了SOTA，并且计算复杂度更低。在COCO pose estimation任务中，HRNetV1和HRNetV2的性能相似，但在语义分割任务中，HRNetV2表现更好。
 
-此外，我们从HRNetV2输出的高分辨率representation中构建了一个multi-level representation，称之为HRNetV2p，并将其应用到最先进的检测框架中，这些检测框架包括[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)，Cascade R-CNN，FCOS和CenterNet。还包括一些SOTA的joint detection和实例分割框架，比如Mask R-CNN，Cascade Mask R-CNN和Hybrid Task Cascade。结果表明，我们的方法提高了检测性能，尤其是对小物体的检测性能有了显著提高。
+此外，我们从HRNetV2输出的高分辨率representation中构建了一个multi-level representation，称之为HRNetV2p，并将其应用到最先进的检测框架中，这些检测框架包括[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)，Cascade R-CNN，FCOS和CenterNet。还包括一些SOTA的joint detection和实例分割框架，比如[Mask R-CNN](http://shichaoxin.com/2023/12/25/论文阅读-Mask-R-CNN/)，Cascade Mask R-CNN和Hybrid Task Cascade。结果表明，我们的方法提高了检测性能，尤其是对小物体的检测性能有了显著提高。
 
 # 2.RELATED WORK
 
@@ -266,7 +266,7 @@ LIP数据集包含50,462张精心标注的人物图像，其中30,462张用于�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HRNet/19.png)
 
-同时，我们也使用了另外三个框架（Mask R-CNN，Cascade Mask R-CNN和Hybrid Task Cascade）来评估关节点检测和实例分割。同样是使用公共的MMDetection platform，详见表10。
+同时，我们也使用了另外三个框架（[Mask R-CNN](http://shichaoxin.com/2023/12/25/论文阅读-Mask-R-CNN/)，Cascade Mask R-CNN和Hybrid Task Cascade）来评估关节点检测和实例分割。同样是使用公共的MMDetection platform，详见表10。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HRNet/20.png)
 
