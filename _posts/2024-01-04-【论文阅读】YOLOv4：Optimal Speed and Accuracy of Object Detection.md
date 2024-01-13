@@ -2,7 +2,7 @@
 layout:     post
 title:      【论文阅读】YOLOv4：Optimal Speed and Accuracy of Object Detection
 subtitle:   YOLOv4
-date:       2023-01-04
+date:       2024-01-04
 author:     x-jeff
 header-img: blogimg/20211012.jpg
 catalog: true
