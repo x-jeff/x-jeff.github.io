@@ -390,6 +390,6 @@ DIoU-NMS则是使用DIoU替换原始NMS中的IoU。
 2. [遗传算法](https://upimg.baike.so.com/doc/5056960-5284178.html)
 3. [深度学习中的BN\_CBN\_CmBN](https://blog.csdn.net/qq_35447659/article/details/107797737)
 4. [YOLOv4 詳細解讀](https://medium.com/@_Xing_Chen_/yolov4-詳細解讀-c47a9cff40c6)
-5. [YOLO-V4: MiWRC, CmBN, DROP BLOCK, CIOU, DIOU || YOLO OBJECT DETECTION SERIES](https://www.youtube.com/watch?v=TWubpQEgiDs)
+5. [YOLO-V4: MiWRC, CmBN, DROP BLOCK, CIOU, DIOU \|\| YOLO OBJECT DETECTION SERIES](https://www.youtube.com/watch?v=TWubpQEgiDs)
 6. [YOLOv4网络详解](https://blog.csdn.net/qq_37541097/article/details/123229946)
 7. [Polynomial Rate Decay](https://serp.ai/polynomial-rate-decay/)
