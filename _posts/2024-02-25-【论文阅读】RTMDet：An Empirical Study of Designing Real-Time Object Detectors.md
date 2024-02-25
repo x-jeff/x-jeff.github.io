@@ -193,7 +193,7 @@ Standard Scale Jittering（SSJ）会对图像进行resize和crop操作，其resi
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RTMDet/10.png)
 
-特殊注意：大模型M\L\X使用的是LSJ（resize范围为$[0.1,2.0]$），而小模型S/Tiny使用的是SSJ（resize范围为$[0.5,2.0]$）。
+特殊注意：大模型M\L\X使用的是LSJ（resize范围为$[0.1,2.0]$），而小模型S\Tiny使用的是SSJ（resize范围为$[0.5,2.0]$）。
 
 ## 3.4.Extending to other tasks
 
