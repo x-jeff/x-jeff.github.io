@@ -216,9 +216,9 @@ $C$即为Fig3(a)中的$C$。表1列出了模型的大小以及理论计算复杂
 ImageNet-1K包含1.28M张训练集图像，50K张验证集图像，共分为1000个类别。评价指标使用基于single crop的top-1准确率。我们考虑了两种训练设置：
 
 * **Regular ImageNet-1K training.**
-	* optimizer使用AdamW，300个epoch使用cosine decay learning rate scheduler，20个epoch使用linear warm-up。batch size=1024，初始学习率为0.001，weight decay为0.05。在训练中，我们使用了大多数的augmentation和正则化方法，除了repeated augmentation和EMA（因为这两种方法并没有提升性能）。但是，repeated augmentation对[ViT](http://shichaoxin.com/2022/09/22/论文阅读-AN-IMAGE-IS-WORTH-16X16-WORDS-TRANSFORMERS-FOR-IMAGE-RECOGNITION-AT-SCALE/)的稳定训练是非常重要的。
+	* optimizer使用[AdamW](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)，300个epoch使用cosine decay learning rate scheduler，20个epoch使用linear warm-up。batch size=1024，初始学习率为0.001，weight decay为0.05。在训练中，我们使用了大多数的augmentation和正则化方法，除了repeated augmentation和EMA（因为这两种方法并没有提升性能）。但是，repeated augmentation对[ViT](http://shichaoxin.com/2022/09/22/论文阅读-AN-IMAGE-IS-WORTH-16X16-WORDS-TRANSFORMERS-FOR-IMAGE-RECOGNITION-AT-SCALE/)的稳定训练是非常重要的。
 * **Pre-training on ImageNet-22K and fine-tuning on ImageNet-1K.**
-	* 我们也尝试了在更大的数据集ImageNet-22K上进行预训练，该数据集包含14.2M张图像和22个类别。optimizer使用AdamW，90个epoch使用linear decay learning rate scheduler，5个epoch使用linear warm-up。batch size=4096，初始学习率为0.001，weight decay为0.01。然后在ImageNet-1K上进行fine-tune，一共fine-tune了30个epoch，batch size为1024，学习率恒为$10^{-5}$，weight decay为$10^{-8}$。
+	* 我们也尝试了在更大的数据集ImageNet-22K上进行预训练，该数据集包含14.2M张图像和22个类别。optimizer使用[AdamW](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)，90个epoch使用linear decay learning rate scheduler，5个epoch使用linear warm-up。batch size=4096，初始学习率为0.001，weight decay为0.01。然后在ImageNet-1K上进行fine-tune，一共fine-tune了30个epoch，batch size为1024，学习率恒为$10^{-5}$，weight decay为$10^{-8}$。
 
 >repeated augmentation：Elad Hoffer, Tal Ben-Nun, Itay Hubara, Niv Giladi, Torsten Hoefler, and Daniel Soudry. Augment your batch: Improving generalization through instance repetition. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 8129–8138, 2020.。
 >
@@ -249,7 +249,7 @@ ImageNet-1K包含1.28M张训练集图像，50K张验证集图像，共分为1000
 我们在COCO 2017上进行了目标检测和实例分割测试，该数据集包含118K训练图像，5K验证图像，20K test-dev图像。在验证集上进行了消融实验，在test-dev上进行了system-level的比较。对于消融实验，我们考虑了4种典型的目标检测框架（基于mmdetection）：Cascade Mask R-CNN、ATSS、RepPoints v2和Sparse RCNN。对于这4种框架，我们使用一样的settings：
 
 * multi-scale training。resize输入的大小，使短边位于480～800之间，长边最长不超过1333。
-* AdamW optimizer。初始学习率为0.0001，weight decay为0.05，batch size=16。
+* [AdamW optimizer](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)。初始学习率为0.0001，weight decay为0.05，batch size=16。
 * 3x schedule（36 epochs，分别在第27和33个epoch的时候，学习率衰减10倍）。
 
 对于system-level的比较，我们采用了：
@@ -362,7 +362,7 @@ training settings大部分遵照论文“Hugo Touvron, Matthieu Cord, Matthijs D
 
 除了第4.1部分中提到的训练细节外，还使用了gradient clipping（max norm=1）。在训练过程中，我们使用了大部分的augmentation和正则化策略，包括RandAugment、Mixup、Cutmix、random erasing和stochastic depth，但是没有使用repeated augmentation和Exponential Moving Average（EMA），因为这两种方法对提升性能没有帮助。模型越大，stochastic depth越大，比如Swin-T、Swin-S和Swin-B分别使用0.2、0.3和0.5。
 
-当在更大的分辨率上进行fine-tune的时候，optimizer使用AdamW，训练30个epoch，学习率保持不变（$10^{-5}$），weight decay为$10^{-8}$，使用和上一段中一样的augmentation和正则化策略，唯一不同的地方在于stochastic depth ratio设为0.1。
+当在更大的分辨率上进行fine-tune的时候，optimizer使用[AdamW](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)，训练30个epoch，学习率保持不变（$10^{-5}$），weight decay为$10^{-8}$，使用和上一段中一样的augmentation和正则化策略，唯一不同的地方在于stochastic depth ratio设为0.1。
 
 👉**ImageNet-22K pre-training**
 
@@ -374,7 +374,7 @@ training settings大部分遵照论文“Hugo Touvron, Matthieu Cord, Matthijs D
 
 ## 6.A2.3.Semantic segmentation on ADE20K
 
-在训练时，optimizer使用AdamW，初始学习率为$6\times 10^{-5}$，weight decay为0.01，linear learning rate decay，linear warmup（1500次迭代）。使用8块GPU，每块GPU处理2张图像，迭代160K次。至于augmentations，我们采用mmsegmentation中的默认设置，包括random horizontal flipping、random re-scaling within ratio range [0.5, 2.0]和random photometric distortion。对于所有的Swin Transformer模型，stochastic depth ratio都为0.2。Swin-T，Swin-S与之前的方法一样，在标准设置上进行训练，输入大小为$512 \times 512$。带有$\mathop{}_{+}^{+}$的Swin-B和Swin-L两个模型在ImageNet-22K上进行预训练，输入大小为$640 \times 640$。
+在训练时，optimizer使用[AdamW](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)，初始学习率为$6\times 10^{-5}$，weight decay为0.01，linear learning rate decay，linear warmup（1500次迭代）。使用8块GPU，每块GPU处理2张图像，迭代160K次。至于augmentations，我们采用mmsegmentation中的默认设置，包括random horizontal flipping、random re-scaling within ratio range [0.5, 2.0]和random photometric distortion。对于所有的Swin Transformer模型，stochastic depth ratio都为0.2。Swin-T，Swin-S与之前的方法一样，在标准设置上进行训练，输入大小为$512 \times 512$。带有$\mathop{}_{+}^{+}$的Swin-B和Swin-L两个模型在ImageNet-22K上进行预训练，输入大小为$640 \times 640$。
 
 在推理阶段，使用multi-scale test，即测试图像的分辨率分别调整为训练图像分辨率的$[0.5, 0.75, 1.0, 1.25, 1.5, 1.75]$倍。训练集和验证集被用于训练，在测试集上进行评估。
 
@@ -390,7 +390,7 @@ training settings大部分遵照论文“Hugo Touvron, Matthieu Cord, Matthijs D
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SwinTransformer/21.png)
 
-表9比较了在COCO目标检测任务中，以ResNe(X)t作为backbones时，AdamW和SGD之间的区别。比较基于Cascade Mask R-CNN框架。该框架默认的optimizer是SGD，但我们发现使用AdamW作为optimizer通常可以提升其性能，尤其是对于小一点的backbones。因此，在和Swin Transformer比较时，我们使用AdamW作为ResNe(X)t backbones的optimizer。
+表9比较了在COCO目标检测任务中，以ResNe(X)t作为backbones时，[AdamW](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)和SGD之间的区别。比较基于Cascade Mask R-CNN框架。该框架默认的optimizer是SGD，但我们发现使用[AdamW](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)作为optimizer通常可以提升其性能，尤其是对于小一点的backbones。因此，在和Swin Transformer比较时，我们使用[AdamW](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)作为ResNe(X)t backbones的optimizer。
 
 ## 6.A3.3.Swin MLP-Mixer
 

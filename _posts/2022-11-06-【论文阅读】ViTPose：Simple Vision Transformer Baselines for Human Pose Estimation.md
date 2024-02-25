@@ -168,15 +168,13 @@ $L_{t \to s}^{td}$表示的是token distillation loss，$L_{t \to s}^{tod}$表�
 
 ## 4.1.Implementation details
 
-ViTPose遵循人体姿态估计中常见的top-down setting，即detector用于检测person instances，ViTPose用于检测instances的关节点。我们分别使用[ViT-B，ViT-L，ViT-H](http://shichaoxin.com/2022/09/22/论文阅读-AN-IMAGE-IS-WORTH-16X16-WORDS-TRANSFORMERS-FOR-IMAGE-RECOGNITION-AT-SCALE/#41setup)作为backbones，并将相应的模型表示为ViTPose-B，ViTPose-L，ViTPose-H。模型基于mmpose codebase，在8块A100 GPU上进行训练。使用MAE对backbones进行预训练。使用mmpose中的默认训练设置来训练ViTPose模型，即，输入分辨率为$256 \times 192$，AdamW optimizer（学习率为5e-4）。Udp被用于后处理。模型一共训练了210个epochs，其中在第170和200个epoch时学习率衰减10倍。此外，我们还对每个模型都使用了layer-wise learning rate decay（一种对学习率逐层修正的策略）和drop path（将深度学习网络中的多分支结构随机删除的一种正则化方法）。经过我们的实验，在表1中列出了最优的参数设置：
+ViTPose遵循人体姿态估计中常见的top-down setting，即detector用于检测person instances，ViTPose用于检测instances的关节点。我们分别使用[ViT-B，ViT-L，ViT-H](http://shichaoxin.com/2022/09/22/论文阅读-AN-IMAGE-IS-WORTH-16X16-WORDS-TRANSFORMERS-FOR-IMAGE-RECOGNITION-AT-SCALE/#41setup)作为backbones，并将相应的模型表示为ViTPose-B，ViTPose-L，ViTPose-H。模型基于mmpose codebase，在8块A100 GPU上进行训练。使用MAE对backbones进行预训练。使用mmpose中的默认训练设置来训练ViTPose模型，即，输入分辨率为$256 \times 192$，[AdamW optimizer](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)（学习率为5e-4）。Udp被用于后处理。模型一共训练了210个epochs，其中在第170和200个epoch时学习率衰减10倍。此外，我们还对每个模型都使用了layer-wise learning rate decay（一种对学习率逐层修正的策略）和drop path（将深度学习网络中的多分支结构随机删除的一种正则化方法）。经过我们的实验，在表1中列出了最优的参数设置：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViTPose/3.png)
 
 表1中列出了训练ViTPose的最优超参数，其中，斜杠前的参数表示仅在MS COCO数据集上训练，斜杠后的参数表示在multi-dataset上训练。
 
 >mmpose codebase：M. Contributors. Openmmlab pose estimation toolbox and benchmark. [https://github.com/open-mmlab/mmpose](https://github.com/open-mmlab/mmpose), 2020.。
->
->AdamW optimizer：S. J. Reddi, S. Kale, and S. Kumar. On the convergence of adam and beyond. In International Conference on Learning Representations, 2018.。
 >
 >Udp：J. Huang, Z. Zhu, F. Guo, and G. Huang. The devil is in the details: Delving into unbiased data processing for human pose estimation. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), June 2020.。
 >

@@ -73,11 +73,11 @@ Darknet-53每秒执行的浮点数计算（floating point operations）是最多
 
 # 3.How We Do
 
-YOLOv3的结果相当好，见表3。使用了COCO中各种奇怪的AP指标作为评价标准，YOLOv3和SSD变体的性能相近，但速度快了3倍。但YOLOv3的性能远落后于RetinaNet。
+YOLOv3的结果相当好，见表3。使用了COCO中各种奇怪的AP指标作为评价标准，YOLOv3和SSD变体的性能相近，但速度快了3倍。但YOLOv3的性能远落后于[RetinaNet](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv3/6.png)
 
-但是如果我们看一些老的常用的AP指标，例如$AP_{50}$（即IoU阈值为0.5时的mAP），YOLOv3的性能还是非常不错的，其和RetinaNet性能相当，且远优于SSD变体。但是当IoU的阈值变大时，例如$AP_{75}$，YOLOv3的性能会出现大幅的下滑。
+但是如果我们看一些老的常用的AP指标，例如$AP_{50}$（即IoU阈值为0.5时的mAP），YOLOv3的性能还是非常不错的，其和[RetinaNet](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)性能相当，且远优于SSD变体。但是当IoU的阈值变大时，例如$AP_{75}$，YOLOv3的性能会出现大幅的下滑。
 
 之前的YOLO版本对小目标的检测并不好，但是YOLOv3对这一缺点进行了改进。$AP_S,AP_M,AP_L$分别代表对小型目标、中型目标、大型目标的检测结果。从表3中可以看到，YOLOv3在小目标检测上的结果还算可以，但是其检测精度依然远低于对中型目标和大型目标的检测精度。
 
@@ -95,7 +95,7 @@ YOLOv3的结果相当好，见表3。使用了COCO中各种奇怪的AP指标作�
 
 **Focal loss.**
 
-我们尝试使用focal loss，导致mAP下降了2个百分点。
+我们尝试使用[focal loss](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)，导致mAP下降了2个百分点。
 
 **Dual IOU thresholds and truth assignment.**
 
