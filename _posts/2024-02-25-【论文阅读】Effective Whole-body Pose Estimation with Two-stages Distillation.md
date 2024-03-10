@@ -13,15 +13,13 @@ tags:
 
 # 1.Introduction
 
-whole-body pose estimation是一个很重要的课题，目前的一些流行算法，比如OpenPose和MediaPipe，其性能并不能令人满意。和只检测body-only keypoints相比，whole-body pose estimation面临着更多的挑战：
+whole-body pose estimation是一个很重要的课题，目前的一些流行算法，比如[OpenPose](http://shichaoxin.com/2024/03/10/论文阅读-OpenPose-Realtime-Multi-Person-2D-Pose-Estimation-using-Part-Affinity-Fields/)和MediaPipe，其性能并不能令人满意。和只检测body-only keypoints相比，whole-body pose estimation面临着更多的挑战：
 
 1. 更加细粒度的关节点定位。
 2. 手部和脸部的低分辨率。
 3. 针对多人检测时的身体部位匹配问题，尤其是对于遮挡和复杂的手部姿势。
 4. 数据量不够的限制，尤其是全身图像且有不同的手部和头部姿态。
 
->OpenPose：Zhe Cao, Gines Hidalgo, Tomas Simon, Shih-En Wei, and Yaser Sheikh. Openpose: realtime multi-person 2d pose estimation using part affinity fields. IEEE Transactions on Pattern Analysis and Machine Intelligence, 43(1):172–186, 2021.
->
 >MediaPipe：
 >
 >* Camillo Lugaresi, Jiuqiang Tang, Hadon Nash, Chris Mc-Clanahan, Esha Uboweja, Michael Hays, Fan Zhang, Chuo-Ling Chang, Ming Guang Yong, Juhyun Lee, et al. Mediapipe: A framework for building perception pipelines. arXiv preprint arXiv:1906.08172, 2019.
@@ -133,7 +131,7 @@ $$L_{s2} = \gamma L_{logit} \tag{7}$$
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DWPose/4.png)
 
-和OpenPose、MediaPipe的比较见Fig4。
+和[OpenPose](http://shichaoxin.com/2024/03/10/论文阅读-OpenPose-Realtime-Multi-Person-2D-Pose-Estimation-using-Part-Affinity-Fields/)、MediaPipe的比较见Fig4。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DWPose/5.png)
 
@@ -177,7 +175,7 @@ $$L_{s2} = \gamma L_{logit} \tag{7}$$
 
 ## 5.7.Better Pose, Better Image Generation
 
-最近，可控的图像生成取得了巨大进展。对于人物图像生成，精确的骨骼框架至关重要。主流技术，比如ControlNet，通常依赖OpenPose来产生人体姿态。但是如表1所示，OpenPose只有44.2%的AP，还有巨大的提升空间。因此，我们将ControlNet中的OpenPose替换为了DWPose。利用top-down方式，我们先用[YOLOX](http://shichaoxin.com/2024/01/19/论文阅读-YOLOX-Exceeding-YOLO-Series-in-2021/)检测到人物，然后用DWPose检测关节点。比较结果见Fig5。
+最近，可控的图像生成取得了巨大进展。对于人物图像生成，精确的骨骼框架至关重要。主流技术，比如ControlNet，通常依赖[OpenPose](http://shichaoxin.com/2024/03/10/论文阅读-OpenPose-Realtime-Multi-Person-2D-Pose-Estimation-using-Part-Affinity-Fields/)来产生人体姿态。但是如表1所示，[OpenPose](http://shichaoxin.com/2024/03/10/论文阅读-OpenPose-Realtime-Multi-Person-2D-Pose-Estimation-using-Part-Affinity-Fields/)只有44.2%的AP，还有巨大的提升空间。因此，我们将ControlNet中的[OpenPose](http://shichaoxin.com/2024/03/10/论文阅读-OpenPose-Realtime-Multi-Person-2D-Pose-Estimation-using-Part-Affinity-Fields/)替换为了DWPose。利用top-down方式，我们先用[YOLOX](http://shichaoxin.com/2024/01/19/论文阅读-YOLOX-Exceeding-YOLO-Series-in-2021/)检测到人物，然后用DWPose检测关节点。比较结果见Fig5。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DWPose/12.png)
 

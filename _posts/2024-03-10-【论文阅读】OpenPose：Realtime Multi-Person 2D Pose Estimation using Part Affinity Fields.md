@@ -93,7 +93,7 @@ $$\mathbf{S}_j^* (\mathbf{p}) = \max _k \mathbf{S}_{j,k}^* (\mathbf{p}) \tag{8}$
 
 PAF则解决了这些限制。PAF保留了limb支持区域的位置和方向信息（如Fig5(c)所示）。每一个PAF都是一个limb的2D向量域，如Fig1下右所示。2D向量域中的每个小向量都从limb的一端指向另一端。
 
-考虑如下图所示的limb。用$x_{j_1,k},x_{j_2,k}$表示关节点的GT位置，$k$表示图像中的第$k$个人，$j_1,j_2$为limb $c$所连接的两个关节点。如果点$p$位于limb区域内，则该点的GT 2D向量表示为$\mathbf{L}_{c,k}^* (\mathbf{p})$，其是一个单位向量，方向从$j_1$指向$j_2$。而在非limb区域的点都设为零向量。
+考虑如下图所示的limb。用$x_{j_1,k},x_{j_2,k}$表示关节点的GT位置，$k$表示图像中的第$k$个人，$j_1,j_2$为limb $c$所连接的两个关节点。如果点$\mathbf{p}$位于limb区域内，则该点的GT 2D向量表示为$\mathbf{L}_{c,k}^* (\mathbf{p})$，其是一个单位向量，方向从$j_1$指向$j_2$。而在非limb区域的点都设为零向量。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/OpenPose/7.png)
 
@@ -101,11 +101,11 @@ PAF则解决了这些限制。PAF保留了limb支持区域的位置和方向信�
 
 $$\mathbf{L}_{c,k}^* (\mathbf{p}) = \begin{cases} \mathbf{v}, & \text{if p on limb c,k} \\ 0, & \text{otherwise} \end{cases} \tag{9}$$
 
-其中，$\mathbf{v} = (x_{j_2,k} – x_{j_1,k}) / \parallel x_{j_2,k} – x_{j_1,k} \parallel_2$是一个单位向量。那么如何判断点$\mathbf{p}$是否落在了limb c,k上呢？如果点$p$落在limb c,k区域内，则应满足下式：
+其中，$\mathbf{v} = (x_{j_2,k} – x_{j_1,k}) / \parallel x_{j_2,k} – x_{j_1,k} \parallel_2$是一个单位向量。那么如何判断点$\mathbf{p}$是否落在了limb c,k上呢？如果点$\mathbf{p}$落在limb c,k区域内，则应满足下式：
 
 $$0 \leq \mathbf{v} \cdot (\mathbf{p} - x_{j_1,k}) \leq l_{c,k} \  \text{and} \  \lvert \mathbf{v}_{\perp} \cdot (\mathbf{p} - x_{j_1,k}) \rvert \leq \sigma _l$$
 
-其中，$\sigma_l$是limb的宽度（单位是像素），宽度是沿着$\mathbf{v}_{\perp}$方向的，而$\mathbf{v}_{\perp}$是和$\mathbf{v}$垂直的。$l_{c,k}$是limb的长度（单位是像素），长度是沿着$\mathbf{v}$方向的。
+其中，$\sigma_l$是limb的宽度（单位是像素），宽度是沿着$\mathbf{v}\_{\perp}$方向的，而$\mathbf{v}\_{\perp}$是和$\mathbf{v}$垂直的。$l_{c,k}$是limb的长度（单位是像素），长度是沿着$\mathbf{v}$方向的。
 
 简单解释下上式，$\mathbf{p}-x_{j_1,k}$就是上图绿色向量（我们暂记为$\mathbf{a}$），其和单位向量$\mathbf{v}$进行点积：$\mathbf{v} \cdot \mathbf{a} = \lvert \mathbf{v} \rvert \lvert \mathbf{a} \rvert \cos <\mathbf{v},\mathbf{a}> = \lvert \mathbf{a} \rvert \cos <\mathbf{v},\mathbf{a}>$，就相当于得到了绿色向量在$\mathbf{v}$方向上的投影长度，我们要限制这个长度在$[0,l_{c,k}]$。在$\mathbf{v}_{\perp}$方向对宽度的限制同理。简单来说，其实每个limb区域就是一个旋转的矩形框（如下图蓝框所示），落在矩形框内的点即被视为落在了limb上。
 
@@ -119,15 +119,15 @@ $n_c(\mathbf{p})$为所有的$k$个人在点$\mathbf{p}$处非零向量的个数
 
 >个人理解：如果$k$个人在点$\mathbf{p}$处的向量的方向都不同，那这么算可能会存在问题，因为一个点就只能被综合为一个方向。
 
-在预测阶段，假设图像有两个人，heatmap1预测得到两个左肘位置（假设记为左肘1和左肘2），heatmap2预测得到两个左腕位置（假设记为左腕1和左腕2），那么我们该如何判断左肘1应该是和左腕1相连还是左腕2相连呢？因此我们需要一个关联置信度，来判断左肘1-左腕1相连更合适，还是左肘1-左腕2相连更合适。假设我们把左肘1记为$\mathbf{d}_{j_1}$，左腕1记为$\mathbf{d}_{j_2}$，那左肘1和左腕1相连得到的limb的PAF记为$\mathbf{L}_c$，那么左肘1-左腕1的关联置信度可用下式计算：
+在预测阶段，假设图像有两个人，heatmap1预测得到两个左肘位置（假设记为左肘1和左肘2），heatmap2预测得到两个左腕位置（假设记为左腕1和左腕2），那么我们该如何判断左肘1应该是和左腕1相连还是左腕2相连呢？因此我们需要一个关联置信度，来判断左肘1-左腕1相连更合适，还是左肘1-左腕2相连更合适。假设我们把左肘1记为$\mathbf{d}\_{j_1}$，左腕1记为$\mathbf{d}\_{j_2}$，那左肘1和左腕1相连得到的limb的PAF记为$\mathbf{L}_c$，那么左肘1-左腕1的关联置信度可用下式计算：
 
 $$E = \int_{u=0}^{u=1} \mathbf{L}_c (\mathbf{p}(u)) \cdot \frac{\mathbf{d}_{j_2} - \mathbf{d}_{j_1}}{\parallel \mathbf{d}_{j_2} - \mathbf{d}_{j_1} \parallel _2} du \tag{11}$$
 
-其中，$\mathbf{p}(u)$是$\mathbf{d}_{j_1}$和$\mathbf{d}_{j_2}$之间的插值：
+其中，$\mathbf{p}(u)$是$\mathbf{d}\_{j_1}$和$\mathbf{d}\_{j_2}$之间的插值：
 
 $$\mathbf{p}(u) = (1-u) \mathbf{d}_{j_1} + u \mathbf{d}_{j_2} \tag{12}$$
 
-因为如果在计算关联置信度时考虑到limb区域内的所有点，会使得计算量很大，所以我们只考虑$\mathbf{d}_{j_1}$和$\mathbf{d}_{j_2}$所连线段上的点（即$\mathbf{p}(u)$）。因为线段上可以取无数多个点，所以在式(11)中用到了积分。而在实际实现时，我们会对$u$进行均匀间隔采样来近似积分。如果线段上的点对应的2D向量越接近沿着线段方向，那么算出来的关联置信度（即$E$）就越大。
+因为如果在计算关联置信度时考虑到limb区域内的所有点，会使得计算量很大，所以我们只考虑$\mathbf{d}\_{j_1}$和$\mathbf{d}\_{j_2}$所连线段上的点（即$\mathbf{p}(u)$）。因为线段上可以取无数多个点，所以在式(11)中用到了积分。而在实际实现时，我们会对$u$进行均匀间隔采样来近似积分。如果线段上的点对应的2D向量越接近沿着线段方向，那么算出来的关联置信度（即$E$）就越大。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/OpenPose/9.png)
 
@@ -149,13 +149,14 @@ $$\mathbf{p}(u) = (1-u) \mathbf{d}_{j_1} + u \mathbf{d}_{j_2} \tag{12}$$
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/OpenPose/12.png)
 
-首先，我们定义一组关节点：$\mathcal{D}_{\mathcal{J}} = \\{ \mathbf{d}_j^m \  :  \  \text{for} \  j \in \\{ 1 … J \\}, \  m \in \\{ 1 … N_j \\} \\}$，其中，$j$表示关节点的类型，$N_j$表示类型为$j$的关节点的候选点数量，$\mathbf{d}_j^m \in \mathbb{R}^2$表示类型为$j$的关节点的第$m$个候选点。我们用$z_{j_1 j_2}^{mn} \in \\{ 0,1 \\}$表示两个不同类型的关节点候选点$\mathbf{d}_{j_1}^m$和$\mathbf{d}_{j_2}^n$是否相连，$\mathcal{Z} = \\{  z_{j_1 j_2}^{mn} \  : \  \text{for} \  j_1,j_2 \in \\{ 1 … J \\}, \  m\in \\{ 1 … N_{j_1} \\}, \  n \in \\{ 1…N_{j_2} \\} \\}$，目标就是寻找一组最优连接。
-为了避免K维匹配的NP难问题，我们一次只考虑一个limb，比如只考虑第$c$个limb，其连接的两个关节点为$j_1$和$j_2$（比如脖子和右髋），这样就将K维匹配转化成了多个最大权重的二分图匹配问题。二分图的两个点集分别是$\mathcal{D}_{j_1},\mathcal{D}_{j_2}$，边是所有可能的连接。边的权重是通过式(11)计算得到的关联置信度。同一个点不能被两条边共享。我们的目标就是寻找权重最大的匹配方案：
+首先，我们定义一组关节点：$\mathcal{D}\_{\mathcal{J}} = \\{ \mathbf{d}\_j^m \  :  \  \text{for} \  j \in \\{ 1 … J \\}, \  m \in \\{ 1 … N\_j \\} \\}$，其中，$j$表示关节点的类型，$N\_j$表示类型为$j$的关节点的候选点数量，$\mathbf{d}\_j^m \in \mathbb{R}^2$表示类型为$j$的关节点的第$m$个候选点。我们用$z\_{j\_1 j\_2}^{mn} \in \\{ 0,1 \\}$表示两个不同类型的关节点候选点$\mathbf{d}\_{j\_1}^m$和$\mathbf{d}\_{j\_2}^n$是否相连，$\mathcal{Z} = \\{  z\_{j\_1 j\_2}^{mn} \  : \  \text{for} \  j\_1,j\_2 \in \\{ 1 … J \\}, \  m\in \\{ 1 … N\_{j\_1} \\}, \  n \in \\{ 1…N\_{j\_2} \\} \\}$，目标就是寻找一组最优连接。
+
+为了避免K维匹配的NP难问题，我们一次只考虑一个limb，比如只考虑第$c$个limb，其连接的两个关节点为$j_1$和$j_2$（比如脖子和右髋），这样就将K维匹配转化成了多个最大权重的二分图匹配问题。二分图的两个点集分别是$\mathcal{D}\_{j\_1},\mathcal{D}\_{j\_2}$，边是所有可能的连接。边的权重是通过式(11)计算得到的关联置信度。同一个点不能被两条边共享。我们的目标就是寻找权重最大的匹配方案：
 
 $$\begin{align}
 &\max_{\mathcal{Z}_c} E_c = \max_{\mathcal{Z}_c} \sum_{m \in \mathcal{D}_{j_1}} \sum_{n \in \mathcal{D}_{j_2}} E_{mn} \cdot z_{j_1 j_2}^{mn} \quad (13)  \\ & \begin{array}{r@{\quad}r@{}l@{\quad}l} s.t.& \forall m \in \mathcal{D}_{j_1}, \  \sum_{n \in \mathcal{D}_{j_2}} z_{j_1 j_2}^{mn} \leq 1 \quad (14)  \\& \forall n \in \mathcal{D}_{j_2}, \  \sum_{m \in \mathcal{D}_{j_1}} z_{j_1 j_2}^{mn} \leq 1 \quad (15) \\ \end{array} \end{align}$$
 
-$E_c$是针对第$c$个limb的某一匹配方案的总权重，$\mathcal{Z}_c$是针对第$c$个limb的某一匹配方案，$E_{mn}$是$\mathbf{d}_{j_1}^m$和$\mathbf{d}_{j_2}^n$的关联置信度（计算见式(11)）。式(14)和式(15)用于限制两条边不能共用一个点，即两个同一类型的limb（比如两个左前臂）不能使用同一个关节点。我们可以使用[匈牙利算法](http://shichaoxin.com/2023/11/03/啊哈-算法-第八章-更多精彩算法/#5我要做月老二分图最大匹配)来获得最优匹配。
+$E_c$是针对第$c$个limb的某一匹配方案的总权重，$\mathcal{Z}\_c$是针对第$c$个limb的某一匹配方案，$E\_{mn}$是$\mathbf{d}\_{j_1}^m$和$\mathbf{d}\_{j_2}^n$的关联置信度（计算见式(11)）。式(14)和式(15)用于限制两条边不能共用一个点，即两个同一类型的limb（比如两个左前臂）不能使用同一个关节点。我们可以使用[匈牙利算法](http://shichaoxin.com/2023/11/03/啊哈-算法-第八章-更多精彩算法/#5我要做月老二分图最大匹配)来获得最优匹配。
 
 式(15)只考虑第$c$个limb，如果考虑全身所有的limb，则优化目标为：
 
