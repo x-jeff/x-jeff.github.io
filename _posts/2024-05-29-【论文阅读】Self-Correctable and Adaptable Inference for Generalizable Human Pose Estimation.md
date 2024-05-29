@@ -83,7 +83,7 @@ $$e_s = \mathbf{\Gamma}([H_A,H_B,H_C],\tilde{H}_D) \tag{4}$$
 
 **（3）SCAI Network Training.**
 
-在训练阶段，关键点的GT记为$\\{ H^*_A,H^*_B,H^*_C,H^*_D \\}$。网络$\mathbf{\Phi}$的损失函数定义为：
+在训练阶段，关键点的GT记为$\\{ H^\*_A,H^\*_B,H^\*_C,H^\*_D \\}$。网络$\mathbf{\Phi}$的损失函数定义为：
 
 $$\mathcal{L}_{\mathbf{\Phi}}= \parallel \hat{H}_D - H^*_D \parallel_2$$
 
@@ -103,7 +103,7 @@ $$\mathcal{L}_{\mathbf{C}}^1 = \parallel \hat{H}_A - H^*_A \parallel_2$$
 
 $$\mathcal{L}_{\mathbf{C}}^2 = \parallel \bar{H}_A - H^*_A \parallel_2$$
 
-$a,b,\lambda$是各个loss的权重。如果让网络$\mathbf{\Gamma}$使用$H_B,H_C,\hat{H}_D$作为输入，则把得到的$H_A$的预测结果记为$\bar{H}_A$。$\mathcal{L}_{\mathbf{C}}^1$和$\mathcal{L}_{\mathbf{C}}^2$唯一的区别在于，一个使用了纠正前的$\hat{H}_D$，一个使用了纠正后的$\tilde{H}_D$，如果纠正后的$\tilde{H}_D$更好，那么$\mathcal{L}_{\mathbf{C}}^1$的值会更小，从而$\mathcal{L}_{\mathbf{C}}^1-\mathcal{L}_{\mathbf{C}}^2$为负，损失值降低，因而促进网络$\mathbf{C}$的训练。
+$a,b,\lambda$是各个loss的权重。如果让网络$\mathbf{\Gamma}$使用$H_B,H_C,\hat{H}\_D$作为输入，则把得到的$H_A$的预测结果记为$\bar{H}_A$。$\mathcal{L}_{\mathbf{C}}^1$和$\mathcal{L}_{\mathbf{C}}^2$唯一的区别在于，一个使用了纠正前的$\hat{H}_D$，一个使用了纠正后的$\tilde{H}_D$，如果纠正后的$\tilde{H}_D$更好，那么$\mathcal{L}_{\mathbf{C}}^1$的值会更小，从而$\mathcal{L}_{\mathbf{C}}^1-\mathcal{L}_{\mathbf{C}}^2$为负，损失值降低，因而促进网络$\mathbf{C}$的训练。
 
 首先是预训练模型，使用训练样本来预训练网络$\mathbf{\Phi}$，即$\\{ [(H_A,H_B,H_C) \to H_D] \\}$。同样，也是用训练样本来预训练FFN网络，即$\\{ [(H_B,H_C,H_D) \to H_A] \\}$。这里的$\to$表示网络预测。在正式训练阶段，预训练过的$\mathbf{\Phi}$是不更新的。预训练过的FFN网络被用来初始化$\mathbf{\Gamma}$，使用式(5)作为损失函数，在正式训练过程中对网络$\mathbf{\Gamma}$和$\mathbf{C}$进行更新。
 
@@ -223,7 +223,7 @@ $$\mathcal{L}_{\mathbf{\Phi}}^0 = \parallel \hat{H}_D - H_D \parallel_2$$
 
 $$\mathcal{L}_{\mathbf{\Phi}}^1 = \parallel \hat{H}_A - H_A \parallel_2$$
 
->作者这里用的符号和正文并不统一。$\mathcal{L}_{\mathbf{\Phi}}^0$和$\mathcal{L}_{\mathbf{\Phi}}^1$计算的是预测结果和GT的距离，$H_A,H_D$其实应该标记为$H^*_A,H^*_D$。$\mathbf{\Gamma}$如果使用$H_B,H_C,\hat{H}_D$作为输入，其输出在正文中标记为$\tilde{H_A}$，而这里标记为$\hat{H}_A$。
+>作者这里用的符号和正文并不统一。$\mathcal{L}\_{\mathbf{\Phi}}^0$和$\mathcal{L}_{\mathbf{\Phi}}^1$计算的是预测结果和GT的距离，$H_A,H_D$其实应该标记为$H^*_A,H^*_D$。$\mathbf{\Gamma}$如果使用$H_B,H_C,\hat{H}_D$作为输入，其输出在正文中标记为$\tilde{H_A}$，而这里标记为$\hat{H}_A$。
 
 类似的，如果预训练$\mathbf{\Gamma}$，则固定$\mathbf{\Phi}$。损失函数为：
 
@@ -263,7 +263,7 @@ $$E^{t+2}_s = \parallel \hat{H}_A^{t+2} - H_A \parallel_2$$
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SCAI/19.png)
 
-第8步使用式(5)作为损失函数，对网络$\mathbf{C}_i$进行一次梯度更新，得到$\mathbf{C}_{i+1}$。注意，此处使用的损失函数是没有$\mathcal{L}_{\mathbf{C}}^1$这一项的，从伪代码中可以看到，这一步损失函数的输入并没有$\hat{H}_A$。
+第8步使用式(5)作为损失函数，对网络$\mathbf{C}\_i$进行一次梯度更新，得到$\mathbf{C}_{i+1}$。注意，此处使用的损失函数是没有$\mathcal{L}_{\mathbf{C}}^1$这一项的，从伪代码中可以看到，这一步损失函数的输入并没有$\hat{H}_A$。
 
 第11步也是对网络$\mathbf{\Gamma}$进行了一次更新。
 
@@ -281,4 +281,4 @@ $$\tilde{H}_D = \mathbf{C}_{\mathbf{i+m}}(\hat{H}_D, e_s) \  with \  e_s = H_A -
 
 # 9.参考资料
 
-1. [CVPR 2023 | 姿态估计也有左脚踩右脚上天的技术？SCAI让HRNet48怒涨5.1AP](https://zhuanlan.zhihu.com/p/628141032)
+1. [CVPR 2023 \| 姿态估计也有左脚踩右脚上天的技术？SCAI让HRNet48怒涨5.1AP](https://zhuanlan.zhihu.com/p/628141032)
