@@ -2,7 +2,7 @@
 layout:     post
 title:      【论文阅读】Simple Baselines for Human Pose Estimation and Tracking
 subtitle:   SimpleBaseline
-date:       2024-05-29
+date:       2024-04-13
 author:     x-jeff
 header-img: blogimg/20220307.jpg
 catalog: true
