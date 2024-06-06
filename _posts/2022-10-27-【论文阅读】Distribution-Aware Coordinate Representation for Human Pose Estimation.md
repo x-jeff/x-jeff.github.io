@@ -236,7 +236,7 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/9.png)
 
-除了SOTA的[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，我们还测试了另外两个具有代表性的人体姿态估计模型：SimpleBaseline和Hourglass。表5的结果表明，在大多数情况下，DARK为现有模型提供了显著的性能提升。这也表明我们的方法具有普遍的实用性。定性评估（qualitative evaluation）见Fig5。
+除了SOTA的[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，我们还测试了另外两个具有代表性的人体姿态估计模型：[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)和Hourglass。表5的结果表明，在大多数情况下，DARK为现有模型提供了显著的性能提升。这也表明我们的方法具有普遍的实用性。定性评估（qualitative evaluation）见Fig5。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/10.png)
 
@@ -250,7 +250,7 @@ Fig4阐述了标准坐标编码过程中的量化误差。图中蓝色的点表�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DistributionAware/11.png)
 
-我们将DARK方法和表现前几的方法进行了比较，这些方法有G-RMI，Integral Pose Regression，CPN，RMPE，SimpleBaseline和[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)。表6展示了这些方法在COCO test-dev数据集上的表现。我们有以下发现：
+我们将DARK方法和表现前几的方法进行了比较，这些方法有G-RMI，Integral Pose Regression，CPN，RMPE，[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)和[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)。表6展示了这些方法在COCO test-dev数据集上的表现。我们有以下发现：
 
 1. 基于[HRNet-W48](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)且输入大小为$384 \times 288$的DARK模型准确率是最高的，并且计算成本只增加了一点点。尤其是和最强劲的对手（[HRNet-W48](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，输入大小也为$384 \times 288$）比较时，DARK将AP提升了0.7%（76.2-75.5）。当和最有效率的模型（Integral Pose Regression，即GFLOPs最低）比较时，DARK（基于[HRNet-W32](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)）将AP提升了2.2%（70.0-67.8），但计算成本只有原来的16.4%（1.8/11.0 GFLOPs）。这些都表明了DARK在准确性和效率方面优于现有模型。
 

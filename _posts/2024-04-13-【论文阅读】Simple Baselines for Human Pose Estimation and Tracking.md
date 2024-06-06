@@ -67,7 +67,7 @@ ICCV'17 PoseTrack Challenge冠军解决多人姿态追踪的方式是，先用[M
 
 我们可以基于相邻上一帧，通过光流算法在当前帧中生成human box。
 
-将$I^{k-1}$帧中第$i$个人物实例的关键点坐标集合记为$J_i^{k-1}$，从$I^{k-1}$到$I^k$的光流场记为$F_{k-1 \to k}$，根据光流场，我们可以推算出$J_i^{k-1}$在$I^k$帧中的位置为$\hat{J}_i^{k}$。具体来说，假设$J_i^{k-1}$中某一关键点的坐标为$(x,y)$，该点的光流为$(\delta x, \delta y)$，则根据光流，该关键点在$I^k$帧中的位置被推算为$(x+\delta x, y+\delta y)$。在$I^k$帧中，基于$\hat{J}_i^k$，我们可以得到一个bounding box（所有关键点的x,y坐标的最小/最大值记为$x_{min},x_{max},y_{min},y_{max}$，则点$(x_{min},y_{min})$和点$(x_{max},y_{max})$便可确定一个bounding box，在实际实现时，会将bounding box再扩大15%）。如Fig2(c)所示，我们从Fig2(a)中根据光流推算出了最左侧黑衣服人的bounding box。
+将$I^{k-1}$帧中第$i$个人物实例的关键点坐标集合记为$J_i^{k-1}$，从$I^{k-1}$到$I^k$的光流场记为$F_{k-1 \to k}$，根据光流场，我们可以推算出$J_i^{k-1}$在$I^k$帧中的位置为$\hat{J}\_i^{k}$。具体来说，假设$J\_i^{k-1}$中某一关键点的坐标为$(x,y)$，该点的光流为$(\delta x, \delta y)$，则根据光流，该关键点在$I^k$帧中的位置被推算为$(x+\delta x, y+\delta y)$。在$I^k$帧中，基于$\hat{J}\_i^k$，我们可以得到一个bounding box（所有关键点的x,y坐标的最小/最大值记为$x\_{min},x\_{max},y\_{min},y\_{max}$，则点$(x\_{min},y\_{min})$和点$(x\_{max},y\_{max})$便可确定一个bounding box，在实际实现时，会将bounding box再扩大15%）。如Fig2(c)所示，我们从Fig2(a)中根据光流推算出了最左侧黑衣服人的bounding box。
 
 ## 3.2.Flow-based Pose Similarity
 

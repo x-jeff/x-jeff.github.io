@@ -17,7 +17,7 @@ tags:
 
 最近研发的一些分类网络，包括[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)，[VGGNet](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)，[GoogleNet](http://shichaoxin.com/2021/06/01/论文阅读-Going-deeper-with-convolutions/)，[ResNet](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)等，都遵循了[LeNet-5](http://shichaoxin.com/2020/10/13/论文阅读-Gradient-Based-Learning-Applied-to-Document-Recognition/)的设计规则。该规则如Fig1(a)所示：逐渐减小feature map的空间大小，最后产生低分辨率的representation，并对其进行进一步的处理以执行分类任务。
 
-而对位置比较敏感的任务通常需要高分辨率的representation，比如语义分割，人体姿态估计和目标检测等。如Fig1(b)所示，现有的技术通常采用将分类网络或类分类网络输出的低分辨率representation逐步恢复成高分辨率的策略，比如Hourglass，SegNet，DeconvNet，[U-Net](http://shichaoxin.com/2022/03/05/论文阅读-U-Net-Convolutional-Networks-for-Biomedical-Image-Segmentation/)，SimpleBaseline以及编码-解码方法等。并且，dilated convolutions（空洞卷积，扩张卷积，膨胀卷积）被用来移除一些下采样层，从而产生中等分辨率的representation。
+而对位置比较敏感的任务通常需要高分辨率的representation，比如语义分割，人体姿态估计和目标检测等。如Fig1(b)所示，现有的技术通常采用将分类网络或类分类网络输出的低分辨率representation逐步恢复成高分辨率的策略，比如Hourglass，SegNet，DeconvNet，[U-Net](http://shichaoxin.com/2022/03/05/论文阅读-U-Net-Convolutional-Networks-for-Biomedical-Image-Segmentation/)，[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)以及编码-解码方法等。并且，dilated convolutions（空洞卷积，扩张卷积，膨胀卷积）被用来移除一些下采样层，从而产生中等分辨率的representation。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HRNet/1.png)
 
@@ -182,23 +182,23 @@ $$\text{OKS}=\frac{\sum_i \text{exp} [-d^2_i / (2s^2k_i^2)] \delta (v_i>0)}{\sum
 
 采用自上而下的两阶段形式：先使用person detector检测人物实例再检测关键点。
 
-对于val和test-dev数据集，我们采用和SimpleBaseline一样的person detector。对于原始图像和其对应的翻转图像，我们会计算heatmap的平均。将heatmap中从最高响应值到第二高响应值的四分之一处作为预测关键点的位置。
+对于val和test-dev数据集，我们采用和[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)一样的person detector。对于原始图像和其对应的翻转图像，我们会计算heatmap的平均。将heatmap中从最高响应值到第二高响应值的四分之一处作为预测关键点的位置。
 
 👉**Results on the val set.**
 
-我们将我们方法和其他SOTA方法的结果放在了表1中。HRNetV1-W32是从零开始训练的，输入大小为$256 \times 192$，AP达到了73.4，超过了相同输入大小的其他方法。（i）相比Hourglass，我们方法的AP高了6.5，但GFLOP低了一倍多，我们模型的参数数量稍多一些。（ii）和CPN（使用或不使用OHKM）相比，我们模型的大小和计算复杂度更高，但是比CPN的AP高了4.8，比CPN+OHKM的AP高了4.0。（iii）相比之前表现最好的方法SimpleBaseline，对于backbone为ResNet-50的SimpleBaseline，HRNetV1-W32的AP高出3.0，并且二者的模型大小和GFLOPs是相似的。对于backbone为ResNet-152的SimpleBaseline，HRNetV1-W32的AP仍然高出1.4，并且SimpleBaseline（backbone为ResNet-152）的模型大小（即#Params）和GFLOPs是HRNetV1-W32的两倍。
+我们将我们方法和其他SOTA方法的结果放在了表1中。HRNetV1-W32是从零开始训练的，输入大小为$256 \times 192$，AP达到了73.4，超过了相同输入大小的其他方法。（i）相比Hourglass，我们方法的AP高了6.5，但GFLOP低了一倍多，我们模型的参数数量稍多一些。（ii）和CPN（使用或不使用OHKM）相比，我们模型的大小和计算复杂度更高，但是比CPN的AP高了4.8，比CPN+OHKM的AP高了4.0。（iii）相比之前表现最好的方法[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)，对于backbone为ResNet-50的[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)，HRNetV1-W32的AP高出3.0，并且二者的模型大小和GFLOPs是相似的。对于backbone为ResNet-152的[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)，HRNetV1-W32的AP仍然高出1.4，并且[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)（backbone为ResNet-152）的模型大小（即#Params）和GFLOPs是HRNetV1-W32的两倍。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HRNet/9.png)
 
 我们对模型进行了进一步的提升：（i）在ImageNet上进行预训练之后，AP获得了1.0的提升；（ii）HRNetV1-W32中的W指的是width，即channel数量，即APPENDIX A表14中的C。如果我们将C从32增加至48，即得到模型HRNetV1-W48，在输入大小分别为$256 \times 192$和$384 \times 288$时，HRNetV1-W48比HRNetV1-W32的AP分别高出0.7和0.5。
 
-当输入大小从$256 \times 192$增加到$384 \times 288$时，HRNetV1-W32和HRNetV1-W48的AP分别提升了1.4和1.2，达到了75.8和76.3。当输入大小为$384 \times 288$时，相比backbone为ResNet-152的SimpleBaseline，HRNetV1-W32和HRNetV1-W48的AP分别高出1.5和2.0，但是其计算成本只有SimpleBaseline的45%和92.4%。
+当输入大小从$256 \times 192$增加到$384 \times 288$时，HRNetV1-W32和HRNetV1-W48的AP分别提升了1.4和1.2，达到了75.8和76.3。当输入大小为$384 \times 288$时，相比backbone为ResNet-152的[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)，HRNetV1-W32和HRNetV1-W48的AP分别高出1.5和2.0，但是其计算成本只有[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)的45%和92.4%。
 
 👉**Results on the test-dev set.**
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HRNet/10.png)
 
-表2是我们的方法和现有SOTA方法在姿态估计任务上的表现。我们的方法明显优于自下而上的方法。HRNetV1-W32达到了74.9的AP。其明显优于其他所有自上而下的方法，并且在模型大小（#Params）和计算复杂度（GFLOPs）方面更有优势。我们的大模型HRNetV1-W48达到了最高的AP：75.5。和SimpleBaseline相比，HRNetV1-W32和HRNetV1-W48的AP分别高出1.2和1.8。如果使用来自AI Challenger的额外数据，我们的单个大模型可以达到77.0的AP。
+表2是我们的方法和现有SOTA方法在姿态估计任务上的表现。我们的方法明显优于自下而上的方法。HRNetV1-W32达到了74.9的AP。其明显优于其他所有自上而下的方法，并且在模型大小（#Params）和计算复杂度（GFLOPs）方面更有优势。我们的大模型HRNetV1-W48达到了最高的AP：75.5。和[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)相比，HRNetV1-W32和HRNetV1-W48的AP分别高出1.2和1.8。如果使用来自AI Challenger的额外数据，我们的单个大模型可以达到77.0的AP。
 
 # 5.SEMANTIC SEGMENTATION
 
@@ -320,11 +320,11 @@ LIP数据集包含50,462张精心标注的人物图像，其中30,462张用于�
 
 这里可能会有一种误解：分辨率越高，HRNet的内存成本也越大。但事实上，除了在目标检测任务的训练阶段，HRNet的内存成本稍大之外，其在人体姿态估计、语义分割和目标检测任务中的内存成本和现有SOTA技术相当。
 
-此外，我们还在PyTorch 1.0上比较了runtime成本。HRNet的训练和推理时间成本和现有SOTA技术相当，除了（1）用于分割的HRNet的推理时间会更短；（2）用于姿态估计的HRNet训练时间会稍长，但在支持静态图推理的MXNet 1.5.1平台上，其与SimpleBaseline时间成本相近。我们想强调的一点是，对于语义分割任务，HRNet的推理成本明显小于PSPNet和DeepLabv3。表13总结了内存和时间成本的比较结果。
+此外，我们还在PyTorch 1.0上比较了runtime成本。HRNet的训练和推理时间成本和现有SOTA技术相当，除了（1）用于分割的HRNet的推理时间会更短；（2）用于姿态估计的HRNet训练时间会稍长，但在支持静态图推理的MXNet 1.5.1平台上，其与[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)时间成本相近。我们想强调的一点是，对于语义分割任务，HRNet的推理成本明显小于PSPNet和DeepLabv3。表13总结了内存和时间成本的比较结果。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HRNet/25.png)
 
-表13是基于PyTorch 1.0，在姿态估计、语义分割、目标检测（基于[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)框架）等三个任务上的训练/推理的内存以及时间成本比较。我们还报告了基于MXNet 1.5.1，在姿态估计任务上的推理时间成本（见表13中括号内的数值），HRNet可以从MXNet支持的静态图推理中受益。训练使用了4块V100 GPU。对于训练阶段，姿态估计任务的输入大小为$256\times 192$，batch size=128；分割任务的输入大小为$512\times 1024$，batch size=8；目标检测任务的输入大小为$800\times 1333$，batch size=8。推理阶段只使用了一块V100 GPU。对于推理阶段，姿态估计任务的输入大小为$256\times 192$；分割任务的输入大小为$1024\times 2048$；目标检测任务的输入大小为$800\times 1333$。至于表13最后一行的score，对于姿态估计任务，其是基于COCO val数据集得到的AP值（见表1）；对于目标检测任务，其是基于COCO val数据集得到的AP值（见表8）；对于分割任务，其是基于cityscapes数据集得到的mIoU值（见表3）。这里重点介绍几个观察结果。和其他方法相比，无论是训练还是推理，HRNet的内存成本与之相当，甚至在姿态估计任务上，HRNet的训练内存成本更低。和其他方法相比，无论是训练还是推理，HRNet的时间成本也与之相当，甚至在分割任务上，HRNet的推理时间成本更低。SB-ResNet-152指的是backbone为ResNet-152的SimpleBaseline。PSPNet和DeepLabV3则使用ResNet-101作为backbone。
+表13是基于PyTorch 1.0，在姿态估计、语义分割、目标检测（基于[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)框架）等三个任务上的训练/推理的内存以及时间成本比较。我们还报告了基于MXNet 1.5.1，在姿态估计任务上的推理时间成本（见表13中括号内的数值），HRNet可以从MXNet支持的静态图推理中受益。训练使用了4块V100 GPU。对于训练阶段，姿态估计任务的输入大小为$256\times 192$，batch size=128；分割任务的输入大小为$512\times 1024$，batch size=8；目标检测任务的输入大小为$800\times 1333$，batch size=8。推理阶段只使用了一块V100 GPU。对于推理阶段，姿态估计任务的输入大小为$256\times 192$；分割任务的输入大小为$1024\times 2048$；目标检测任务的输入大小为$800\times 1333$。至于表13最后一行的score，对于姿态估计任务，其是基于COCO val数据集得到的AP值（见表1）；对于目标检测任务，其是基于COCO val数据集得到的AP值（见表8）；对于分割任务，其是基于cityscapes数据集得到的mIoU值（见表3）。这里重点介绍几个观察结果。和其他方法相比，无论是训练还是推理，HRNet的内存成本与之相当，甚至在姿态估计任务上，HRNet的训练内存成本更低。和其他方法相比，无论是训练还是推理，HRNet的时间成本也与之相当，甚至在分割任务上，HRNet的推理时间成本更低。SB-ResNet-152指的是backbone为ResNet-152的[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)。PSPNet和DeepLabV3则使用ResNet-101作为backbone。
 
 **Future and followup works.**
 
@@ -366,7 +366,7 @@ HRNet的应用并不局限于我们已经列出的，HRNet也适用于其他位�
 
 表17、表18和表19列出了HRNet和其他标准网络在PyTorch平台上训练以及推理时的GPU占用比较。从表17中可以看出，和其他人体姿态估计任务的SOTA模型相比，在参数量相近的情况下，HRNet的训练以及推理的内存成本都和其他模型相近或者更低。在表18中，对于语义分割任务来说，在相近参数量的情况下，HRNet的训练以及推理的内存成本和其他SOTA模型相近。在表19中，对于目标检测任务，在相近参数量情况下，HRNet的训练以及推理的内存成本比其他SOTA模型稍高或者相似。
 
-此外，我们也提供了运行时间成本的比较。（1）对于语义分割任务，HRNet的训练时间成本更小，并且其推理时间成本小于PSPNet和DeepLabv3（见表18）。（2）对于目标检测任务，HRNet的训练时间成本高于基于ResNet的网络，但低于基于ResNext的网络。在相近GFLOPs下，HRNet的推理时间成本更小。详见表19。（3）对于人体姿态估计任务，HRNet的训练时间成本和其他方法相近，但HRNet的推理时间成本更大；但是在MXNet平台上，HRNet的训练以及推理时间成本和SimpleBaseline相近。
+此外，我们也提供了运行时间成本的比较。（1）对于语义分割任务，HRNet的训练时间成本更小，并且其推理时间成本小于PSPNet和DeepLabv3（见表18）。（2）对于目标检测任务，HRNet的训练时间成本高于基于ResNet的网络，但低于基于ResNext的网络。在相近GFLOPs下，HRNet的推理时间成本更小。详见表19。（3）对于人体姿态估计任务，HRNet的训练时间成本和其他方法相近，但HRNet的推理时间成本更大；但是在MXNet平台上，HRNet的训练以及推理时间成本和[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)相近。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/HRNet/29.png)
 

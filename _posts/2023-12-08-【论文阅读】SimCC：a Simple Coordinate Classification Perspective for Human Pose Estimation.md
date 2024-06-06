@@ -95,11 +95,11 @@ SimCC省去了反卷积模块，这加快了推理速度。
 
 👉**Baselines.**
 
-我们选择了最近SOTA的一些方法作为baseline，基于CNN的方法选择SimpleBaseline和[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，基于Transformer的方法选择TokenPose。
+我们选择了最近SOTA的一些方法作为baseline，基于CNN的方法选择[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)和[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，基于Transformer的方法选择TokenPose。
 
 👉**Implementation details.**
 
-对于这些baseline方法，我们都遵循原始论文中的setting。对于SimpleBaseline，基础学习率设为$1e-3$，然后在第90和第120个epoch时降为$1e-4$和$1e-5$，一共训练140个epoch。对于[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，基础学习率设为$1e-3$，在第170和第200个epoch时降为$1e-4$和$1e-5$，一共训练210个epoch。需要注意的是，TokenPose-S的训练遵循[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/#4human-pose-estimation)。本文使用two-stage自上而下的pipeline：先检测人物实例，再检测keypoint。模型训练使用了label smoothing（equal label smoothing的平滑因子默认设为0.1）。实验使用了4块NVIDIA Tesla V100 GPU。
+对于这些baseline方法，我们都遵循原始论文中的setting。对于[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)，基础学习率设为$1e-3$，然后在第90和第120个epoch时降为$1e-4$和$1e-5$，一共训练140个epoch。对于[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，基础学习率设为$1e-3$，在第170和第200个epoch时降为$1e-4$和$1e-5$，一共训练210个epoch。需要注意的是，TokenPose-S的训练遵循[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/#4human-pose-estimation)。本文使用two-stage自上而下的pipeline：先检测人物实例，再检测keypoint。模型训练使用了label smoothing（equal label smoothing的平滑因子默认设为0.1）。实验使用了4块NVIDIA Tesla V100 GPU。
 
 👉**Results on the COCO val set.**
 
@@ -113,8 +113,8 @@ SimCC省去了反卷积模块，这加快了推理速度。
 
 我们测试了300个样本的平均推理速度。测试所用的CPU均为Intel(R) Xeon(R) Gold 6130 CPU @ 2.10GHz。
 
-1. *SimpleBaseline：*使用SimpleBaseline-Res50模型，输入图像大小为$256 \times 192$，基于SimCC的版本AP提升了0.4（70.8 vs. 70.4），速度提升了23.5%（21 vs. 17 FPS）。
-2. *TokenPose&HRNet：*因为SimpleBaseline使用的是encoder-decoder框架，所以我们可以直接把它的decoder部分（反卷积）替换为SimCC的分类器头。但是[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)和TokenPose没有类似decoder的额外独立模块。因此，对于[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，我们直接把分类器头接在了原始框架的后面，而对于TokenPose，我们则把MLP head替换为了SimCC。这些修改相对于原始框架都非常小，对于[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，计算成本仅仅有一点点的提高，而对于TokenPose，模型参数量甚至减少了（见表1）。因此，SimCC所带来的对推理速度的影响并不明显。比如以[HRNet-W48](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)为例，输入图像大小为$256 \times 192$，heatmap和SimCC的推理速度分别为4.5 FPS和4.8 FPS。
+1. *[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)：*使用SimpleBaseline-Res50模型，输入图像大小为$256 \times 192$，基于SimCC的版本AP提升了0.4（70.8 vs. 70.4），速度提升了23.5%（21 vs. 17 FPS）。
+2. *TokenPose&HRNet：*因为[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)使用的是encoder-decoder框架，所以我们可以直接把它的decoder部分（反卷积）替换为SimCC的分类器头。但是[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)和TokenPose没有类似decoder的额外独立模块。因此，对于[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，我们直接把分类器头接在了原始框架的后面，而对于TokenPose，我们则把MLP head替换为了SimCC。这些修改相对于原始框架都非常小，对于[HRNet](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)，计算成本仅仅有一点点的提高，而对于TokenPose，模型参数量甚至减少了（见表1）。因此，SimCC所带来的对推理速度的影响并不明显。比如以[HRNet-W48](http://shichaoxin.com/2023/05/13/论文阅读-Deep-High-Resolution-Representation-Learning-for-Visual-Recognition/)为例，输入图像大小为$256 \times 192$，heatmap和SimCC的推理速度分别为4.5 FPS和4.8 FPS。
 
 👉**Is 1D heatmap regression a promising solution for HPE?**
 
@@ -130,7 +130,7 @@ $k$越大，SimCC的量化误差越小。但是，随着$k$的变大，模型训
 
 👉**Upsampling modules.**
 
-基于SimpleBaseline框架，我们测试了SimCC搭配上采样和省去上采样的性能。表4是在COCO 2017 val数据集上的测试结果。
+基于[SimpleBaseline](http://shichaoxin.com/2024/05/29/论文阅读-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/)框架，我们测试了SimCC搭配上采样和省去上采样的性能。表4是在COCO 2017 val数据集上的测试结果。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SimCC/9.png)
 
