@@ -202,7 +202,7 @@ RPN产生的一些proposal重合度很高。我们根据cls分数进行[NMS](htt
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FasterRCNN/15.png)
 
-OverFeat属于one-stage，我们的方法属于是two-stage cascade。二者的比较结果见表10。我们的方法相比OverFeat，mAP提升了4.8%，达到了58.7%。并且，因为One-Stage使用了更多的proposal，所以速度也没Two-Stage快。
+[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)属于one-stage，我们的方法属于是two-stage cascade。二者的比较结果见表10。我们的方法相比[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)，mAP提升了4.8%，达到了58.7%。并且，因为One-Stage使用了更多的proposal，所以速度也没Two-Stage快。
 
 ## 4.2.Experiments on MS COCO
 

@@ -39,7 +39,7 @@ tags:
 
 👉**Learning low-resolution representations.**
 
-全卷积神经网络方法：[FCN](http://shichaoxin.com/2022/01/31/论文阅读-Fully-Convolutional-Networks-for-Semantic-Segmentation/)和OverFeat，都是通过移除分类网络中的全连接层来获得低分辨率的representation，然后评估其coarse segmentation maps。对segmentation maps的提升主要通过两种方式：1）组合从网络中间部分得到的low-level的中等分辨率的representation（比如[FCN](http://shichaoxin.com/2022/01/31/论文阅读-Fully-Convolutional-Networks-for-Semantic-Segmentation/)）；2）迭代处理。类似的技术也被应用于边缘检测。
+全卷积神经网络方法：[FCN](http://shichaoxin.com/2022/01/31/论文阅读-Fully-Convolutional-Networks-for-Semantic-Segmentation/)和[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)，都是通过移除分类网络中的全连接层来获得低分辨率的representation，然后评估其coarse segmentation maps。对segmentation maps的提升主要通过两种方式：1）组合从网络中间部分得到的low-level的中等分辨率的representation（比如[FCN](http://shichaoxin.com/2022/01/31/论文阅读-Fully-Convolutional-Networks-for-Semantic-Segmentation/)）；2）迭代处理。类似的技术也被应用于边缘检测。
 
 通过将原有的部分卷积替换为dilated convolutions从而使得全卷积神经网络可以得到中等分辨率的representation。对于不同大小的分割目标，可以通过特征金字塔来将得到的representation扩展为多尺度的representation。
 

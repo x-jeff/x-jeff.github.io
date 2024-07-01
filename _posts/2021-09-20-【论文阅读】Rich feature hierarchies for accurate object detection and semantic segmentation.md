@@ -13,17 +13,13 @@ tags:
 
 # 1.简介（Introduction）
 
-开篇先强调了特征的重要性。在过去几十年里，各类视觉识别任务基本都是基于SIFT特征和HOG特征。但是从其在PASCAL VOC目标检测任务中的表现就可以看出，在2010-2012年间，其发展很慢，没有显著的性能提升。
+开篇先强调了特征的重要性。在过去几十年里，各类视觉识别任务基本都是基于[SIFT特征](http://shichaoxin.com/2022/12/29/OpenCV基础-第三十六课-SIFT特征检测/)和[HOG特征](http://shichaoxin.com/2023/09/16/论文阅读-Histograms-of-Oriented-Gradients-for-Human-Detection/)。但是从其在PASCAL VOC目标检测任务中的表现就可以看出，在2010-2012年间，其发展很慢，没有显著的性能提升。
 
->SIFT原文：D. Lowe. Distinctive image features from scale-invariant keypoints. IJCV, 2004.
->
->HOG原文：N. Dalal and B. Triggs. Histograms of oriented gradients for human detection. In CVPR, 2005.
->
 >PASCAL VOC（PASCAL：pattern analysis, statistical modelling and computational learning，VOC：visual object classes）挑战赛是视觉对象的分类识别和检测的一个基准测试，提供了检测算法和学习性能的标准图像注释数据集和标准的评估系统。官方网址：[http://host.robots.ox.ac.uk/pascal/VOC/](http://host.robots.ox.ac.uk/pascal/VOC/)。
 
 CNN曾经在20世纪90年代非常流行，但是随着SVM的出现，CNN逐渐淡出人们的视野。直到ILSVRC2012中[AlexNet](http://shichaoxin.com/2021/02/03/论文阅读-ImageNet-Classification-with-Deep-Convolutional-Neural-Networks/)取得了分类任务和定位任务第一名的好成绩，才重新燃起了人们对CNN的兴趣。
 
-本文是首篇论文：证明了相比简单的类HOG特征，CNN可以在PASCAL VOC目标检测任务中取得更优异的表现。本文为了验证这个结论，主要聚焦在两个问题：1）使用深度网络定位目标；2）使用少量带标注数据去训练一个大型网络。
+本文是首篇论文：证明了相比简单的类[HOG特征](http://shichaoxin.com/2023/09/16/论文阅读-Histograms-of-Oriented-Gradients-for-Human-Detection/)，CNN可以在PASCAL VOC目标检测任务中取得更优异的表现。本文为了验证这个结论，主要聚焦在两个问题：1）使用深度网络定位目标；2）使用少量带标注数据去训练一个大型网络。
 
 不同于图像分类任务，目标检测任务通常需要在一张图片上定位出多个目标的位置。其中一种目标检测的方法是将其看作一个回归问题，作者采用这种方法在VOC2007取得了mAP=58.5%的成绩，相比同期且相同思路的C. Szegedy, A. Toshev, and D. Erhan. Deep neural networks
 for object detection. In NIPS, 2013.（mAP=30.5%），表现有所提升，但是依旧效果不好。另一种办法就是使用CNN，作者构建的网络共5个卷积层，（POOL5层的神经元）感受野大小为$195 \times 195$，（POOL5层的神经元映射回原图的）步长为$32 \times 32$。
@@ -38,7 +34,7 @@ for object detection. In NIPS, 2013.（mAP=30.5%），表现有所提升，但�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/RCNN/2.png)
 
-先从原始输入图像中提取大约2000个备选区域（region proposals），然后将每个region proposal缩放到同一尺寸进入CNN网络，输出层为线性SVM（有多少个类别，就构建多少个SVM）。因此，作者所使用的模型结构被称为R-CNN：Regions with CNN features。R-CNN在PASCAL VOC 2010的mAP为53.7%，优于另一种同样使用region proposals，但是搭配spatial pyramid和bag-of-visual-words的方法（mAP=35.1%）。在200个类别的ILSVRC2013检测数据集上，R-CNN的mAP=31.4%，优于当时的最佳方法OverFeat（mAP=24.3%，OverFeat使用的方法是基于[滑动窗口](http://shichaoxin.com/2020/08/23/深度学习基础-第三十三课-基于滑动窗口的目标检测算法/)的CNN）。
+先从原始输入图像中提取大约2000个备选区域（region proposals），然后将每个region proposal缩放到同一尺寸进入CNN网络，输出层为线性SVM（有多少个类别，就构建多少个SVM）。因此，作者所使用的模型结构被称为R-CNN：Regions with CNN features。R-CNN在PASCAL VOC 2010的mAP为53.7%，优于另一种同样使用region proposals，但是搭配spatial pyramid和bag-of-visual-words的方法（mAP=35.1%）。在200个类别的ILSVRC2013检测数据集上，R-CNN的mAP=31.4%，优于当时的最佳方法[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)（mAP=24.3%，[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)使用的方法是基于[滑动窗口](http://shichaoxin.com/2020/08/23/深度学习基础-第三十三课-基于滑动窗口的目标检测算法/)的CNN）。
 
 检测过程中面临的第二个挑战是带标签数据的缺乏，因为训练一个大型CNN网络需要大量的带标签数据。传统的解决办法是先进行无监督的预训练，然后使用有监督的fine-tune。本文提出了一种新的有效的解决办法：先使用其他相关的大型数据集（ILSVRC）进行有监督的预训练，然后再用自己的小型数据集（PASCAL）在特定区域（domain-specific）进行有监督的fine-tune。这一改进使得本文的检测模型性能提升了8%。作者认为该方法在数据稀少的情况下去训练一个大型CNN网络是非常有效的。
 
@@ -245,7 +241,7 @@ Region proposals的产生方法和之前一样，也是selective search。采用
 
 ## 4.6.与OverFeat的关系（Relationship to OverFeat）
 
-OverFeat可以看成是R-CNN的特例。但是OverFeat的检测速度比R-CNN快9倍，OverFeat平均检测一幅图像仅需2秒。快的原因主要是因为OverFeat使用了[滑动窗口机制](http://shichaoxin.com/2020/08/23/深度学习基础-第三十三课-基于滑动窗口的目标检测算法/)。加速R-CNN也是有可能的，这将是未来的工作之一。
+[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)可以看成是R-CNN的特例。但是[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)的检测速度比R-CNN快9倍，[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)平均检测一幅图像仅需2秒。快的原因主要是因为[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)使用了[滑动窗口机制](http://shichaoxin.com/2020/08/23/深度学习基础-第三十三课-基于滑动窗口的目标检测算法/)。加速R-CNN也是有可能的，这将是未来的工作之一。
 
 # 5.语义分割（Semantic segmentation）
 

@@ -135,7 +135,7 @@ YOLO的局限性在于每个grid cell只能预测2个bounding box，且只能有
 
 目标检测是CV领域内的一个核心问题。检测任务大多从提取输入图像的特征开始（例如Haar，SIFT，HOG，convolutional features）。然后使用这些特征，运行一个classifiers或localizers。这些classifiers或localizers有的是在全图上使用滑动窗口，有的是基于一系列的region。我们将YOLO和一些顶尖的检测方法进行了比较，分析了其之间的相似性和差异性。
 
-作者将YOLO和DPM、[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)及其变体、[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)、[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)、Deep MultiBox、OverFeat、MultiGrasp进行了比较分析，在此不再赘述。
+作者将YOLO和DPM、[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)及其变体、[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)、[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)、Deep MultiBox、[OverFeat](http://shichaoxin.com/2024/06/29/论文阅读-OverFeat-Integrated-Recognition,-Localization-and-Detection-using-Convolutional-Networks/)、MultiGrasp进行了比较分析，在此不再赘述。
 
 # 4.Experiments
 
