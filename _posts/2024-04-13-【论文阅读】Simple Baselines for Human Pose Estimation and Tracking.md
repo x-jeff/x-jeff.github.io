@@ -63,7 +63,7 @@ ICCV'17 PoseTrack Challenge冠军解决多人姿态追踪的方式是，先用[M
 
 ## 3.1.Joint Propagation using Optical Flow
 
-如果直接对单帧图像进行人物检测（可用方法比如有[Faster-RCNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)、R-FCN等），很可能会因为运动模糊或者遮挡造成漏检或误检。如Fig2(c)所示，由于快速运动，左侧穿黑衣服的人就被漏检了。我们可以通过时序信息进行更稳健的检测。
+如果直接对单帧图像进行人物检测（可用方法比如有[Faster-RCNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)、[R-FCN](http://shichaoxin.com/2024/07/18/论文阅读-R-FCN-Object-Detection-via-Region-based-Fully-Convolutional-Networks/)等），很可能会因为运动模糊或者遮挡造成漏检或误检。如Fig2(c)所示，由于快速运动，左侧穿黑衣服的人就被漏检了。我们可以通过时序信息进行更稳健的检测。
 
 我们可以基于相邻上一帧，通过光流算法在当前帧中生成human box。
 
@@ -144,11 +144,7 @@ the clear mot metrics. Journal on Image and Video Processing 2008, 1 (2008)。
 
 👉**Testing**
 
-我们基于流的追踪baseline和人物检测器的性能密切相关，因为通过光流推算的box可能会影响检测器检测到的box。为了实验，我们使用了2种检测器，一种是速度更快但精度较低的R-FCN，另一种是速度较慢但精度更高的FPN-DCN。这两个检测器都使用ResNet-101作为backbone。我们也没有在PoseTrack数据集上做fine-tune。
-
->R-FCN：Jifeng Dai, Yi Li, K.H., Sun, J.: R-FCN: Object detection via region-based fully convolutional networks. In: NIPS (2016)。
->
->FPN-DCN：Dai, J., Qi, H., Xiong, Y., Li, Y., Zhang, G., Hu, H., Wei, Y.: Deformable convolutional networks. In: Proceedings of the IEEE International Conference on Computer Vision. pp. 764–773 (2017)。
+我们基于流的追踪baseline和人物检测器的性能密切相关，因为通过光流推算的box可能会影响检测器检测到的box。为了实验，我们使用了2种检测器，一种是速度更快但精度较低的[R-FCN](http://shichaoxin.com/2024/07/18/论文阅读-R-FCN-Object-Detection-via-Region-based-Fully-Convolutional-Networks/)，另一种是速度较慢但精度更高的[FPN-DCN](http://shichaoxin.com/2024/07/25/论文阅读-Deformable-Convolutional-Networks/)。这两个检测器都使用ResNet-101作为backbone。我们也没有在PoseTrack数据集上做fine-tune。
 
 首先，我们抛弃了置信度较低（<0.5）的检测框。此外，低置信度的关节点（<0.4）也被抛弃。
 

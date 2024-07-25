@@ -132,9 +132,7 @@ ms-train指的是multi-scale training。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PAN/11.png)
 
-在表6中，首先，我们使用了DCN中的deformable convolutions。还使用了一些常见的testing tricks，比如multi-scale testing、horizontal flip testing、mask voting和box voting等。针对multi-scale testing，我们把长边固定为1400，短边分别resize到600、800、1000、1200（共4种尺度）。其次我们使用了多个大模型集成：3个[ResNeXt-101](http://shichaoxin.com/2023/12/11/论文阅读-Aggregated-Residual-Transformations-for-Deep-Neural-Networks/)（64$\times $4d）、2个SE-ResNeXt-101（32$\times$ 4d）、1个ResNet-269、1个SENet。此外，还有一个[ResNeXt-101](http://shichaoxin.com/2023/12/11/论文阅读-Aggregated-Residual-Transformations-for-Deep-Neural-Networks/)（64$\times $4d）作为base model用于产生proposal。一些可视化结果见Fig5。
-
->DCN：J. Dai, H. Qi, Y. Xiong, Y. Li, G. Zhang, H. Hu, and Y. Wei. Deformable convolutional networks. In ICCV, 2017.。
+在表6中，首先，我们使用了[DCN](http://shichaoxin.com/2024/07/25/论文阅读-Deformable-Convolutional-Networks/)中的deformable convolutions。还使用了一些常见的testing tricks，比如multi-scale testing、horizontal flip testing、mask voting和box voting等。针对multi-scale testing，我们把长边固定为1400，短边分别resize到600、800、1000、1200（共4种尺度）。其次我们使用了多个大模型集成：3个[ResNeXt-101](http://shichaoxin.com/2023/12/11/论文阅读-Aggregated-Residual-Transformations-for-Deep-Neural-Networks/)（64$\times $4d）、2个SE-ResNeXt-101（32$\times$ 4d）、1个ResNet-269、1个SENet。此外，还有一个[ResNeXt-101](http://shichaoxin.com/2023/12/11/论文阅读-Aggregated-Residual-Transformations-for-Deep-Neural-Networks/)（64$\times $4d）作为base model用于产生proposal。一些可视化结果见Fig5。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PAN/12.png)
 
@@ -146,7 +144,7 @@ Cityscapes数据集是由车载相机拍摄的街景图像。训练集有2975张
 
 👉**Hyper-parameters**
 
-为了公平的比较，我们使用了和[Mask R-CNN](http://shichaoxin.com/2023/12/25/论文阅读-Mask-R-CNN/)一样的超参数设置。在训练阶段，将图像短边随机resize到$\\{ 800,1024 \\}$；在推理阶段，将短边固定为1024。没有使用testing tricks和DCN。前18k次迭代的学习率为0.01，后6k次迭代的学习率为0.001。一个batch有8张图像（一块GPU放一张图像）。[ResNet-50](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)作为初始模型。
+为了公平的比较，我们使用了和[Mask R-CNN](http://shichaoxin.com/2023/12/25/论文阅读-Mask-R-CNN/)一样的超参数设置。在训练阶段，将图像短边随机resize到$\\{ 800,1024 \\}$；在推理阶段，将短边固定为1024。没有使用testing tricks和[DCN](http://shichaoxin.com/2024/07/25/论文阅读-Deformable-Convolutional-Networks/)。前18k次迭代的学习率为0.01，后6k次迭代的学习率为0.001。一个batch有8张图像（一块GPU放一张图像）。[ResNet-50](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)作为初始模型。
 
 👉**Results and Ablation Study**
 

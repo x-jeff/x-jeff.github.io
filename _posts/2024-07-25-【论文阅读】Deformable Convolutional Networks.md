@@ -124,7 +124,7 @@ $\Delta \mathbf{p}_{ij}$可能是小数。式(6)也需要双线性插值，见�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/DCN/5.png)
 
-Fig3展示了如何获得偏移。首先，RoI pooling（式(5)）产生池化后的feature map。接着是一个fc层，产生归一化的偏移$\Delta \hat{\mathbf{p}}_{ij}$。然后对$\Delta \hat{\mathbf{p}}_{ij}$进行转换得到$\Delta \mathbf{p}_{ij}$。转换的方式是和RoI的$w,h$进行element-wise乘法：
+Fig3展示了如何获得偏移。首先，RoI pooling（式(5)）产生池化后的feature map。接着是一个fc层，产生归一化的偏移$\Delta \hat{\mathbf{p}}\_{ij}$。然后对$\Delta \hat{\mathbf{p}}\_{ij}$进行转换得到$\Delta \mathbf{p}\_{ij}$。转换的方式是和RoI的$w,h$进行element-wise乘法：
 
 $$\Delta \mathbf{p}_{ij} = \gamma \cdot \Delta \hat{\mathbf{p}}_{ij} \circ (w,h)$$
 
@@ -258,7 +258,7 @@ $$\begin{align} \frac{\partial \mathbf{y}(\mathbf{p_0})}{\partial \Delta \mathbf
 
 $$\begin{align} \frac{\partial \mathbf{y}(i,j)}{\partial \Delta \mathbf{p}_{ij}} &= \frac{1}{n_{ij}} \sum_{\mathbf{p} \in bin(i,j)} \frac{\partial \mathbf{x}(\mathbf{p}_0 + \mathbf{p} + \Delta \mathbf{p}_{ij})}{\partial \Delta \mathbf{p}_{ij}} \\&= \frac{1}{n_{ij}} \sum_{\mathbf{p} \in bin (i,j)} \left[ \sum_{\mathbf{q}} \frac{\partial G (\mathbf{q},\mathbf{p}_0 + \mathbf{p} + \Delta \mathbf{p}_{ij})}{\partial \Delta \mathbf{p}_{ij}} \mathbf{x}(\mathbf{q}) \right] \end{align} \tag{8}$$
 
-归一化偏移$\Delta \hat{\mathbf{p}}_{ij}$的梯度可以很容易从计算$\Delta \mathbf{p}_{ij} = \gamma \cdot \Delta \hat{\mathbf{p}}_{ij} \circ (w,h)$的导数得到。
+归一化偏移$\Delta \hat{\mathbf{p}}\_{ij}$的梯度可以很容易从计算$\Delta \mathbf{p}\_{ij} = \gamma \cdot \Delta \hat{\mathbf{p}}\_{ij} \circ (w,h)$的导数得到。
 
 ## 6.B.Details of Aligned-Inception-ResNet
 
