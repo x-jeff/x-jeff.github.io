@@ -196,7 +196,9 @@ $a,b$（单位是像素）是椭圆的长轴和短轴，这两个值可以从图
 对于每个view $j$，按照如下步骤计算$\mathbf{H}_j$：
 
 1. 将点从像素坐标系转换到图像坐标系：
+   
    $$\begin{pmatrix} x_j^i \\ y_j^i \end{pmatrix} = \begin{bmatrix} 1/m_u & 0 \\ 0 & 1/m_v \end{bmatrix} \begin{pmatrix} u_j^i - u_0 \\ v_j^i - v_0 \end{pmatrix}$$
+   
    然后将图像坐标系下的点转换为极坐标形式$(r_j^i,\varphi_j^i) \hat{=}(x_j^i,y_j^i)$，然后通过解$k_2(\theta_j^i)^3+k_1\theta_j^i-r_j^i=0$得到$\theta_j^i$。
 2. 有了$\theta$和$\varphi$之后，我们就能计算该点在相机坐标系下的坐标为$\tilde{\mathbf{x}}_j^i=(\sin \varphi_j^i \sin \theta_j^i, \cos \varphi_j^i \sin \theta_j^i, \cos \theta_j^i)^{\top}$。
 3. 有了世界坐标系下的点$\mathbf{x}_p^i$和相机坐标系下的点$\tilde{\mathbf{x}}_j^i$，我们可以通过数据归一化的线性算法初步计算得到一个$\mathbf{H}_j$（个人注解：这里是考虑view $j$上的所有点去拟合出来一个转换矩阵$\mathbf{H}_j$，矩阵计算的方法这里不再详述，作者引用了文献“Hartley, R. and Zisserman, A.: Multiple View Geometry, 2nd ed., Cambridge, 2003.”，或者参考[该博文](https://shichaoxin.com/2022/12/16/%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A-%E5%BC%A0%E6%AD%A3%E5%8F%8B%E6%A0%87%E5%AE%9A%E6%B3%95/#31%E6%B1%82%E8%A7%A3%E5%86%85%E5%8F%82%E7%9F%A9%E9%98%B5%E5%92%8C%E5%A4%96%E5%8F%82%E7%9F%A9%E9%98%B5%E7%9A%84%E7%A7%AF)）。然后计算在view $j$中，世界坐标系下每个点经过矩阵转换后在相机坐标系下的点$\hat{\mathbf{x}}_j^i = \mathbf{H}_j \mathbf{x}_p^i / \| \mathbf{H}_j\mathbf{x}_p^i \|$。
