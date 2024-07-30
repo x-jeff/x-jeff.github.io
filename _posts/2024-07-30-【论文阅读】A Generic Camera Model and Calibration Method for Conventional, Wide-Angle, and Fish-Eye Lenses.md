@@ -77,7 +77,7 @@ $$\mathbf{x}_d = r(\theta) \mathbf{u}_r(\varphi) + \Delta_r(\theta,\varphi)\math
 
 >个人注解：式(10)也很好理解，从没有畸变的点开始，沿着径向方向，先做径向畸变，再沿切向方向做切向畸变。式(10)相当于是在图像坐标系下的畸变过程。
 
-其中，$\mathbf{u}_r(\varphi)$和$\mathbf{u}_{\varphi}(\varphi)$分别是径向和切向的单位向量。图像坐标系到像素坐标系的转换：
+其中，$\mathbf{u}\_r(\varphi)$和$\mathbf{u}\_{\varphi}(\varphi)$分别是径向和切向的单位向量。图像坐标系到像素坐标系的转换：
 
 $$\begin{pmatrix} u \\ v \end{pmatrix} = \begin{bmatrix} m_u & 0 \\ 0 & m_v \end{bmatrix} \begin{pmatrix} x_d \\ y_d \end{pmatrix} + \begin{pmatrix} u_0 \\ v_0 \end{pmatrix} = \mathcal{A}(\mathbf{x}_d) \tag{11}$$
 
@@ -153,7 +153,7 @@ $$r=\frac{a-\sqrt{a^2 - 4b\theta^2}}{2b\theta} \tag{M2}$$
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/CameraCalibration/20240730/2.png)
 
-我们在Fig2中列出了式(1)到式(5)的投影曲线（黑色实线），然后我们用P3、M1和M2去分别拟合这5条曲线，其中，P3是只考虑式(6)前两项的模型。我们设置$f=200$，对真实相机来说是一个合理的值。我们拟合的范围是0到$\theta_{\max}$之间，对式(1)到式(5)，$\theta_{\max}$分别取$60\degree,110\degree,110\degree,110\degree,90\degree$。区间$[0,\theta_{\max}]$被离散化，步长为$0.1\degree$，使用Levenberg-Marquardt方法拟合M1和M2。从Fig2中可以看出，M1不适用于perspective projection（式(1)）和stereographic projection（式(2)），M2不适用于orthogonal projection（式(5)）。
+我们在Fig2中列出了式(1)到式(5)的投影曲线（黑色实线），然后我们用P3、M1和M2去分别拟合这5条曲线，其中，P3是只考虑式(6)前两项的模型。我们设置$f=200$，对真实相机来说是一个合理的值。我们拟合的范围是0到$\theta_{\max}$之间，对式(1)到式(5)，$\theta_{\max}$分别取$60^\circ,110^\circ,110^\circ,110^\circ,90^\circ$。区间$[0,\theta_{\max}]$被离散化，步长为$0.1^\circ$，使用Levenberg-Marquardt方法拟合M1和M2。从Fig2中可以看出，M1不适用于perspective projection（式(1)）和stereographic projection（式(2)），M2不适用于orthogonal projection（式(5)）。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/CameraCalibration/20240730/3.png)
 
@@ -195,7 +195,9 @@ $a,b$（单位是像素）是椭圆的长轴和短轴，这两个值可以从图
 
 对于每个view $j$，按照如下步骤计算$\mathbf{H}_j$：
 
-1. 将点从像素坐标系转换到图像坐标系：$$\begin{pmatrix} x_j^i \\ y_j^i \end{pmatrix} = \begin{bmatrix} 1/m_u & 0 \\ 0 & 1/m_v \end{bmatrix} \begin{pmatrix} u_j^i - u_0 \\ v_j^i - v_0 \end{pmatrix}$$然后将图像坐标系下的点转换为极坐标形式$(r_j^i,\varphi_j^i) \hat{=}(x_j^i,y_j^i)$，然后通过解$k_2(\theta_j^i)^3+k_1\theta_j^i-r_j^i=0$得到$\theta_j^i$。
+1. 将点从像素坐标系转换到图像坐标系：
+   $$\begin{pmatrix} x_j^i \\ y_j^i \end{pmatrix} = \begin{bmatrix} 1/m_u & 0 \\ 0 & 1/m_v \end{bmatrix} \begin{pmatrix} u_j^i - u_0 \\ v_j^i - v_0 \end{pmatrix}$$
+   然后将图像坐标系下的点转换为极坐标形式$(r_j^i,\varphi_j^i) \hat{=}(x_j^i,y_j^i)$，然后通过解$k_2(\theta_j^i)^3+k_1\theta_j^i-r_j^i=0$得到$\theta_j^i$。
 2. 有了$\theta$和$\varphi$之后，我们就能计算该点在相机坐标系下的坐标为$\tilde{\mathbf{x}}_j^i=(\sin \varphi_j^i \sin \theta_j^i, \cos \varphi_j^i \sin \theta_j^i, \cos \theta_j^i)^{\top}$。
 3. 有了世界坐标系下的点$\mathbf{x}_p^i$和相机坐标系下的点$\tilde{\mathbf{x}}_j^i$，我们可以通过数据归一化的线性算法初步计算得到一个$\mathbf{H}_j$（个人注解：这里是考虑view $j$上的所有点去拟合出来一个转换矩阵$\mathbf{H}_j$，矩阵计算的方法这里不再详述，作者引用了文献“Hartley, R. and Zisserman, A.: Multiple View Geometry, 2nd ed., Cambridge, 2003.”，或者参考[该博文](https://shichaoxin.com/2022/12/16/%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A-%E5%BC%A0%E6%AD%A3%E5%8F%8B%E6%A0%87%E5%AE%9A%E6%B3%95/#31%E6%B1%82%E8%A7%A3%E5%86%85%E5%8F%82%E7%9F%A9%E9%98%B5%E5%92%8C%E5%A4%96%E5%8F%82%E7%9F%A9%E9%98%B5%E7%9A%84%E7%A7%AF)）。然后计算在view $j$中，世界坐标系下每个点经过矩阵转换后在相机坐标系下的点$\hat{\mathbf{x}}_j^i = \mathbf{H}_j \mathbf{x}_p^i / \| \mathbf{H}_j\mathbf{x}_p^i \|$。
 4. 通过最小化$\sum_i \sin ^2 \alpha_j^i$来refine单应性矩阵$\mathbf{H}_j$，其中$\alpha_j^i$是两个单位向量$\tilde{\mathbf{x}}_j^i$和$\hat{\mathbf{x}}_j^i$之间的夹角。
@@ -205,8 +207,11 @@ $a,b$（单位是像素）是椭圆的长轴和短轴，这两个值可以从图
 >![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/CameraCalibration/20240730/4.png)
 >
 >将球坐标变换为直角坐标：
+>
 >$x = r \sin \theta \cos \varphi$
+>
 >$y = r \sin \theta \sin \varphi$
+>
 >$z = r \cos \theta$
 >
 >第2步的公式中省略了半径$r$，且第2步的坐标是按$\\{y,x,z \\}$排列的，但是这些都不重要，后面只是用到两个单位向量的夹角。
@@ -275,11 +280,11 @@ $$\hat{\mathbf{m}} = \frac{\int_0^R \int_0^{2\pi} \hat{\mathbf{m}}(\varrho, \alp
 
 ## 5.A.Conventional and Wide-Angle Lens Camera
 
-将我们提出的相机模型和论文“Geometric camera calibration using circular control points”提出的相机模型进行了比较。该论文提出的相机模型是一个[skew-zero](https://shichaoxin.com/2022/12/16/%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A-%E5%BC%A0%E6%AD%A3%E5%8F%8B%E6%A0%87%E5%AE%9A%E6%B3%95/#2%E5%80%BE%E6%96%9C%E5%9B%A0%E5%AD%90)的针孔模型，带有4个畸变参数，我们用$\bm{\delta}_8$表示这个模型。
+将我们提出的相机模型和论文“Geometric camera calibration using circular control points”提出的相机模型进行了比较。该论文提出的相机模型是一个[skew-zero](https://shichaoxin.com/2022/12/16/%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A-%E5%BC%A0%E6%AD%A3%E5%8F%8B%E6%A0%87%E5%AE%9A%E6%B3%95/#2%E5%80%BE%E6%96%9C%E5%9B%A0%E5%AD%90)的针孔模型，带有4个畸变参数，我们用$\boldsymbol{\delta}_8$表示这个模型。
 
 第一个实验使用论文“Geometric camera calibration using circular control points”提供的数据。它是一个单张图像，图像中的校正目标是两个正交的平面，每个平面都有256个圆形控制点。所用相机为单色CCD相机，配备8.5毫米的Cosmicar镜头。第二个实验使用的是Sony DFW-VL500相机和广角转换镜头，总焦距为3.8毫米。在这个实验中，我们使用了6张包含校正目标的图像。总共有1328个控制点，可以通过计算它们的灰度质心来定位它们。
 
-RMS残差（即测量点和建模点距离的均方根）的统计结果见表2。其中，$\bm{\delta}_8$和$\mathbf{p}_9$的自由度都是8。尽管$\mathbf{p}_9$没有考虑畸变，但其效果仍略优于$\bm{\delta}_8$。
+RMS残差（即测量点和建模点距离的均方根）的统计结果见表2。其中，$\boldsymbol{\delta}_8$和$\mathbf{p}_9$的自由度都是8。尽管$\mathbf{p}_9$没有考虑畸变，但其效果仍略优于$\boldsymbol{\delta}_8$。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/CameraCalibration/20240730/5.png)
 
