@@ -103,7 +103,7 @@ $$S_{det} = p_i^{\alpha}IoU_i^{(1-\alpha)} \tag{7}$$
 
 👉**The Effectiveness of Computing the Gradient of $L_{IoU}$ with Respective to $\hat{IoU}_i$ During Training.**
 
-上述实验，在训练阶段的反向传播时都没有计算$L_{IoU}$关于$\hat{IoU}_i$的梯度。从表4可以看出，反向传播时如果添加$L_{IoU}$关于$\hat{IoU}_i$的梯度计算（即式(5)），会提升AP。
+上述实验，在训练阶段的反向传播时都没有计算$L\_{IoU}$关于$\hat{IoU}\_i$的梯度。从表4可以看出，反向传播时如果添加$L\_{IoU}$关于$\hat{IoU}\_i$的梯度计算（即式(5)），会提升AP。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/IoUaware/7.png)
 

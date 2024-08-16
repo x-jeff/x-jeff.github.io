@@ -69,13 +69,11 @@ bbox regression是目标检测中的一个重要步骤。在[YOLOv3](https://shi
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PPYOLO/2.png)
 
-👉**IoU Aware**
+👉**[IoU Aware](http://shichaoxin.com/2024/08/16/论文阅读-IoU-aware-Single-stage-Object-Detector-for-Accurate-Localization/)**
 
->S. Wu, X. Li, and X. Wang. Iou-aware single-stage object detector for accurate localization. Image and Vision Computing, page 103911, 2020.
+在[YOLOv3](https://shichaoxin.com/2022/06/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-YOLOv3-An-Incremental-Improvement/)中，把类别概率和目标分数相乘作为最终的检测置信度，这并没有考虑到定位的精度。为了解决这一问题，我们添加了一个IoU预测分支来评估定位的精度。在训练阶段，[IoU aware loss](http://shichaoxin.com/2024/08/16/论文阅读-IoU-aware-Single-stage-Object-Detector-for-Accurate-Localization/)被用于训练IoU预测分支。在推理阶段，将类别概率、目标分数、预测的IoU，三者的乘积作为最终的检测置信度。然后，最终的检测置信度被用作后续NMS的输入。IoU预测分支会增加额外的计算成本，但只增加了0.01%的参数量和0.0001%的FLOPs，所以增加的计算成本可以被忽略。
 
-在[YOLOv3](https://shichaoxin.com/2022/06/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-YOLOv3-An-Incremental-Improvement/)中，把类别概率和目标分数相乘作为最终的检测置信度，这并没有考虑到定位的精度。为了解决这一问题，我们添加了一个IoU预测分支来评估定位的精度。在训练阶段，IoU aware loss被用于训练IoU预测分支。在推理阶段，将类别概率、目标分数、预测的IoU，三者的乘积作为最终的检测置信度。然后，最终的检测置信度被用作后续NMS的输入。IoU预测分支会增加额外的计算成本，但只增加了0.01%的参数量和0.0001%的FLOPs，所以增加的计算成本可以被忽略。
-
-IoU预测分支的添加方式可参考下图（取自IoU Aware论文）：
+IoU预测分支的添加方式可参考下图（取自[IoU Aware论文](http://shichaoxin.com/2024/08/16/论文阅读-IoU-aware-Single-stage-Object-Detector-for-Accurate-Localization/)）：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PPYOLO/3.png)
 
