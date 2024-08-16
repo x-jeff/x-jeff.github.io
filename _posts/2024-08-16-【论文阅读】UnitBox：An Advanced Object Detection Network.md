@@ -27,7 +27,7 @@ tags:
 
 $$\tilde{\mathbf{x}}_{i,j} = (\tilde{x}_{t_{i,j}},\tilde{x}_{b_{i,j}},\tilde{x}_{l_{i,j}},\tilde{x}_{r_{i,j}}) \tag{1}$$
 
-其中，$\tilde{x}_{t_{i,j}},\tilde{x}_{b_{i,j}},\tilde{x}_{l_{i,j}},\tilde{x}_{r_{i,j}}$分别表示像素点$(i,j)$到GT bbox上（top）、下（bottom）、左（left）、右（right）四个边界的距离。为了方便，后续表示省略脚注$i,j$。预测的bbox表示为$\mathbf{x}=(x_t,x_b,x_l,x_r)$，如Fig1所示。
+其中，$\tilde{x}\_{t\_{i,j}},\tilde{x}\_{b\_{i,j}},\tilde{x}\_{l\_{i,j}},\tilde{x}\_{r\_{i,j}}$分别表示像素点$(i,j)$到GT bbox上（top）、下（bottom）、左（left）、右（right）四个边界的距离。为了方便，后续表示省略脚注$i,j$。预测的bbox表示为$\mathbf{x}=(x_t,x_b,x_l,x_r)$，如Fig1所示。
 
 ## 2.1.L2 Loss Layer
 

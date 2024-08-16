@@ -63,11 +63,9 @@ $$W_{EMA} = \lambda W_{EMA} + (1-\lambda)W \tag{1}$$
 
 DropBlock是一种结构化的DropOut，其feature map中的连续区域一起被drop掉。和原始论文（G. Ghiasi, T.-Y. Lin, and Q. V. Le. Dropblock: A regularization method for convolutional networks. In NeurIPS, 2018.）不同，我们只对[FPN](https://shichaoxin.com/2023/12/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Feature-Pyramid-Networks-for-Object-Detection/)部分使用了DropBlock，因为我们发现对backbone使用DropBlock会降低精度。Fig2中的紫色三角就表示使用了DropBlock。
 
-👉**IoU Loss**
+👉**[IoU Loss](http://shichaoxin.com/2024/08/16/论文阅读-UnitBox-An-Advanced-Object-Detection-Network/)**
 
->J. Yu, Y. Jiang, Z. Wang, Z. Cao, and T. Huang. Unitbox: An advanced object detection network. In MM, 2016.
-
-bbox regression是目标检测中的一个重要步骤。在[YOLOv3](https://shichaoxin.com/2022/06/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-YOLOv3-An-Incremental-Improvement/)中，bbox regression使用了L1 loss。它不是为mAP评估指标量身定制的，该指标强烈依赖于IoU。和[YOLOv4](https://shichaoxin.com/2024/01/04/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-YOLOv4-Optimal-Speed-and-Accuracy-of-Object-Detection/)不同，我们没有将L1 loss直接替换为IoU loss，我们额外添加了一个分支用于计算IoU loss。此外，我们还发现各种IoU loss变体的性能都差不多，所以我们使用了最基础的IoU loss（下图取自Unitbox论文）：
+bbox regression是目标检测中的一个重要步骤。在[YOLOv3](https://shichaoxin.com/2022/06/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-YOLOv3-An-Incremental-Improvement/)中，bbox regression使用了L1 loss。它不是为mAP评估指标量身定制的，该指标强烈依赖于IoU。和[YOLOv4](https://shichaoxin.com/2024/01/04/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-YOLOv4-Optimal-Speed-and-Accuracy-of-Object-Detection/)不同，我们没有将L1 loss直接替换为IoU loss，我们额外添加了一个分支用于计算IoU loss。此外，我们还发现各种IoU loss变体的性能都差不多，所以我们使用了最基础的[IoU loss](http://shichaoxin.com/2024/08/16/论文阅读-UnitBox-An-Advanced-Object-Detection-Network/)（下图取自[Unitbox论文](http://shichaoxin.com/2024/08/16/论文阅读-UnitBox-An-Advanced-Object-Detection-Network/)）：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PPYOLO/2.png)
 
