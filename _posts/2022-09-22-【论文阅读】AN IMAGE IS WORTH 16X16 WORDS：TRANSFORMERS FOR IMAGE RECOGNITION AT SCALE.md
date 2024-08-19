@@ -47,9 +47,7 @@ tags:
 
 模型的总体框架见Fig1。标准的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的输入为一维的token embeddings的序列。为了使其能处理二维图像，假设原始图像为$\mathbf{x} \in \mathbb{R}^{H\times W \times C}$，其中$(H,W)$为原始图像的分辨率，$C$为通道数，将原始图像划分为多个patch，将每个patch都拍扁为一维，如果有$N$个patch则可得到序列：$\mathbf{x}\_p \in \mathbb{R}^{N\times (P^2\cdot C)}$，其中$(P,P)$为每个patch的分辨率，$N=HW/P^2$为patch的数量（即[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的有效输入序列长度）。[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)在所有层中使用了一个固定的向量大小$D$，因此我们也将拍平的patch通过一个可训练的线性映射投影到$D$维（见公式1，个人理解就是[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)中的$d\_{model}=512$，即Fig1中的Linear Projection）。我们将其称为patch embeddings。
 
-类似于BERT的`[class]` token，我们也设置了一个可学习的嵌入向量（$\mathbf{z}\_0^0=\mathbf{x}\_{class}$），其经过[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)编码器得到的$\mathbf{z}_L^0$为image representation $\mathbf{y}$（见公式4，个人理解：就是图像的类别标识）。在预训练和fine-tune过程中，一个classification head和$\mathbf{z}_L^0$相连。在预训练时，classification head由一个带有一个隐藏层的MLP实现；在fine-tune时，classification head由一个线性层实现。
-
->BERT原文：Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: Pre-training of deep bidirectional transformers for language understanding. In NAACL, 2019.。
+类似于[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)的`[class]` token，我们也设置了一个可学习的嵌入向量（$\mathbf{z}\_0^0=\mathbf{x}\_{class}$），其经过[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)编码器得到的$\mathbf{z}_L^0$为image representation $\mathbf{y}$（见公式4，个人理解：就是图像的类别标识）。在预训练和fine-tune过程中，一个classification head和$\mathbf{z}_L^0$相连。在预训练时，classification head由一个带有一个隐藏层的MLP实现；在fine-tune时，classification head由一个线性层实现。
 
 position embeddings也被加在了patch embeddings上以保留位置信息。我们使用标准的一维的可学习的position embeddings，因为我们发现更先进的二维position embeddings并没有带来显著的性能提升（见Appendix D.4）。生成的embedding vectors（即$\mathbf{z}_0$）作为编码器的输入。
 
@@ -120,7 +118,7 @@ $$\mathbf{y}=LN(\mathbf{z}_L^0) \tag{4}$$
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViT/2.png)
 
-类似BERT的配置，我们也列出了几种不同配置的ViT（见表1）。除了“Base”和“Large”版本直接采用自BERT，我们还额外添加了“Huge”版本。在下文中，我们会用更简短的名称描述模型，比如ViT-L/16表示使用“Large”版本的变体，每个patch的大小（即input patch size）为$16 \times 16$。需要注意的是，Transformer的序列长度（即token数量）和patch size成反比，因此patch size越小，计算成本越高。
+类似[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)的配置，我们也列出了几种不同配置的ViT（见表1）。除了“Base”和“Large”版本直接采用自[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)，我们还额外添加了“Huge”版本。在下文中，我们会用更简短的名称描述模型，比如ViT-L/16表示使用“Large”版本的变体，每个patch的大小（即input patch size）为$16 \times 16$。需要注意的是，Transformer的序列长度（即token数量）和patch size成反比，因此patch size越小，计算成本越高。
 
 >表1中的Layers指的是用了几个Transformer Encoder block。即Fig1中的L。
 
@@ -227,7 +225,7 @@ $$d_{ab} = l_{ab} * A_{ab}$$
 
 ## 4.6.SELF-SUPERVISION
 
-[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)在NLP领域中展示了超强的能力。除此之外，让[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)真正爆火还有另外一个原因，就是大规模的自监督训练。我们仿照BERT使用的masked language modeling task（类似于完形填空），我们使用了一种叫做masked patch prediction的自监督训练方法（个人理解：就是将图像分好patch后挖去其中某一个patch让ViT去预测，即训练ViT的特征提取能力）。通过这种自监督预训练的方式，ViT-B/16在ImageNet上取得了79.9%的准确率，相比从头开始训练增加了2%的准确率，但是相比有监督的预训练，还是低了4%。更多细节见Appendix B.1.2。这将会是未来的研究方向之一。
+[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)在NLP领域中展示了超强的能力。除此之外，让[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)真正爆火还有另外一个原因，就是大规模的自监督训练。我们仿照[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)使用的masked language modeling task（类似于完形填空），我们使用了一种叫做masked patch prediction的自监督训练方法（个人理解：就是将图像分好patch后挖去其中某一个patch让ViT去预测，即训练ViT的特征提取能力）。通过这种自监督预训练的方式，ViT-B/16在ImageNet上取得了79.9%的准确率，相比从头开始训练增加了2%的准确率，但是相比有监督的预训练，还是低了4%。更多细节见Appendix B.1.2。这将会是未来的研究方向之一。
 
 # 5.CONCLUSION
 
@@ -287,7 +285,7 @@ $$A = softmax \left( \mathbf{qk}^T / \sqrt{D_h} \right) A \in \mathcal{R}^{N\tim
 * 随机替换为其它patch embdding（10%）。
 * 保持原样（10%）。
 
-这一操作和BERT中的语言处理方式类似。Finally, we predict the 3-bit, mean color (i.e., 512 colors in total) of every corrupted patch using their respective patch representations.（我自己没太理解这句话，在网上查了好久也没找到合适的解释，我自己理解的ViT的自监督方式就是如下图所示的那样）。
+这一操作和[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)中的语言处理方式类似。Finally, we predict the 3-bit, mean color (i.e., 512 colors in total) of every corrupted patch using their respective patch representations.（我自己没太理解这句话，在网上查了好久也没找到合适的解释，我自己理解的ViT的自监督方式就是如下图所示的那样）。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ViT/12.png)
 

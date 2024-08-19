@@ -49,7 +49,7 @@ BERT的一个显著特征就是不同任务使用统一的模型框架。预训�
 
 BERT的模型框架是一个多层双向Transformer编码器。
 
-我们将层数（即Transformer blocks）记为$L$，hidden size（即隐藏层大小）记为$H$，自注意力头的数量记为$A$。我们有两个模型：$\text{BERT}_{\text{BASE}}$（$L=12,H=768,A=12$，总参数量为110M）和$\text{BERT}_{\text{LARGE}}$（$L=24,H=1024,A=16$，总参数量为340M）。
+我们将层数（即Transformer blocks）记为$L$，hidden size（即隐藏层大小）记为$H$，自注意力头的数量记为$A$。我们有两个模型：$\text{BERT}\_{\text{BASE}}$（$L=12,H=768,A=12$，总参数量为110M）和$\text{BERT}\_{\text{LARGE}}$（$L=24,H=1024,A=16$，总参数量为340M）。
 
 $\text{BERT}_{\text{BASE}}$和[GPT1](http://shichaoxin.com/2024/03/20/LLM-一文读懂ChatGPT背后的技术/#1gpt1)的参数量相当。
 
@@ -197,7 +197,7 @@ NSP任务示例：
 
 训练用的batch size为256个序列（256个序列\*512个token=128,000 tokens/batch），共训练了1,000,000步，近似于在3.3 billion的语料库上训练了40个epoch。使用Adam，学习率为$1e-4$，$\beta_1=0.9$，$\beta_2=0.999$，L2 weight decay=0.01，前10,000步用于学习率warm up，学习率使用线性衰减。所有层的dropout概率都是0.1。使用[GELU](http://shichaoxin.com/2022/04/09/论文阅读-GAUSSIAN-ERROR-LINEAR-UNITS-(GELUS)/)激活函数。训练loss是平均MLM似然和平均NSP似然之和。
 
-训练$\text{BERT}_{\text{BASE}}$使用了4块TPU（共16个TPU芯片）。训练$\text{BERT}_{\text{LARGE}}$使用了16块TPU（共64个TPU芯片）。每个模型都预训练了4天时间。
+训练$\text{BERT}\_{\text{BASE}}$使用了4块TPU（共16个TPU芯片）。训练$\text{BERT}\_{\text{LARGE}}$使用了16块TPU（共64个TPU芯片）。每个模型都预训练了4天时间。
 
 为了加速预训练，前90%步使用长度为128的序列，后10%步使用长度为512的序列。
 

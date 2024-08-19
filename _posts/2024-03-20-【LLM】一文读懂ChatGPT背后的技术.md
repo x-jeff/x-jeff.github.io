@@ -19,13 +19,13 @@ tags:
 
 Google在2017年6月发表了著名的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)，在一年之后，OpenAI在2018年6月发表了文章[Improving Language Understanding by Generative Pre-Training](https://github.com/x-jeff/AI_Papers/blob/master/2024/GPT/Improving%20Language%20Understanding%20by%20Generative%20Pre-Training.pdf)，即我们所谓的GPT1，GPT就是**Generative Pre-training Transformer**的缩写。GPT1的核心技术就是利用[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的解码器，在大量没有标签的文本数据上预训练得到一个语言模型，然后再在子任务上进行fine-tune，这个套路和CV基本一样。
 
-然后在4个月之后，也就是2018年10月，Google发表了BERT，其和GPT1相反，BERT只使用了[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的编码器，然后使用一个更大的数据集来进行预训练，结果比GPT1好了很多。BERT有两种大小的模型：BERT-Base和BERT-Large，其中BERT-Base的大小和GPT1差不多，但性能要更好，BERT-Large就不用说了，性能相比BERT-Base得到进一步提升。
+然后在4个月之后，也就是2018年10月，Google发表了[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)，其和GPT1相反，[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)只使用了[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的编码器，然后使用一个更大的数据集来进行预训练，结果比GPT1好了很多。[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)有两种大小的模型：BERT-Base和BERT-Large，其中BERT-Base的大小和GPT1差不多，但性能要更好，BERT-Large就不用说了，性能相比BERT-Base得到进一步提升。
 
 OpenAI一看，这不行啊，于是在2019年2月推出了GPT2，依旧坚持解码器的思路，但是使用了更大的数据集，训练了一个更大的模型，比BERT-Large还要大。但是效果并不是特别的惊艳。因此，OpenAI在2020年5月继续推出了GPT3。相比GPT2，GPT3的数据量和模型大小都变大了100倍，终于暴力出奇迹，GPT3的效果非常惊艳。
 
 接下来进入正题，介绍下GPT1这篇论文。
 
-在摘要中，作者提出，在NLP领域，大量的数据是没有标签的，只有少部分数据是带有标签的，如果只使用这些带有标签的少量数据来训练模型的话，模型性能通常不会太好。因此，我们就先在大量没有标签的数据上进行预训练（即Generative Pre-Training），然后再在带有标签的子任务上进行fine-tune（这一套流程称为半监督学习或自监督学习）。在CV领域，这是一种很常见的套路，因为在CV领域，我们有很多像ImageNet这样带有标签的大型数据集去做预训练，但是在NLP领域，我们并没有带有标签的大型数据集去做预训练，所以这在一定程度上阻碍了深度学习在NLP领域内的发展。因此，GPT1和BERT的出现，让人们知道我们在没有标签的大量数据上去做预训练也是可以的。
+在摘要中，作者提出，在NLP领域，大量的数据是没有标签的，只有少部分数据是带有标签的，如果只使用这些带有标签的少量数据来训练模型的话，模型性能通常不会太好。因此，我们就先在大量没有标签的数据上进行预训练（即Generative Pre-Training），然后再在带有标签的子任务上进行fine-tune（这一套流程称为半监督学习或自监督学习）。在CV领域，这是一种很常见的套路，因为在CV领域，我们有很多像ImageNet这样带有标签的大型数据集去做预训练，但是在NLP领域，我们并没有带有标签的大型数据集去做预训练，所以这在一定程度上阻碍了深度学习在NLP领域内的发展。因此，GPT1和[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)的出现，让人们知道我们在没有标签的大量数据上去做预训练也是可以的。
 
 那么使用没有标签的数据进行预训练通常会面临两个问题：1）不知道怎么去定义损失函数；2）如何把预训练学到的表征以一种统一有效的方式传递给下游不同的子任务。
 
@@ -47,7 +47,7 @@ $$P(u) = \text{softmax} (h_n W_e^T)$$
 
 其中，$U = (u_{-k},…,u_{-1})$是我们喂给模型的$k$个词，$W_e$是词嵌入矩阵，$W_p$是位置信息的编码矩阵，$n$是transformer\_block的层数（因为transformer\_block不会改变输入输出的形状，所以上一个block的输出可以直接拿来做下一个block的输入）。最后通过一个softmax函数得到下一个词是$u$的概率。
 
-而BERT并没有使用标准语言模型的目标函数，它使用的是一个带mask的语言模型，类似于完形填空的做法，即把序列中间的一个词挖掉让模型去预测，也就是说在预测的时候，模型即可以看到之前的词，也可以看到之后的词，所以BERT使用了[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的编码器作为它的模型。相比看来，GPT1的做法要更难一些。
+而[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)并没有使用标准语言模型的目标函数，它使用的是一个带mask的语言模型，类似于完形填空的做法，即把序列中间的一个词挖掉让模型去预测，也就是说在预测的时候，模型即可以看到之前的词，也可以看到之后的词，所以[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)使用了[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的编码器作为它的模型。相比看来，GPT1的做法要更难一些。
 
 接下来说下如何在下游子任务上进行fine-tune。假设序列$x^1,…,x^m$的标签为$y$，我们将这个序列喂给已经预训练好的模型，得到最后一个transformer\_block的输出$h_l^m$，我们对$h_l^m$进行线性变换$W_y$后通过softmax函数得到预测结果为$y$的概率：
 
@@ -79,7 +79,7 @@ $$L_3 (\mathcal{C}) = L_2 (\mathcal{C}) + \lambda * L_1 (\mathcal{C})$$
 
 GPT1预训练使用了一个叫BooksCorpus的数据集，该数据集包含7000本没有发表的书。
 
-GPT1使用了12层的transformer解码器，每一层的维度是768，使用了12个注意力头。和其大小相当的BERT-Base，也是12层（编码器），维度是768，12个头，其参数量约为110M。而BERT-Large则是24层的编码器，维度是1024，16个头，参数量约为340M。BERT用的数据集也更大一些，它也用了BooksCorpus数据集（800M个词），此外还有English Wikipedia（2500M个词），总数据量几乎是GPT1的4倍。BERT与GPT1的性能比较：
+GPT1使用了12层的transformer解码器，每一层的维度是768，使用了12个注意力头。和其大小相当的BERT-Base，也是12层（编码器），维度是768，12个头，其参数量约为110M。而BERT-Large则是24层的编码器，维度是1024，16个头，参数量约为340M。[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)用的数据集也更大一些，它也用了BooksCorpus数据集（800M个词），此外还有English Wikipedia（2500M个词），总数据量几乎是GPT1的4倍。[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)与GPT1的性能比较：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GPT/3.png)
 
@@ -89,13 +89,13 @@ GPT1使用了12层的transformer解码器，每一层的维度是768，使用了
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GPT/4.png)
 
-看到BERT使用更大的数据集，在性能上超过了GPT1，OpenAI决定使用比BERT更大的数据集再打回去，就是要证明我的解码器思路比你的编码器思路要好。GPT2使用了一个新的数据集WebText，包含超过百万的网页文本，模型参数量达到了1.5B，模型结构基本和GPT1一致。但是不幸的是，GPT2的表现相比BERT，优势并不明显。于是，作者另辟蹊径，把zero-shot作为GPT2的核心卖点。
+看到[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)使用更大的数据集，在性能上超过了GPT1，OpenAI决定使用比[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)更大的数据集再打回去，就是要证明我的解码器思路比你的编码器思路要好。GPT2使用了一个新的数据集WebText，包含超过百万的网页文本，模型参数量达到了1.5B，模型结构基本和GPT1一致。但是不幸的是，GPT2的表现相比[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)，优势并不明显。于是，作者另辟蹊径，把zero-shot作为GPT2的核心卖点。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GPT/5.png)
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GPT/6.png)
 
-GPT1和BERT都是在大量无标签的数据上进行预训练，然后在带有标签的子任务数据集上进行fine-tune。但这样的话，对于每个子任务，我们都要去收集有标签的数据，还要再训练一遍模型，这都是有成本的。因此我们提出zero-shot，即预训练结束后，在子任务上，我不要有标签的数据，也不需要重新训练我的模型，依旧可以有不错的性能。
+GPT1和[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)都是在大量无标签的数据上进行预训练，然后在带有标签的子任务数据集上进行fine-tune。但这样的话，对于每个子任务，我们都要去收集有标签的数据，还要再训练一遍模型，这都是有成本的。因此我们提出zero-shot，即预训练结束后，在子任务上，我不要有标签的数据，也不需要重新训练我的模型，依旧可以有不错的性能。
 
 对于GPT1，在fine-tune的时候，我们引入了一些特殊的token，比如`Start`、`Delim`、`Extract`，模型在fine-tune时会学到这些符号都是什么意思，但是在GPT2中，我们要做zero-shot，模型是不需要fine-tune的，所以我们就不能引入这些在预训练中模型没有见过的符号。那我们该怎么做呢？作者提出其实在预训练的数据集中，已经有类似这些特殊token作用的词。比如对于文本翻译（具体例子见下表），预训练数据集中的一个序列很可能包含这三个词：translate to french, english text, french text。这些词其实就起到了分隔序列的作用，这些词后来被称为prompt。再比如阅读理解任务，一个序列中可能会包含：answer the question, document, question, answer。
 

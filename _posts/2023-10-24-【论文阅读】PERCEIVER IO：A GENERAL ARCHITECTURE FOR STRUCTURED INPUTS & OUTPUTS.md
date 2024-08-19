@@ -27,7 +27,7 @@ Perceiver IO是一个全注意力的读-处理-写框架：输入被编码到lat
 
 Perceiver IO的解码过程使用注意力机制，使用query系统将latents映射到任意大小和结构的输出，该query系统可以灵活的指定输出所需的语义，包括dense和多任务设置。
 
-我们所提出的框架的通用性是前所未有的。Perceiver IO可以替代BERT和AlphaStar中的Transformer。同时，Perceiver IO在Sintel光流benchmark上得到了SOTA的结果，在ImageNet图像分类上也得到了不错的结果。即使在处理高度多样化的多模态数据时，Perceiver IO也得到了非常不错的效果，比如在Kinetics中对视频、音频、标签的联合自动编码以及在AudioSet上对视频-音频的联合分类。Perceiver IO简化了pipeline并使得我们可以移除一些领域相关的假设。
+我们所提出的框架的通用性是前所未有的。Perceiver IO可以替代[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)和AlphaStar中的Transformer。同时，Perceiver IO在Sintel光流benchmark上得到了SOTA的结果，在ImageNet图像分类上也得到了不错的结果。即使在处理高度多样化的多模态数据时，Perceiver IO也得到了非常不错的效果，比如在Kinetics中对视频、音频、标签的联合自动编码以及在AudioSet上对视频-音频的联合分类。Perceiver IO简化了pipeline并使得我们可以移除一些领域相关的假设。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PerceiverIO/1.png)
 
@@ -85,7 +85,7 @@ Fig3：我们根据输出构造特定的query，以生成具有不同语义的�
 
 ## 4.1.LANGUAGE
 
-首先在NLP领域，我们比较了Perceiver IO和标准的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)。尽管[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)一开始就是为语言处理设计的，但其平方复杂度使得其很难把没有经过tokenization的语言直接作为输入，tokenization通常可以把输入序列长度缩短约4倍。和基于[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的BERT或XLNet不同，Perceiver IO复杂度和输入序列长度呈线性关系。我们的实验表明，在masked language modeling（MLM）方面，Perceiver IO和[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)一样好或更好，并且Perceiver IO还移除了tokenization。
+首先在NLP领域，我们比较了Perceiver IO和标准的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)。尽管[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)一开始就是为语言处理设计的，但其平方复杂度使得其很难把没有经过tokenization的语言直接作为输入，tokenization通常可以把输入序列长度缩短约4倍。和基于[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)的[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)或XLNet不同，Perceiver IO复杂度和输入序列长度呈线性关系。我们的实验表明，在masked language modeling（MLM）方面，Perceiver IO和[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)一样好或更好，并且Perceiver IO还移除了tokenization。
 
 我们在给定FLOPs预算的情况下进行了比较，而不是在给定参数量的情况下进行的比较，因为前者随着序列长度平方增长，但后者是独立的（位置编码除外）。从实践角度来说，FLOPs比参数更重要，因为FLOPs与训练时间是直接相关的。我们在GLUE benchmark上进行了评估，结果见表1。我们发现，在给定FLOPs预算的情况下，没有使用tokenization的Perceiver IO和使用了SentencePiece tokenization的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)性能相当。
 
@@ -103,15 +103,15 @@ Fig3：我们根据输出构造特定的query，以生成具有不同语义的�
 
 **Perceiver IO on SentencePiece tokens.**
 
-Perceiver IO略优于BERT（81.2 vs. 81.1）。与BERT Base相比，我们的框架更深（26层），但FLOPs基本相近。
+Perceiver IO略优于[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)（81.2 vs. 81.1）。与BERT Base相比，我们的框架更深（26层），但FLOPs基本相近。
 
 **Perceiver IO on UTF-8 bytes.**
 
-相比常规的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)，Perceiver IO可以处理更长的序列。我们的模型不使用固定的手工设计的单词，而是直接使用原始字节作为输入：输入输出都是UTF-8字节。在相同的FLOPs预算下，Perceiver IO明显优于BERT（并且虽然Perceiver IO有着更大的深度，但速度却比BERT快了2倍多）。和SentencePiece模型相比，基于byte的Perceiver IO依然有着不相上下的表现。如果增加FLOPs预算，Perceiver IO可以获得更好的性能，在GLUE benchmark上获得了81.8。
+相比常规的[Transformer](http://shichaoxin.com/2022/03/26/论文阅读-Attention-Is-All-You-Need/)，Perceiver IO可以处理更长的序列。我们的模型不使用固定的手工设计的单词，而是直接使用原始字节作为输入：输入输出都是UTF-8字节。在相同的FLOPs预算下，Perceiver IO明显优于[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)（并且虽然Perceiver IO有着更大的深度，但速度却比[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)快了2倍多）。和SentencePiece模型相比，基于byte的Perceiver IO依然有着不相上下的表现。如果增加FLOPs预算，Perceiver IO可以获得更好的性能，在GLUE benchmark上获得了81.8。
 
 **Multitask Perceiver IO.**
 
-我们使用第3.2部分介绍的多任务query，使用UTF-8 byte模型，在所有的8个GLUE任务上同时进行了finetune，结果见表2。我们将其与单个任务机制（在每个任务上独立训练）的结果进行了比较。我们还比较了一种类似于BERT中[CLS] token的方法，该方法在输入前准备一个特殊的token，并使用与该token对应的位置来查询task logits。我们通过在任务之间共享单个token（Shared input token）或使用任务特定的token（Token-specific input token）来实现这一点。在这两种情况下，我们都使用了两层任务特定的MLP head来为每个任务生成output logits。我们发现我们的多任务方法优于单任务方法。我们的方法更通用，因为其不依赖[CLS] token，将输入输出进行了解耦。
+我们使用第3.2部分介绍的多任务query，使用UTF-8 byte模型，在所有的8个GLUE任务上同时进行了finetune，结果见表2。我们将其与单个任务机制（在每个任务上独立训练）的结果进行了比较。我们还比较了一种类似于[BERT](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)中[CLS] token的方法，该方法在输入前准备一个特殊的token，并使用与该token对应的位置来查询task logits。我们通过在任务之间共享单个token（Shared input token）或使用任务特定的token（Token-specific input token）来实现这一点。在这两种情况下，我们都使用了两层任务特定的MLP head来为每个任务生成output logits。我们发现我们的多任务方法优于单任务方法。我们的方法更通用，因为其不依赖[CLS] token，将输入输出进行了解耦。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PerceiverIO/7.png)
 
@@ -307,7 +307,7 @@ Perceiver IO对语言的处理是byte级别的。
 
 我们在C4+English Wikipedia的混合数据集上预训练了所有的模型，其中70%的训练tokens采样自C4数据集，剩余30%来自Wikipedia。我们在SentencePiece和byte-level实验中使用一样的mask策略：每个单词被独立的mask，被mask概率为15%，通过空格对单词进行划分。
 
-预训练的超参数见表12。和FLOPs相当的BERT模型（trained on bytes）相比，我们将model width从768降低到了512，feed-forward hidden size从3072降低到了2048，层数从12降到了6，注意力的head数量从12降到了8。这个模型在处理序列长度为2048 bytes的FLOPs和BERT Base model在处理序列长度为512 tokens的FLOPs相当。
+预训练的超参数见表12。和FLOPs相当的[BERT模型](http://shichaoxin.com/2024/08/12/论文阅读-BERT-Pre-training-of-Deep-Bidirectional-Transformers-for-Language-Understanding/)（trained on bytes）相比，我们将model width从768降低到了512，feed-forward hidden size从3072降低到了2048，层数从12降到了6，注意力的head数量从12降到了8。这个模型在处理序列长度为2048 bytes的FLOPs和BERT Base model在处理序列长度为512 tokens的FLOPs相当。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PerceiverIO/21.png)
 
