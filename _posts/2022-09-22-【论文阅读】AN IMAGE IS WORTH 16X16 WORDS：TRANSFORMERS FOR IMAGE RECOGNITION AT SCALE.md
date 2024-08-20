@@ -122,15 +122,13 @@ $$\mathbf{y}=LN(\mathbf{z}_L^0) \tag{4}$$
 
 >表1中的Layers指的是用了几个Transformer Encoder block。即Fig1中的L。
 
-对于作为baseline的CNN网络，我们使用[ResNet](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)，但是把其中的[BatchNorm](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)替换成了Group Normalization，并且使用了standardized convolutions。我们将修改之后的模型称之为“ResNet(BiT)”。对于混合模型，我们将中间的feature map作为输入喂给ViT，patch size设为$1\times 1$。为了测试不同的序列长度，我们使用了两种方案：
+对于作为baseline的CNN网络，我们使用[ResNet](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)，但是把其中的[BatchNorm](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)替换成了[Group Normalization](http://shichaoxin.com/2024/08/20/论文阅读-Group-Normalization/)，并且使用了standardized convolutions。我们将修改之后的模型称之为“ResNet(BiT)”。对于混合模型，我们将中间的feature map作为输入喂给ViT，patch size设为$1\times 1$。为了测试不同的序列长度，我们使用了两种方案：
 
 1. 直接使用[ResNet50](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/) stage 4的输出作为喂给ViT的feature map（维度为$14 \times 14$）。
 2. 依然是使用[ResNet50](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)，但是把stage 4移除（stage 4共有6个block），将stage 3从4个block扩展为10个block，将扩展后的stage 3的输出作为喂给ViT的feature map（维度为$28 \times 28$）。
 
 方案二将序列长度增加了4倍（$\frac{28^2}{14^2}=4$），计算成本也会更高。
 
->Group Normalization论文：Yuxin Wu and Kaiming He. Group normalization. In ECCV, 2018.。
->
 >standardized convolutions论文：Siyuan Qiao, Huiyu Wang, Chenxi Liu, Wei Shen, and Alan Yuille. Weight standardization. arXiv preprint arXiv:1903.10520, 2019.。
 
 👉**Training & Fine-tuning.**
