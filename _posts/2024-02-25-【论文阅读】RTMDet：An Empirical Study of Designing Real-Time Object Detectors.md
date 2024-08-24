@@ -83,7 +83,7 @@ point-wise卷积就是$1 \times 1$卷积，它的卷积核尺寸为$1 \times 1 \
 
 早期的样本标签匹配策略一般都是基于空间以及尺度信息的先验来决定样本的选取。典型案例如下：
 
-* FCOS中先限定网格中心点在GT内筛选后然后再通过不同特征层限制尺寸来决定正负样本。
+* [FCOS](http://shichaoxin.com/2024/08/20/论文阅读-FCOS-Fully-Convolutional-One-Stage-Object-Detection/)中先限定网格中心点在GT内筛选后然后再通过不同特征层限制尺寸来决定正负样本。
 * [RetinaNet](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)则是通过anchor与GT的最大IoU匹配来划分正负样本。
 * [YOLOv5](http://shichaoxin.com/2024/01/14/YOLO系列-YOLOv5/)的正负样本则是通过样本的宽高比先筛选一部分，然后通过位置信息选取GT中心落在的grid以及临近的两个作为正样本。
 
