@@ -90,7 +90,7 @@ point-wise卷积就是$1 \times 1$卷积，它的卷积核尺寸为$1 \times 1 \
 但是上述方法都是属于基于先验的静态匹配策略，就是样本的选取方式是根据人的经验规定的。不会随着网络的优化而进行自动优化选取到更好的样本，近些年涌现了许多优秀的动态标签匹配策略：
 
 * OTA提出使用Sinkhorn迭代求解匹配中的最优传输问题。
-* [YOLOX](http://shichaoxin.com/2024/01/19/论文阅读-YOLOX-Exceeding-YOLO-Series-in-2021/)中使用OTA的近似算法SimOTA，TOOD将分类分数以及IoU相乘计算cost矩阵进行标签匹配等等。
+* [YOLOX](http://shichaoxin.com/2024/01/19/论文阅读-YOLOX-Exceeding-YOLO-Series-in-2021/)中使用OTA的近似算法SimOTA，[TOOD](http://shichaoxin.com/2024/08/29/论文阅读-TOOD-Task-aligned-One-stage-Object-Detection/)将分类分数以及IoU相乘计算cost矩阵进行标签匹配等等。
 
 这些算法将预测的Bboxes与GT的IoU和分类分数或者是对应分类Loss和回归Loss拿来计算matching cost矩阵再通过top-k的方式动态决定样本选取以及样本个数。通过这种方式，在网络优化的过程中会自动选取对分类或者回归更加敏感有效的位置的样本，它不再只依赖先验的静态的信息，而是使用当前的预测结果去动态寻找最优的匹配，只要模型的预测越准确，匹配算法求得的结果也会更优秀。但是在网络训练的初期，网络的分类以及回归是随机初始化，这个时候还是需要先验来约束，以达到冷启动的效果。
 
