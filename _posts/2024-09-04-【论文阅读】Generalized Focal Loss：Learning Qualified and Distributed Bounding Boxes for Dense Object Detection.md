@@ -124,7 +124,7 @@ $$\textbf{GFL} (p_{y_l},p_{y_r}) = -\lvert y-(y_l p_{y_l} + y_r p_{y_r}) \rvert^
 
 👉**Properties of GFL.**
 
-当$p^\*\_{y_l} = \frac{y_r - y}{y_r - y_l},p^\*\_{y_r} = \frac{y- y_l}{y_r - y_l}$时，$\textbf{GFL}(p_{y_l},p_{y_r})$达到全局最小值，此时$\hat{y}$完美匹配$y$，即$\hat{y}=y_l p^\*_{y_l}+y_r p^\*_{y_r}=y$（证明见附录）。[FL](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)、QFL、DFL都是GFL的特例（详见附录）。GFL可应用于任何单阶段检测器。原始检测器只需要做两方面的修改。第一方面，在推理阶段，我们直接使用分类分数（联合定位质量）作为NMS分数，无需再乘以任何单独的定位质量预测（比如[FCOS](http://shichaoxin.com/2024/08/20/论文阅读-FCOS-Fully-Convolutional-One-Stage-Object-Detection/)和ATSS中的centerness）。第二方面，用于预测每个bbox位置的回归分支的最后一层从一个输出改为$n+1$个输出（个人注解：针对$(l,t,r,b)$中的某一个值），如表3所示，这几乎没有额外的计算成本。
+当$p^\*\_{y_l} = \frac{y_r - y}{y_r - y_l},p^\*\_{y_r} = \frac{y- y_l}{y_r - y_l}$时，$\textbf{GFL}(p_{y_l},p_{y_r})$达到全局最小值，此时$\hat{y}$完美匹配$y$，即$\hat{y}=y_l p^\*\_{y_l}+y_r p^\*\_{y_r}=y$（证明见附录）。[FL](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)、QFL、DFL都是GFL的特例（详见附录）。GFL可应用于任何单阶段检测器。原始检测器只需要做两方面的修改。第一方面，在推理阶段，我们直接使用分类分数（联合定位质量）作为NMS分数，无需再乘以任何单独的定位质量预测（比如[FCOS](http://shichaoxin.com/2024/08/20/论文阅读-FCOS-Fully-Convolutional-One-Stage-Object-Detection/)和ATSS中的centerness）。第二方面，用于预测每个bbox位置的回归分支的最后一层从一个输出改为$n+1$个输出（个人注解：针对$(l,t,r,b)$中的某一个值），如表3所示，这几乎没有额外的计算成本。
 
 👉**Training Dense Detectors with GFL.**
 
