@@ -163,7 +163,7 @@ soft_center_prior = torch.pow(10, distance - 3)
 
 从源码中可以看出，$\lvert x_{pred} – x_{gt} \rvert $是GT box中心点到预测bounding box中心点的距离。
 
-以上是SimOTA中计算cost所用的cost function，接下来说下模型训练所用的loss设计。训练loss一共包括2部分：cls loss和bbox loss。权重比例是cls loss : bbox loss = 1 : 2。bbox loss使用[GIoU loss](http://shichaoxin.com/2024/01/04/论文阅读-YOLOv4-Optimal-Speed-and-Accuracy-of-Object-Detection/)。cls loss使用QFL（Quality Focal Loss），接下来详细介绍下QFL。QFL将目标的定位质量（比如预测的bounding box和GT box的IoU）直接融合到分类损失中，解决了传统目标检测中分类与定位任务之间存在的不一致问题。其基于[focal loss](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)进行优化：
+以上是SimOTA中计算cost所用的cost function，接下来说下模型训练所用的loss设计。训练loss一共包括2部分：cls loss和bbox loss。权重比例是cls loss : bbox loss = 1 : 2。bbox loss使用[GIoU loss](http://shichaoxin.com/2024/01/04/论文阅读-YOLOv4-Optimal-Speed-and-Accuracy-of-Object-Detection/)。cls loss使用[QFL（Quality Focal Loss）](http://shichaoxin.com/2024/09/04/论文阅读-Generalized-Focal-Loss-Learning-Qualified-and-Distributed-Bounding-Boxes-for-Dense-Object-Detection/)，接下来详细介绍下[QFL](http://shichaoxin.com/2024/09/04/论文阅读-Generalized-Focal-Loss-Learning-Qualified-and-Distributed-Bounding-Boxes-for-Dense-Object-Detection/)。[QFL](http://shichaoxin.com/2024/09/04/论文阅读-Generalized-Focal-Loss-Learning-Qualified-and-Distributed-Bounding-Boxes-for-Dense-Object-Detection/)将目标的定位质量（比如预测的bounding box和GT box的IoU）直接融合到分类损失中，解决了传统目标检测中分类与定位任务之间存在的不一致问题。其基于[focal loss](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)进行优化：
 
 $$\text{QFL}(\sigma) = - \lvert y - \sigma \rvert^{\beta} ((1-y)\log (1-\sigma) + y \log (\sigma))$$
 
