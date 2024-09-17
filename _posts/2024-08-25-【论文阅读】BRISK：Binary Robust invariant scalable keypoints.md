@@ -110,7 +110,7 @@ $$b = \begin{cases} 1, & I(\mathbf{p}_j^\alpha, \sigma_j) > I(\mathbf{p}_i^\alph
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/BRISK/7.png)
 
-Fig7的实验表明，SU-BRISK（S表示single-scale，U表示unrotated）在抵抗小旋转（$10^{\degree}$）和尺度变化（10%）方面比BRIEF更具优势。
+Fig7的实验表明，SU-BRISK（S表示single-scale，U表示unrotated）在抵抗小旋转（$10^{\circ}$）和尺度变化（10%）方面比BRIEF更具优势。
 
 ## 4.3.Timings
 
