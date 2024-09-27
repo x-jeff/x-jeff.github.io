@@ -246,7 +246,7 @@ ImageNet-1K包含1.28M张训练集图像，50K张验证集图像，共分为1000
 
 👉**Settings**
 
-我们在COCO 2017上进行了目标检测和实例分割测试，该数据集包含118K训练图像，5K验证图像，20K test-dev图像。在验证集上进行了消融实验，在test-dev上进行了system-level的比较。对于消融实验，我们考虑了4种典型的目标检测框架（基于mmdetection）：Cascade Mask R-CNN、ATSS、RepPoints v2和Sparse RCNN。对于这4种框架，我们使用一样的settings：
+我们在COCO 2017上进行了目标检测和实例分割测试，该数据集包含118K训练图像，5K验证图像，20K test-dev图像。在验证集上进行了消融实验，在test-dev上进行了system-level的比较。对于消融实验，我们考虑了4种典型的目标检测框架（基于mmdetection）：Cascade Mask R-CNN、[ATSS](http://shichaoxin.com/2024/09/25/论文阅读-Bridging-the-Gap-Between-Anchor-based-and-Anchor-free-Detection-via-Adaptive-Training-Sample-Selection/)、RepPoints v2和Sparse RCNN。对于这4种框架，我们使用一样的settings：
 
 * multi-scale training。resize输入的大小，使短边位于480～800之间，长边最长不超过1333。
 * [AdamW optimizer](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)。初始学习率为0.0001，weight decay为0.05，batch size=16。

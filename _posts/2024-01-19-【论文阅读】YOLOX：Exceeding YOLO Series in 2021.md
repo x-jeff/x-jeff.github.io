@@ -130,7 +130,7 @@ OTA（Optimal Transport Assignment）是旷视科技提出的一种动态样本�
 
 1. loss/quality/prediction aware：基于网络自身的预测来计算anchor box或者anchor point与gt的匹配关系，充分考虑到了不同结构/复杂度的模型可能会有不同行为，是一种真正的dynamic样本匹配。而loss aware后续也被发现对于DeTR和DeFCN这类端到端检测器至关重要。与之相对的，基于IoU阈值/in Grid (YOLOv1)/in Box or Center ([FCOS](http://shichaoxin.com/2024/08/20/论文阅读-FCOS-Fully-Convolutional-One-Stage-Object-Detection/))都属于依赖人为定义的几何先验做样本匹配，目前来看都属于次优方案。
 2. center prior：考虑到感受野的问题，以及大部分场景下，目标的质心都与目标的几何中心有一定的联系，将正样本限定在目标中心的一定区域内做loss/quality aware样本匹配能很好地解决收敛不稳定的问题。
-3. 不同目标设定不同的正样本数量（dynamic k）：我们不可能为同一场景下的西瓜和蚂蚁分配同样的正样本数，如果真是那样，那要么蚂蚁有很多低质量的正样本，要么西瓜仅仅只有一两个正样本。dynamic k的关键在于如何确定k，有些方法通过其他方式间接实现了动态k，比如ATSS、PAA，甚至[RetinaNet](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)，同时，k的估计依然可以是prediction aware的，我们具体的做法是首先计算每个目标最接近的10个预测，然后把这10个预测与gt的IoU加起来求得最终的k，很简单有效，对10这个数字也不是很敏感，在5～15调整几乎没有影响。
+3. 不同目标设定不同的正样本数量（dynamic k）：我们不可能为同一场景下的西瓜和蚂蚁分配同样的正样本数，如果真是那样，那要么蚂蚁有很多低质量的正样本，要么西瓜仅仅只有一两个正样本。dynamic k的关键在于如何确定k，有些方法通过其他方式间接实现了动态k，比如[ATSS](http://shichaoxin.com/2024/09/25/论文阅读-Bridging-the-Gap-Between-Anchor-based-and-Anchor-free-Detection-via-Adaptive-Training-Sample-Selection/)、PAA，甚至[RetinaNet](http://shichaoxin.com/2024/02/22/论文阅读-Focal-Loss-for-Dense-Object-Detection/)，同时，k的估计依然可以是prediction aware的，我们具体的做法是首先计算每个目标最接近的10个预测，然后把这10个预测与gt的IoU加起来求得最终的k，很简单有效，对10这个数字也不是很敏感，在5～15调整几乎没有影响。
 4. 全局信息：有些anchor box/point处于正样本之间的交界处，或者正负样本之间的交界处，这类anchor box/point的正负划分，甚至若为正，该是谁的正样本，都应充分考虑全局信息。
 
 OTA就是满足上述4点的，一个好的样本匹配策略。但是OTA最大的问题是会增加约20%-25%的额外训练时间，这对于动辄300 epoch的COCO训练来说是有些吃不消的，因此我们去掉了OTA里的最优方案求解过程（即去掉了Sinkhorn-Knopp算法），保留上面4点的前3点，简而言之：loss aware dynamic top k，我们将其称为SimOTA（Simplified OTA）。接下来我们来详细介绍下SimOTA算法。
