@@ -106,7 +106,7 @@ VFNet训练所用的损失函数为：
 
 $$\begin{align} Loss &= \frac{1}{N_{pos}} \sum_i \sum_c VFL (p_{c,i},q_{c,i}) \\&+ \frac{\lambda_0}{N_{pos}} \sum_i q_{c^*,i} L_{bbox} (bbox'_i,bbox^*_i) \\&+ \frac{\lambda_1}{N_{pos}} \sum_i q_{c^*,i} L_{bbox} (bbox_i,bbox^*_i) \end{align} \tag{3}$$
 
-其中，$p_{c,i}$和$q_{c,i}$分别表示在FPN每个层级的feature map中每个位置$i$上类别$c$的预测IACS和目标分数。$L_{bbox}$为[GIoU Loss](http://shichaoxin.com/2024/01/04/论文阅读-YOLOv4-Optimal-Speed-and-Accuracy-of-Object-Detection/#34yolov4)，$bbox'_i$表示预测的初始bbox，$bbox_i$表示refine后的bbox，$bbox^*_i$表示GT bbox。$\lambda_0$通常设为1.5，$\lambda_1$通常设为2.0。$N_{pos}$是前景点的数量。如第3部分所介绍的，在训练阶段，我们使用[ATSS](http://shichaoxin.com/2024/09/25/论文阅读-Bridging-the-Gap-Between-Anchor-based-and-Anchor-free-Detection-via-Adaptive-Training-Sample-Selection/)来定义前景点和背景点。
+其中，$p_{c,i}$和$q_{c,i}$分别表示在FPN每个层级的feature map中每个位置$i$上类别$c$的预测IACS和目标分数。$L_{bbox}$为[GIoU Loss](http://shichaoxin.com/2024/01/04/论文阅读-YOLOv4-Optimal-Speed-and-Accuracy-of-Object-Detection/#34yolov4)，$bbox'\_i$表示预测的初始bbox，$bbox\_i$表示refine后的bbox，$bbox^\*\_i$表示GT bbox。$\lambda\_0$通常设为1.5，$\lambda\_1$通常设为2.0。$N\_{pos}$是前景点的数量。如第3部分所介绍的，在训练阶段，我们使用[ATSS](http://shichaoxin.com/2024/09/25/论文阅读-Bridging-the-Gap-Between-Anchor-based-and-Anchor-free-Detection-via-Adaptive-Training-Sample-Selection/)来定义前景点和背景点。
 
 👉**Inference.**
 
@@ -164,7 +164,7 @@ FPS的测试基于Nvidia V100 GPU。
 
 >SWA论文：Pavel Izmailov, Dmitrii Podoprikhin, Timur Garipov, Dmitry Vetrov, and Andrew Gordon Wilson. Averaging weights leads to wider optima and better generalization. arXiv preprint arXiv:1803.05407, 2018.。
 
-VFNet-X在COCO test-dev上的性能见表4。当在推理阶段使用尺寸$1333 \times 800$，且使用[soft-NMS](http://shichaoxin.com/2024/08/13/论文阅读-PP-YOLO-An-Effective-and-Efficient-Implementation-of-Object-Detector/#32selection-of-tricks)时，VFNet-X-800达到了53.7的AP，而当将图像尺寸增加到$1800 \times 1200$时，VFNet-X-1200达到了SOTA的成绩，即55.1的AP。一些可视化结果见表4。
+VFNet-X在COCO test-dev上的性能见表4。当在推理阶段使用尺寸$1333 \times 800$，且使用[soft-NMS](http://shichaoxin.com/2024/08/13/论文阅读-PP-YOLO-An-Effective-and-Efficient-Implementation-of-Object-Detector/#32selection-of-tricks)时，VFNet-X-800达到了53.7的AP，而当将图像尺寸增加到$1800 \times 1200$时，VFNet-X-1200达到了SOTA的成绩，即55.1的AP。一些可视化结果见Fig4。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/VFNet/8.png)
 
