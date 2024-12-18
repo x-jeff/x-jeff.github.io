@@ -22,9 +22,9 @@ Rademacher复杂度（Rademacher complexity）是另一种刻画假设空间复�
 
 $$\begin{align} \hat{E}(h) &= \frac{1}{m} \sum_{i=1}^m \mathbb{I}(h(\mathbf{x}_i)\neq y_i) \\&= \frac{1}{m} \sum_{i=1}^m \frac{1-y_i h(\mathbf{x}_i)}{2} \\&= \frac{1}{2} - \frac{1}{2m} \sum_{i=1}^m y_i h(\mathbf{x}_i) \end{align} \tag{1}$$
 
-其中$\frac{1}{m} \sum_{i=1}^m y_i h(\mathbf{x}_i)$体现了预测值$h(\mathbf{x}_i)$与样例真实标记$y_i$之间的一致性，若对于所有$i \in \\{ 1,2,...,m \\}$都有$h(\mathbf{x}_i)=y_i$，则$\frac{1}{m} \sum_{i=1}^m y_i h(\mathbf{x}_i)$取最大值1。也就是说，经验误差最小的假设是：
+其中$\frac{1}{m} \sum_{i=1}^m y_i h(\mathbf{x}\_i)$体现了预测值$h(\mathbf{x}\_i)$与样例真实标记$y_i$之间的一致性，若对于所有$i \in \\{ 1,2,...,m \\}$都有$h(\mathbf{x}\_i)=y_i$，则$\frac{1}{m} \sum_{i=1}^m y_i h(\mathbf{x}\_i)$取最大值1。也就是说，经验误差最小的假设是：
 
-$$\argmax_{h \in \mathcal{H}} \frac{1}{m} \sum_{i=1}^m y_i h(\mathbf{x}_i) \tag{2}$$
+$$\arg \max_{h \in \mathcal{H}} \frac{1}{m} \sum_{i=1}^m y_i h(\mathbf{x}_i) \tag{2}$$
 
 然而，现实任务中样例的标记有时会受到噪声影响，即对某些样例$(\mathbf{x}_i,y_i)$，其$y_i$或许已受到随机因素的影响，不再是$\mathbf{x}_i$的真实标记。在此情形下，选择假设空间$\mathcal{H}$中在训练集上表现最好的假设，有时还不如选择$\mathcal{H}$中事先已考虑了随机噪声影响的假设。
 
