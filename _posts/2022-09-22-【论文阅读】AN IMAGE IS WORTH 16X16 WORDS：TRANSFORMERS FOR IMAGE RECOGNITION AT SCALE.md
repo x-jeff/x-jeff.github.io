@@ -145,7 +145,7 @@ $$\mathbf{y}=LN(\mathbf{z}_L^0) \tag{4}$$
 
 ## 4.2.COMPARISON TO STATE OF THE ART
 
-首先我们比较了ViT-H/14，ViT-L/16和SOTA的CNN网络模型。第一个比较对象是Big Transfer（BiT），其使用一个很大的[ResNet](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)进行监督迁移学习（supervised transfer learning）。第二个比较对象是Noisy Student，这是一个使用ImageNet和JFT-300M（去掉labels）数据集，且通过半监督学习训练的一个大型EfficientNet。目前，Noisy Student是在ImageNet上表现最优的方法之一，而BiT-L则是其他数据集（即除了ImageNet之外的数据集）上最优的方法之一。所有的模型都在TPUv3上进行训练，使用TPUv3-core-days表示使用TPUv3的一个core进行训练需要的天数。
+首先我们比较了ViT-H/14，ViT-L/16和SOTA的CNN网络模型。第一个比较对象是Big Transfer（BiT），其使用一个很大的[ResNet](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)进行监督迁移学习（supervised transfer learning）。第二个比较对象是Noisy Student，这是一个使用ImageNet和JFT-300M（去掉labels）数据集，且通过半监督学习训练的一个大型[EfficientNet](http://shichaoxin.com/2024/12/19/论文阅读-EfficientNet-Rethinking-Model-Scaling-for-Convolutional-Neural-Networks/)。目前，Noisy Student是在ImageNet上表现最优的方法之一，而BiT-L则是其他数据集（即除了ImageNet之外的数据集）上最优的方法之一。所有的模型都在TPUv3上进行训练，使用TPUv3-core-days表示使用TPUv3的一个core进行训练需要的天数。
 
 >BiT论文：Alexander Kolesnikov, Lucas Beyer, Xiaohua Zhai, Joan Puigcerver, Jessica Yung, Sylvain Gelly, and Neil Houlsby. Big transfer (BiT): General visual representation learning. In ECCV, 2020.。
 >

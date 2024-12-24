@@ -38,7 +38,7 @@ tags:
 如Fig2所示，一个常见的目标检测器通常由4部分组成：
 
 * **Input**：Image，Patches，Image Pyramid
-* **Backbone**：[VGG16](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)，[ResNet-50](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)，SpineNet，EfficientNet-B0/B7，[CSPResNeXt50](http://shichaoxin.com/2023/12/16/论文阅读-CSPNET-A-NEW-BACKBONE-THAT-CAN-ENHANCE-LEARNING-CAPABILITY-OF-CNN/)，CSPDarknet53
+* **Backbone**：[VGG16](http://shichaoxin.com/2021/02/24/论文阅读-VERY-DEEP-CONVOLUTIONAL-NETWORKS-FOR-LARGE-SCALE-IMAGE-RECOGNITION/)，[ResNet-50](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)，SpineNet，[EfficientNet-B0/B7](http://shichaoxin.com/2024/12/19/论文阅读-EfficientNet-Rethinking-Model-Scaling-for-Convolutional-Neural-Networks/)，[CSPResNeXt50](http://shichaoxin.com/2023/12/16/论文阅读-CSPNET-A-NEW-BACKBONE-THAT-CAN-ENHANCE-LEARNING-CAPABILITY-OF-CNN/)，CSPDarknet53
 * **Neck**：
 	* **Additional blocks**：[SPP](http://shichaoxin.com/2022/02/22/论文阅读-Spatial-Pyramid-Pooling-in-Deep-Convolutional-Networks-for-Visual-Recognition/)，ASPP，RFB，SAM
 	* **Path-aggregation blocks**：[FPN](http://shichaoxin.com/2023/12/19/论文阅读-Feature-Pyramid-Networks-for-Object-Detection/)，[PAN](http://shichaoxin.com/2023/12/28/论文阅读-Path-Aggregation-Network-for-Instance-Segmentation/)，NAS-FPN，Fully-connected FPN，BiFPN，ASFF，SFAM
