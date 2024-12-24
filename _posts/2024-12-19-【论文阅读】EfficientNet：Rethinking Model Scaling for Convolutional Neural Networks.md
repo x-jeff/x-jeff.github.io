@@ -33,7 +33,7 @@ tags:
 
 ## 3.1.Problem Formulation
 
-我们可以将卷积网络的层$i$定义为函数：$Y_i = \mathcal{F}\_i (X_i)$，其中$\mathcal{F}_i$是操作子，$Y_i$是输出张量，$X_i$是输入张量，其张量维度为$\langle H_i,W_i,C_i \rangle$（为了简化，省略了batch维度），其中$H_i$和$W_i$是空间维度，$C_i$是通道维度。卷积网络$\mathcal{N}$可以看作是一系列层的组合：$\mathcal{N}=\mathcal{F}_k \odot \cdots \odot \mathcal{F}_2 \odot \mathcal{F}_1(X_1) = \odot_{j=1...k}\mathcal{F}_j(X_1)$。通常情况下，卷积网络的层会被分为多个阶段，每个阶段内的所有层共享相同的结构。举个例子，[ResNet](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)有5个阶段，每个阶段内的所有层有着相同的卷积类型（除了第一层用于执行下采样）。因此，我们进一步将卷积网络定义为：
+我们可以将卷积网络的层$i$定义为函数：$Y_i = \mathcal{F}\_i (X_i)$，其中$\mathcal{F}\_i$是操作子，$Y_i$是输出张量，$X_i$是输入张量，其张量维度为$\langle H_i,W_i,C_i \rangle$（为了简化，省略了batch维度），其中$H_i$和$W_i$是空间维度，$C_i$是通道维度。卷积网络$\mathcal{N}$可以看作是一系列层的组合：$\mathcal{N}=\mathcal{F}\_k \odot \cdots \odot \mathcal{F}\_2 \odot \mathcal{F}\_1(X_1) = \odot_{j=1...k}\mathcal{F}\_j(X_1)$。通常情况下，卷积网络的层会被分为多个阶段，每个阶段内的所有层共享相同的结构。举个例子，[ResNet](http://shichaoxin.com/2022/01/07/论文阅读-Deep-Residual-Learning-for-Image-Recognition/)有5个阶段，每个阶段内的所有层有着相同的卷积类型（除了第一层用于执行下采样）。因此，我们进一步将卷积网络定义为：
 
 $$\mathcal{N} = \bigodot_{i=1...s} \mathcal{F}_i^{L_i} ( X_{\langle H_i , W_i , C_i \rangle} ) \tag{1}$$
 
