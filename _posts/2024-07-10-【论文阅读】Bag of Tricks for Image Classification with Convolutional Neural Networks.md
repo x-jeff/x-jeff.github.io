@@ -46,9 +46,7 @@ tags:
 
 ## 2.2.Experiment Results
 
-我们评估了3个CNN：[ResNet-50](https://shichaoxin.com/2022/01/07/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Deep-Residual-Learning-for-Image-Recognition/)、[Inception-V3](https://shichaoxin.com/2021/11/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rethinking-the-Inception-Architecture-for-Computer-Vision/)和MobileNet。对于[Inception-V3](https://shichaoxin.com/2021/11/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rethinking-the-Inception-Architecture-for-Computer-Vision/)，我们将输入图像resize到$299 \times 299$。我们使用ISLVRC2012数据集，其训练集包含1.3M张图像和1000个类别。验证精度见表2。
-
->MobileNet原文：A. G. Howard, M. Zhu, B. Chen, D. Kalenichenko,W.Wang, T. Weyand, M. Andreetto, and H. Adam. Mobilenets: Efficient convolutional neural networks for mobile vision applications. arXiv preprint arXiv:1704.04861, 2017.
+我们评估了3个CNN：[ResNet-50](https://shichaoxin.com/2022/01/07/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Deep-Residual-Learning-for-Image-Recognition/)、[Inception-V3](https://shichaoxin.com/2021/11/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rethinking-the-Inception-Architecture-for-Computer-Vision/)和[MobileNet](http://shichaoxin.com/2024/12/25/论文阅读-MobileNets-Efficient-Convolutional-Neural-Networks-for-Mobile-Vision-Applications/)。对于[Inception-V3](https://shichaoxin.com/2021/11/29/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Rethinking-the-Inception-Architecture-for-Computer-Vision/)，我们将输入图像resize到$299 \times 299$。我们使用ISLVRC2012数据集，其训练集包含1.3M张图像和1000个类别。验证精度见表2。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/ResNetvd/3.png)
 

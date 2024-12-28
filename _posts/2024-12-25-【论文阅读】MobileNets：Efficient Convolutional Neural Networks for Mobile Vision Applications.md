@@ -105,7 +105,7 @@ $$D_K \cdot D_K \cdot \alpha M \cdot D_F \cdot D_F + \alpha M \cdot \alpha N \cd
 
 $$D_K \cdot D_K \cdot \alpha M \cdot \rho D_F \cdot \rho D_F + \alpha M \cdot \alpha N \cdot \rho D_F \cdot \rho D_F \tag{7}$$
 
-其中，$\rho \in (0,1]$，我们通常将网络的输入分辨率设置为224、192、160或128。如果$\rho=1$，称为baseline MobileNet；如果$rho < 1$，记为reduced MobileNets。resolution multiplier以$\rho^2$的比例降低计算成本。
+其中，$\rho \in (0,1]$，我们通常将网络的输入分辨率设置为224、192、160或128。如果$\rho=1$，称为baseline MobileNet；如果$\rho < 1$，记为reduced MobileNets。resolution multiplier以$\rho^2$的比例降低计算成本。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/MobileNets/8.png)
 
