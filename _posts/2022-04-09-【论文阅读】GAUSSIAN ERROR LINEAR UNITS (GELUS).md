@@ -59,7 +59,7 @@ $$x\sigma (1.702x)$$
 
 ## 3.1.MNIST CLASSIFICATION
 
-使用一个8层的全连接神经网络，每层128个神经元，训练50个epoch，mini-batch size=128，使用[Adam优化算法](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)。根据5k的验证集对学习率进行调整：$\{ 10^{-3},10^{-4},10^{-5} \}$，最终结果取5次（每一次对应一种权重初始化方式）运行结果的平均。Fig3显示了GELU对噪声的鲁棒性。Fig2展示了几种激活函数在使用或不使用dropout时的log loss的变化。
+使用一个8层的全连接神经网络，每层128个神经元，训练50个epoch，mini-batch size=128，使用[Adam优化算法](http://shichaoxin.com/2020/03/19/深度学习基础-第十九课-Adam优化算法/)。根据5k的验证集对学习率进行调整：$\\{ 10^{-3},10^{-4},10^{-5} \\}$，最终结果取5次（每一次对应一种权重初始化方式）运行结果的平均。Fig3显示了GELU对噪声的鲁棒性。Fig2展示了几种激活函数在使用或不使用dropout时的log loss的变化。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GELU/2.png)
 

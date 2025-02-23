@@ -54,7 +54,7 @@ $$l^* = x-x_0^{(i)}, \  t^*=y-y_0^{(i)} \\ r^* = x_1^{(i)}-x, \  b^* = y_1^{(i)}
 
 $$L(\{\mathbf{p}_{x,y}\},\{\mathbf{t}_{x,y}\})=\frac{1}{N_{pos}}\sum_{x,y}L_{cls}(\mathbf{p}_{x,y},c^*_{x,y})+\frac{\lambda}{N_{pos}}\sum_{x,y}\mathbb{I}_{\{c^*_{x,y}>0\}}L_{reg}(\mathbf{t}_{x,y},\mathbf{t}^*_{x,y})\tag{2}$$
 
-其中，$L_{cls}$使用[focal loss](https://shichaoxin.com/2024/02/22/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Focal-Loss-for-Dense-Object-Detection/)，$L_{reg}$使用[IoU loss](https://shichaoxin.com/2024/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-UnitBox-An-Advanced-Object-Detection-Network/)。$N_{pos}$表示阳性样本的数量，$\lambda$是平衡权重，本文设为1。求和会计算$F_i$上的所有位置。如果$c^\*\_i>0$，则$\mathbb{I}\_{\{c^\*_i>0\}}$为1，否则为0。
+其中，$L_{cls}$使用[focal loss](https://shichaoxin.com/2024/02/22/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Focal-Loss-for-Dense-Object-Detection/)，$L_{reg}$使用[IoU loss](https://shichaoxin.com/2024/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-UnitBox-An-Advanced-Object-Detection-Network/)。$N_{pos}$表示阳性样本的数量，$\lambda$是平衡权重，本文设为1。求和会计算$F_i$上的所有位置。如果$c^\*\_i>0$，则$\mathbb{I}\_{\\{c^\*_i>0\\}}$为1，否则为0。
 
 👉**Inference.**
 

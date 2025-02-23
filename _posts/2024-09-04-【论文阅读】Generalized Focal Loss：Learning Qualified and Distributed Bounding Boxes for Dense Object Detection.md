@@ -132,7 +132,7 @@ GFL的训练loss定义如下：
 
 $$\mathcal{L}=\frac{1}{N_{pos}}\sum_z \mathcal{L}_{\mathcal{Q}}+\frac{1}{N_{pos}}\sum_z \mathbf{1}_{\{c_z^*>0\}}\left( \lambda_0 \mathcal{L}_{\mathcal{B}}+\lambda_1 \mathcal{L}_{\mathcal{D}} \right) \tag{8}$$
 
-其中，$\mathcal{L}\_{\mathcal{Q}}$表示QFL，$\mathcal{L}\_{\mathcal{D}}$表示DFL。$\mathcal{L}\_{\mathcal{B}}$表示[GIoU Loss](http://shichaoxin.com/2024/01/04/论文阅读-YOLOv4-Optimal-Speed-and-Accuracy-of-Object-Detection/#34yolov4)。$N\_{pos}$表示阳性样本的数量。$\lambda_0$默认为2，$\lambda_1$实际上是$\frac{1}{4}$，即四个方向的平均（个人注解：$(l,t,r,b)$中的每个值都要计算DFL，且权重都是$\frac{1}{4}$）。$z$表示特征金字塔中的所有位置。$c^\*_z$表示在位置$z$处的目标类别标签，当$c^\*_z>0$时，表示在该位置存在一个正样本，此时$\mathbf{1}\_{\{c_z^\*>0\}}$等于1，如果不满足$c^\*\_z>0$，则表示该位置不存在正样本，此时$\mathbf{1}\_{\{c_z^*>0\}}$等于0。
+其中，$\mathcal{L}\_{\mathcal{Q}}$表示QFL，$\mathcal{L}\_{\mathcal{D}}$表示DFL。$\mathcal{L}\_{\mathcal{B}}$表示[GIoU Loss](http://shichaoxin.com/2024/01/04/论文阅读-YOLOv4-Optimal-Speed-and-Accuracy-of-Object-Detection/#34yolov4)。$N\_{pos}$表示阳性样本的数量。$\lambda_0$默认为2，$\lambda_1$实际上是$\frac{1}{4}$，即四个方向的平均（个人注解：$(l,t,r,b)$中的每个值都要计算DFL，且权重都是$\frac{1}{4}$）。$z$表示特征金字塔中的所有位置。$c^\*_z$表示在位置$z$处的目标类别标签，当$c^\*_z>0$时，表示在该位置存在一个正样本，此时$\mathbf{1}\_{\\{c_z^\*>0\\}}$等于1，如果不满足$c^\*\_z>0$，则表示该位置不存在正样本，此时$\mathbf{1}\_{\\{c_z^*>0\\}}$等于0。
 
 # 4.Experiment
 
