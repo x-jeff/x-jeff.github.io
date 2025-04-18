@@ -41,7 +41,17 @@ LLM模型通常分为两类：
 
 ### 2.1.1.使用分隔符
 
-可以使用`"""`、`\`\`\``、`---`、`<>`、`<tag> <\tag>`等分隔符对不同的指令或上下文进行分隔。实际上，分隔符可以是任何符号，只要这个符号能让模型清楚地知道这是一个单独的部分即可。
+可以使用：
+
+````
+"""
+```
+---
+<>
+<tag> <\tag>
+````
+
+等分隔符对不同的指令或上下文进行分隔。实际上，分隔符可以是任何符号，只要这个符号能让模型清楚地知道这是一个单独的部分即可。
 
 ````python
 import openai
@@ -88,7 +98,13 @@ print(response)
 Providing clear and specific instructions to a model is essential for guiding it towards the desired output and reducing the chances of irrelevant or incorrect responses, with longer prompts often providing more clarity and context for more detailed and relevant outputs.
 ```
 
-在上述代码示例中，我们使用` ``` `将指令和输入文本分隔开来。使用分隔符可以避免**提示词注入（prompt injection）**。在下图所示的例子中，如果我们没有使用分隔符，此时要总结的文本中出现了“忘掉之前的指令”等类似的表达，这就会对我们给出的指令造成干扰，这就是提示词注入问题。
+在上述代码示例中，我们使用
+
+````
+```
+````
+
+将指令和输入文本分隔开来。使用分隔符可以避免**提示词注入（prompt injection）**。在下图所示的例子中，如果我们没有使用分隔符，此时要总结的文本中出现了“忘掉之前的指令”等类似的表达，这就会对我们给出的指令造成干扰，这就是提示词注入问题。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/LLMCourse/chatgpt-prompt-engineering-for-developers/2.png)
 
