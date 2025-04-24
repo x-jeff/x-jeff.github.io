@@ -152,10 +152,8 @@ CSPNet也可以容易的被应用于[ResNet](http://shichaoxin.com/2022/01/07/�
 
 👉**Ablation study of EFM on MS COCO.**
 
-我们比较了Fig6中不同的特征金字塔融合策略。我们选择了两个SOTA的轻量级模型：PRN和ThunderNet。所有实验都采用CSPPeleeNet作为backbone。结果见表2。
+我们比较了Fig6中不同的特征金字塔融合策略。我们选择了两个SOTA的轻量级模型：[PRN](https://shichaoxin.com/2025/04/24/论文阅读-Enriching-Variety-of-Layer-wise-Learning-Information-by-Gradient-Combination/)和ThunderNet。所有实验都采用CSPPeleeNet作为backbone。结果见表2。
 
->PRN：Chien-Yao Wang, Hong-Yuan Mark Liao, Ping-Yang Chen, and Jun-Wei Hsieh. Enriching variety of layer-wise learning information by gradient combination. Proceedings of the IEEE International Conference on Computer Vision Workshop (ICCV Workshop), 2019.
->
 >ThunderNet：Zheng Qin, Zeming Li, Zhaoning Zhang, Yiping Bao, Gang Yu, Yuxing Peng, and Jian Sun. ThunderNet: Towards real-time generic object detection. Proceedings of the IEEE International Conference on Computer Vision (ICCV), 2019.
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/CSPNet/11.png)
