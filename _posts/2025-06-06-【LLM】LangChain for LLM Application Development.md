@@ -959,10 +959,10 @@ it will ultimately lead to a better response from the language model.
 << FORMATTING >>
 Return a markdown code snippet with a JSON object formatted to look like:
 ```json
-{{{{
+{
     "destination": string \ "DEFAULT" or name of the prompt to use in {destinations}
     "next_inputs": string \ a potentially modified version of the original input
-}}}}
+}
 ```
 
 REMEMBER: The value of “destination” MUST match one of \
