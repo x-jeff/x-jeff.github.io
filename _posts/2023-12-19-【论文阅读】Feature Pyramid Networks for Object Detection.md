@@ -19,7 +19,7 @@ tags:
 
 >Fig1中蓝框表示feature map，框线越粗表示特征越强。
 
-随着CNN的快速发展，最近一些基于CNN的方法使用如Fig1(b)所示的结构，其采用单尺度输入，速度会更快，比如[SPP-net](http://shichaoxin.com/2022/02/22/论文阅读-Spatial-Pyramid-Pooling-in-Deep-Convolutional-Networks-for-Visual-Recognition/)、[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)、[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)等。SSD则采用了如Fig1(c)所示的结构。而我们提出的FPN（Feature Pyramid Network）的结构如Fig1(d)所示，采用了自顶向下的结构以及横向的skip connection，我们的方法性能更好。采用同样类似结构的还有论文“P. O. Pinheiro, T.-Y. Lin, R. Collobert, and P. Doll´ar. Learning to refine object segments. In ECCV, 2016.”，但是其只在最精细的feature map上进行了预测，见Fig2上。而我们的方法则是在每个精细度水平上都进行了预测，见Fig2下。
+随着CNN的快速发展，最近一些基于CNN的方法使用如Fig1(b)所示的结构，其采用单尺度输入，速度会更快，比如[SPP-net](http://shichaoxin.com/2022/02/22/论文阅读-Spatial-Pyramid-Pooling-in-Deep-Convolutional-Networks-for-Visual-Recognition/)、[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)、[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)等。[SSD](https://shichaoxin.com/2025/06/12/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-SSD-Single-Shot-MultiBox-Detector/)则采用了如Fig1(c)所示的结构。而我们提出的FPN（Feature Pyramid Network）的结构如Fig1(d)所示，采用了自顶向下的结构以及横向的skip connection，我们的方法性能更好。采用同样类似结构的还有论文“P. O. Pinheiro, T.-Y. Lin, R. Collobert, and P. Doll´ar. Learning to refine object segments. In ECCV, 2016.”，但是其只在最精细的feature map上进行了预测，见Fig2上。而我们的方法则是在每个精细度水平上都进行了预测，见Fig2下。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FPN/2.png)
 

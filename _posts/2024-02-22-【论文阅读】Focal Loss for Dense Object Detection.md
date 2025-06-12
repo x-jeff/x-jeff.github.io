@@ -17,7 +17,7 @@ tags:
 
 目前SOTA的目标检测器都是two-stage的、由proposal驱动的机制。比如[R-CNN](http://shichaoxin.com/2021/09/20/论文阅读-Rich-feature-hierarchies-for-accurate-object-detection-and-semantic-segmentation/)框架，第一阶段生成一组稀疏的候选目标位置，第二阶段使用卷积神经网络将每个候选位置分为前景或背景。后续的two-stage框架（[Fast R-CNN](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/)、[Faster R-CNN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)、[FPN](http://shichaoxin.com/2023/12/19/论文阅读-Feature-Pyramid-Networks-for-Object-Detection/)、[Mask R-CNN](http://shichaoxin.com/2023/12/25/论文阅读-Mask-R-CNN/)）在COCO benchmark上取得了最高精度。
 
-two-stage检测器取得了巨大的成功，那就衍生出一个问题：一个简单的one-stage检测器能够达到类似的精度吗？最近一些one-stage框架，比如YOLO（[YOLOv1](http://shichaoxin.com/2022/05/11/论文阅读-You-Only-Look-Once-Unified,-Real-Time-Object-Detection/)、[YOLOv2](http://shichaoxin.com/2022/06/01/论文阅读-YOLO9000-Better,-Faster,-Stronger/)）和SSD，其检测精度相比之前有了很大的提升，这让我们看到了希望。
+two-stage检测器取得了巨大的成功，那就衍生出一个问题：一个简单的one-stage检测器能够达到类似的精度吗？最近一些one-stage框架，比如YOLO（[YOLOv1](http://shichaoxin.com/2022/05/11/论文阅读-You-Only-Look-Once-Unified,-Real-Time-Object-Detection/)、[YOLOv2](http://shichaoxin.com/2022/06/01/论文阅读-YOLO9000-Better,-Faster,-Stronger/)）和[SSD](https://shichaoxin.com/2025/06/12/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-SSD-Single-Shot-MultiBox-Detector/)，其检测精度相比之前有了很大的提升，这让我们看到了希望。
 
 我们提出了一种新的one-stage目标检测器，其在COCO上的精度首次和复杂的two-stage检测器不相上下。阻碍one-stage检测器精度达到SOTA水平的主要原因是类别不平衡，我们提出一种新的损失函数来消除这一障碍。
 
@@ -127,7 +127,7 @@ class subnet预测每个网格的$A$个anchor分别属于$K$个类别的概率�
 
 👉**Focal Loss:**
 
-class subnet的输出使用focal loss。我们通过实验发现$\gamma = 2$时模型性能比较好，当$\gamma \in [0.5,5]$时，RetinaNet相对稳健。在训练RetinaNet时，focal loss应用于每个采样图像中所有约100k个anchor上。这与使用启发式采样（heuristic sampling，比如[RPN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)）或hard example mining（比如OHEM和SSD）是截然不同的，后者在计算loss时只考虑一个minibatch内的anchor（比如256个）。一幅图像总的focal loss为该图像所有~100k个anchor的focal loss之和，并通过分配给GT box的anchor数量进行归一化。我们使用被分配的anchor数量进行归一化，而不是使用总的anchor数量进行归一化，这是因为绝大多数的anchor都是容易被正确分类的负样本，其对loss的贡献可以忽略不计。最后，我们注意到权重因子$\alpha$也有一个稳定范围，但它与$\gamma$相互影响，因此需要一起考虑（见表1(a)和表1(b)）。经过我们实验，$\alpha=0.25,\gamma=2$效果最好。
+class subnet的输出使用focal loss。我们通过实验发现$\gamma = 2$时模型性能比较好，当$\gamma \in [0.5,5]$时，RetinaNet相对稳健。在训练RetinaNet时，focal loss应用于每个采样图像中所有约100k个anchor上。这与使用启发式采样（heuristic sampling，比如[RPN](http://shichaoxin.com/2022/04/03/论文阅读-Faster-R-CNN-Towards-Real-Time-Object-Detection-with-Region-Proposal-Networks/)）或hard example mining（比如OHEM和[SSD](https://shichaoxin.com/2025/06/12/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-SSD-Single-Shot-MultiBox-Detector/)）是截然不同的，后者在计算loss时只考虑一个minibatch内的anchor（比如256个）。一幅图像总的focal loss为该图像所有~100k个anchor的focal loss之和，并通过分配给GT box的anchor数量进行归一化。我们使用被分配的anchor数量进行归一化，而不是使用总的anchor数量进行归一化，这是因为绝大多数的anchor都是容易被正确分类的负样本，其对loss的贡献可以忽略不计。最后，我们注意到权重因子$\alpha$也有一个稳定范围，但它与$\gamma$相互影响，因此需要一起考虑（见表1(a)和表1(b)）。经过我们实验，$\alpha=0.25,\gamma=2$效果最好。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/FocalLoss/6.png)
 
@@ -173,7 +173,7 @@ $\gamma$对负样本的影响是截然不同的，见Fig4右。当$\gamma=0$时�
 
 👉**Online Hard Example Mining (OHEM):**
 
-论文“A. Shrivastava, A. Gupta, and R. Girshick. Training region-based object detectors with online hard example mining. In CVPR, 2016.”提出了使用high-loss的样本来构建minibatch以提升对two-stage检测器的训练。具体来说，在OHEM中，每个样本都根据其loss进行打分，然后应用NMS，最后用loss最高的样本构建minibatch。NMS阈值和batch size都是可调的参数。与focal loss类似，OHEM也更强调预测错误的样本，但与FL不同的是，OHEM完全抛弃了easy样本。我们还实现了SSD中使用的OHEM变体：在将NMS应用于所有样本后，强制minibatch中正负样本的比例为$1:3$，从而确保每个minibatch中都有足够的正样本。
+论文“A. Shrivastava, A. Gupta, and R. Girshick. Training region-based object detectors with online hard example mining. In CVPR, 2016.”提出了使用high-loss的样本来构建minibatch以提升对two-stage检测器的训练。具体来说，在OHEM中，每个样本都根据其loss进行打分，然后应用NMS，最后用loss最高的样本构建minibatch。NMS阈值和batch size都是可调的参数。与focal loss类似，OHEM也更强调预测错误的样本，但与FL不同的是，OHEM完全抛弃了easy样本。我们还实现了[SSD](https://shichaoxin.com/2025/06/12/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-SSD-Single-Shot-MultiBox-Detector/)中使用的OHEM变体：在将NMS应用于所有样本后，强制minibatch中正负样本的比例为$1:3$，从而确保每个minibatch中都有足够的正样本。
 
 我们在one-stage检测框架中测试了两种OHEM变体，结果见表1(d)。
 
