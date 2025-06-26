@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Large Language Models
 ---
->本文为参考吴恩达老师的"Building Systems with the ChatGPT API"课程所作的个人笔记。
+>本文为参考DeepLearning.AI的"LangChain for LLM Application Development"课程所作的个人笔记。
 >
 >课程地址：[https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/](https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/)。
 >
