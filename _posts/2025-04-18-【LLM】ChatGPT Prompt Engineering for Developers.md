@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Large Language Models
 ---
->本文为参考吴恩达老师的"ChatGPT Prompt Engineering for Developers"课程所作的个人笔记。
+>本文为参考DeepLearning.AI的"ChatGPT Prompt Engineering for Developers"课程所作的个人笔记。
 >
 >课程地址：[https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/](https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/)。
 >
