@@ -181,9 +181,7 @@ SimOTA对性能的提升见表2。
 
 👉**Tiny and Nano detectors**
 
-我们进一步将我们的模型缩小为YOLOX-Tiny，并和YOLOv4-Tiny进行了比较。对于移动设备，我们采用depth-wise卷积来构建YOLOX-Nano模型。比较结果见表4。
-
->YOLOv4-Tiny：Chien-Yao Wang, Alexey Bochkovskiy, and Hong-Yuan Mark Liao. Scaled-yolov4: Scaling cross stage partial network. arXiv preprint arXiv:2011.08036, 2020.。
+我们进一步将我们的模型缩小为YOLOX-Tiny，并和[YOLOv4-Tiny](https://shichaoxin.com/2025/07/15/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Scaled-YOLOv4-Scaling-Cross-Stage-Partial-Network/)进行了比较。对于移动设备，我们采用depth-wise卷积来构建YOLOX-Nano模型。比较结果见表4。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOX/23.png)
 
