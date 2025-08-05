@@ -85,6 +85,7 @@ from trl import SFTTrainer, DataCollatorForCompletionOnlyLM, SFTConfig
 
 预先定义一些帮助函数：
 
+{% raw %}
 ````python
 #构造prompt并调用模型生成回复
 def generate_responses(model, tokenizer, user_message, system_message=None, 
@@ -179,6 +180,7 @@ def display_dataset(dataset):
     pd.set_option('display.max_colwidth', None)  # Avoid truncating long strings
     display(df)
 ````
+{% endraw %}
 
 我们加载Qwen3-0.6B-Base模型测试一下：
 
