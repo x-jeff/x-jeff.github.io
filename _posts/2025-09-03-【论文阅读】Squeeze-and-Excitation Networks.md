@@ -17,7 +17,7 @@ tags:
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/SENet/1.png)
 
-$\mathbf{F}_{tr}$表示从feature map $\mathbf{X}$到feature map $\mathbf{U}$的转换，比如$\mathbf{F}_{tr}$可以是卷积操作。$\mathbf{F}_{sq}$表示squeeze操作，即SENet中S的含义，其将$\mathbf{U}$压缩为$1\times 1 \times C$，比如$\mathbf{F}_{sq}$可以是global average pooling操作。$\mathbf{F}_{ex}$表示excitation操作，即SENet中E的含义，其通过转换得到每个通道的权重，比如$\mathbf{F}_{ex}$可以是多个全连接层。最后，通过$\mathbf{F}_{scale}$将权重应用于$\mathbf{U}$的每个通道，得到SE block的输出$\tilde{\mathbf{X}}$。
+$\mathbf{F}\_{tr}$表示从feature map $\mathbf{X}$到feature map $\mathbf{U}$的转换，比如$\mathbf{F}\_{tr}$可以是卷积操作。$\mathbf{F}\_{sq}$表示squeeze操作，即SENet中S的含义，其将$\mathbf{U}$压缩为$1\times 1 \times C$，比如$\mathbf{F}\_{sq}$可以是global average pooling操作。$\mathbf{F}\_{ex}$表示excitation操作，即SENet中E的含义，其通过转换得到每个通道的权重，比如$\mathbf{F}\_{ex}$可以是多个全连接层。最后，通过$\mathbf{F}\_{scale}$将权重应用于$\mathbf{U}$的每个通道，得到SE block的输出$\tilde{\mathbf{X}}$。
 
 # 2.RELATED WORK
 
@@ -25,7 +25,7 @@ $\mathbf{F}_{tr}$表示从feature map $\mathbf{X}$到feature map $\mathbf{U}$的
 
 # 3.SQUEEZE-AND-EXCITATION BLOCKS
 
-$\mathbf{F}_{tr}$表示从$\mathbf{X}\in \mathbb{R}^{H'\times W'\times C'}$到$\mathbf{U}\in \mathbb{R}^{H\times W \times C}$的转换。我们将$\mathbf{F}_{tr}$设置为卷积操作。假设$\mathbf{V}=[\mathbf{v}_1,\mathbf{v}_2,...,\mathbf{v}_C]$表示一组卷积核，其中，$\mathbf{v}_c$表示第$c$个卷积核。输出$\mathbf{U}=[\mathbf{u}_1,\mathbf{u}_2,...,\mathbf{u}_C]$的计算如下：
+$\mathbf{F}\_{tr}$表示从$\mathbf{X}\in \mathbb{R}^{H'\times W'\times C'}$到$\mathbf{U}\in \mathbb{R}^{H\times W \times C}$的转换。我们将$\mathbf{F}\_{tr}$设置为卷积操作。假设$\mathbf{V}=[\mathbf{v}\_1,\mathbf{v}\_2,...,\mathbf{v}\_C]$表示一组卷积核，其中，$\mathbf{v}\_c$表示第$c$个卷积核。输出$\mathbf{U}=[\mathbf{u}\_1,\mathbf{u}\_2,...,\mathbf{u}\_C]$的计算如下：
 
 $$\mathbf{u}_c=\mathbf{v}_c * \mathbf{X}=\sum_{s=1}^{C'}\mathbf{v}_c^s * \mathbf{x}^s \tag{1}$$
 
@@ -49,7 +49,7 @@ $$\mathbf{s} = \mathbf{F}_{ex}(\mathbf{z,W}) = \sigma(g(\mathbf{z,W})) = \sigma(
 
 $$\tilde{\mathbf{x}}_c=\mathbf{F}_{scale}(\mathbf{u}_c,\mathbf{s}_c) = \mathbf{s}_c \mathbf{u}_c \tag{4}$$
 
-其中，$\tilde{\mathbf{X}}=[\tilde{\mathbf{x}}_1,\tilde{\mathbf{x}}_2,...,\tilde{\mathbf{x}}_C]$，$\mathbf{F}_{scale}(\mathbf{u}_c,\mathbf{s}_c)$表示$\mathbf{s}_c$和feature map $\mathbf{u}_c \in \mathbb{R}^{H \times W}$之间进行的channel-wise的乘法。
+其中，$\tilde{\mathbf{X}}=[\tilde{\mathbf{x}}\_1,\tilde{\mathbf{x}}\_2,...,\tilde{\mathbf{x}}\_C]$，$\mathbf{F}\_{scale}(\mathbf{u}\_c,\mathbf{s}\_c)$表示$\mathbf{s}\_c$和feature map $\mathbf{u}\_c \in \mathbb{R}^{H \times W}$之间进行的channel-wise的乘法。
 
 ## 3.3.Instantiations
 
