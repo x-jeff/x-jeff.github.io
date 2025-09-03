@@ -132,7 +132,7 @@ ms-train指的是multi-scale training。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PAN/11.png)
 
-在表6中，首先，我们使用了[DCN](http://shichaoxin.com/2024/07/25/论文阅读-Deformable-Convolutional-Networks/)中的deformable convolutions。还使用了一些常见的testing tricks，比如multi-scale testing、horizontal flip testing、mask voting和box voting等。针对multi-scale testing，我们把长边固定为1400，短边分别resize到600、800、1000、1200（共4种尺度）。其次我们使用了多个大模型集成：3个[ResNeXt-101](http://shichaoxin.com/2023/12/11/论文阅读-Aggregated-Residual-Transformations-for-Deep-Neural-Networks/)（64$\times $4d）、2个SE-ResNeXt-101（32$\times$ 4d）、1个ResNet-269、1个SENet。此外，还有一个[ResNeXt-101](http://shichaoxin.com/2023/12/11/论文阅读-Aggregated-Residual-Transformations-for-Deep-Neural-Networks/)（64$\times $4d）作为base model用于产生proposal。一些可视化结果见Fig5。
+在表6中，首先，我们使用了[DCN](http://shichaoxin.com/2024/07/25/论文阅读-Deformable-Convolutional-Networks/)中的deformable convolutions。还使用了一些常见的testing tricks，比如multi-scale testing、horizontal flip testing、mask voting和box voting等。针对multi-scale testing，我们把长边固定为1400，短边分别resize到600、800、1000、1200（共4种尺度）。其次我们使用了多个大模型集成：3个[ResNeXt-101](http://shichaoxin.com/2023/12/11/论文阅读-Aggregated-Residual-Transformations-for-Deep-Neural-Networks/)（64$\times $4d）、2个SE-ResNeXt-101（32$\times$ 4d）、1个ResNet-269、1个[SENet](https://shichaoxin.com/2025/09/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Squeeze-and-Excitation-Networks/)。此外，还有一个[ResNeXt-101](http://shichaoxin.com/2023/12/11/论文阅读-Aggregated-Residual-Transformations-for-Deep-Neural-Networks/)（64$\times $4d）作为base model用于产生proposal。一些可视化结果见Fig5。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/PAN/12.png)
 
