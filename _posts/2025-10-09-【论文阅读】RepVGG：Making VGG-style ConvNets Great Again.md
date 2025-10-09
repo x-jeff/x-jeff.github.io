@@ -1,10 +1,10 @@
 ---
 layout:     post
 title:      【论文阅读】RepVGG：Making VGG-style ConvNets Great Again
-subtitle:   ShuffleNet V2
+subtitle:   RepVGG
 date:       2025-10-09
 author:     x-jeff
-header-img: blogimg/20220408.jpg
+header-img: blogimg/20210828.jpg
 catalog: true
 tags:
     - AI Papers
