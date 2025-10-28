@@ -231,7 +231,7 @@ RTMDet-R共享了RTMDet的大部分参数，因此在通用检测数据集（例
 
 Flat-Cosine就是在训练的前半段先保持学习率不变，在训练的后半段开始执行[cosine learning rate decay](http://shichaoxin.com/2022/09/22/论文阅读-AN-IMAGE-IS-WORTH-16X16-WORDS-TRANSFORMERS-FOR-IMAGE-RECOGNITION-AT-SCALE/#6b11fine-tuning)。
 
-在目标检测的测试阶段，我们用0.001的阈值筛选bounding box用于NMS，保留最高的300个box用于验证。这和[YOLOv5](http://shichaoxin.com/2024/01/14/YOLO系列-YOLOv5/)、YOLOv6、YOLOv7是一致的。但为了加快消融实验，我们把阈值提高到0.05，只保留最高的100个box，这导致AP下降约0.3%。
+在目标检测的测试阶段，我们用0.001的阈值筛选bounding box用于NMS，保留最高的300个box用于验证。这和[YOLOv5](http://shichaoxin.com/2024/01/14/YOLO系列-YOLOv5/)、YOLOv6、[YOLOv7](https://shichaoxin.com/2025/10/28/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-YOLOv7-Trainable-bag-of-freebies-sets-new-state-of-the-art-for-real-time-object-detectors/)是一致的。但为了加快消融实验，我们把阈值提高到0.05，只保留最高的100个box，这导致AP下降约0.3%。
 
 👉**Rotated object detection.**
 
