@@ -266,7 +266,7 @@ $$b_y = ( \sigma (t_y) \cdot \text{scale}_{xy} - \frac{\text{scale}_{xy} - 1 }{2
 
 1. 将每个GT box与每个anchor box模板进行匹配（这里直接将GT box和anchor box模板左上角对齐，然后计算IoU，在YOLOv4中IoU的阈值设置的是0.213）。
 2. 如果GT box与某个anchor box模板的IoU大于给定阈值，则将GT box分配给该anchor box模板，如图中的`AT 2`。
-3. 将GT box投影到对应预测特征层上，根据GT box的中心点定位到对应cell（图中有三个对应的cell）。
+3. 将GT box投影到对应预测特征层上，根据GT box的中心点定位到对应cell（图中有三个对应的cell）。比如GT box的中心点落在grid的左上角这个象限内，那么就考虑左边和上边的cell。
 4. 则这3个cell对应的`AT 2`都为正样本。
 
 注意，这里没考虑左上角的cell，按理来说，左上角cell的`AT 2`也应该是正样本，但在YOLOv5源码中，只考虑了向GT box中心点所在cell的上、下、左、右四个方向扩展，不会向左上、右上、左下、右下四个方向扩展。更多例子：
