@@ -98,7 +98,7 @@ BoS（Bag of specials）指的是只增加少量推理成本就能显著提升�
 为了改进目标检测训练，CNN通常采用以下内容：
 
 * **Activations**：[ReLU](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#22relu函数)，[leaky-ReLU](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#23leaky-relu函数)，parametric-ReLU，ReLU6，SELU，Swish，Mish
-* **Bounding box regression loss**：MSE，IoU，GIoU，CIoU，DIoU
+* **Bounding box regression loss**：MSE，IoU，[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)，CIoU，DIoU
 * **Data augmentation**：CutOut，MixUp，CutMix
 * **Regularization method**：[DropOut](http://shichaoxin.com/2020/02/01/深度学习基础-第十一课-正则化/#5dropout正则化)，DropPath，Spatial DropOut，DropBlock
 * **Normalization of the network activations by their mean and variance**：[Batch Normalization（BN）](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)，Cross-GPU Batch Normalization（CGBN或SyncBN），Filter Response Normalization（FRN），Cross-Iteration Batch Normalization（CBN）
@@ -206,27 +206,27 @@ IoU Loss就是1-IoU。IoU Loss有以下2个问题：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/20.png)
 
-GIoU（Generalized IoU）为了解决无重叠情况的梯度消失问题，在IoU Loss的基础上增加一个惩罚项，比IoU更能反映两个框的接近程度和重合度。公式如下图所示，C是A、B两个框可以圈出的最小封闭矩形。可以看到左右两张图都没相交，但是因为左图A和B距离比较短，所以loss比较低。
+[GIoU（Generalized IoU）](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)为了解决无重叠情况的梯度消失问题，在IoU Loss的基础上增加一个惩罚项，比IoU更能反映两个框的接近程度和重合度。公式如下图所示，C是A、B两个框可以圈出的最小封闭矩形。可以看到左右两张图都没相交，但是因为左图A和B距离比较短，所以loss比较低。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/21.png)
 
-但GIoU Loss也有问题，如下图所示，此时IoU和GIoU的loss都是一样的值，但显然最右边的预测是比较好的，问题就出在中心点的距离d没办法去缩小。
+但[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)也有问题，如下图所示，此时IoU和[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)的loss都是一样的值，但显然最右边的预测是比较好的，问题就出在中心点的距离d没办法去缩小。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/22.png)
 
-GIoU Loss还有一个问题，如下图所示，在训练过程中，GIoU会倾向于先增大预测框的大小，为了要和GT重叠，如下图Maximize红色框公式所示，这样会导致收敛速度变得很慢，会很花费时间，像是下图到第400次迭代才快要收敛完成。
+[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)还有一个问题，如下图所示，在训练过程中，[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)会倾向于先增大预测框的大小，为了要和GT重叠，如下图Maximize红色框公式所示，这样会导致收敛速度变得很慢，会很花费时间，像是下图到第400次迭代才快要收敛完成。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/23.png)
 
-无论是IoU还是GIoU都只考虑了重叠面积，因此提出DIoU（Distance IoU），考虑了中心点距离，要去最小化两个中心点的距离，增加一个惩罚项用于最小化两个框中心点的距离，公式如下图所示。
+无论是IoU还是[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)都只考虑了重叠面积，因此提出DIoU（Distance IoU），考虑了中心点距离，要去最小化两个中心点的距离，增加一个惩罚项用于最小化两个框中心点的距离，公式如下图所示。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/24.png)
 
-DIoU Loss的收敛速度比GIoU Loss快很多，如下图所示，上面一行是GIoU Loss的收敛，下面一行是DIoU Loss的收敛。
+DIoU Loss的收敛速度比[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)快很多，如下图所示，上面一行是[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)的收敛，下面一行是DIoU Loss的收敛。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/25.png)
 
-刚刚提到的GIoU Loss问题之一，当预测框在目标框内时，GIoU Loss与IoU Loss值相同，此时IoU和GIoU都无法区分其相对位置，而DIoU Loss则不一样，可以更好的去解决这个问题。
+刚刚提到的[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)问题之一，当预测框在目标框内时，[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)与IoU Loss值相同，此时IoU和[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)都无法区分其相对位置，而DIoU Loss则不一样，可以更好的去解决这个问题。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/26.png)
 
@@ -321,7 +321,7 @@ DIoU-NMS则是使用DIoU替换原始NMS中的IoU。
 >
 >其中，initial\_learning\_rate是初始学习率，end\_learning\_rate是训练结束时预期的最小学习率，total\_steps是训练的总步数，step是当前的训练步数，power用于控制学习率随时间下降的速度。
 
-在COCO目标检测实验中，超参数设置如下：训练步数为500,500；使用step decay learning rate scheduling strategy，即设初始学习率为0.01，在第400,000和第450,000步时，学习率缩小10倍；momentum=0.9，weight decay=0.0005。所有框架都使用单个GPU，使用multi-scale training，batch size=64，取决于GPU的内存限制，mini-batch size等于8或4。除了使用遗传算法进行超参数搜索的实验外，其他所有实验都使用默认设置。遗传算法使用YOLOv3-SPP，基于GIoU loss进行训练，在min-val 5k sets上搜索300个epoch。在遗传算法实验中，学习率为0.00261，momentum为0.949，IoU和GT的阈值为0.213，loss normalizer为0.07。我们验证了大量BoF方法，包括grid sensitivity elimination、mosaic data augmentation、IoU阈值、遗传算法、class label smoothing、CmBN、SAT、cosine annealing scheduler、dynamic mini-batch size、DropBlock、Optimized Anchors、不同的IoU loss。我们也评估了很多BoS方法，包括Mish、SPP、SAM、RFB、BiFPN、Gaussian YOLO。对于所有的实验，我们都只使用一个GPU进行训练，所以像syncBN那种针对多GPU优化的技术并没有被使用。
+在COCO目标检测实验中，超参数设置如下：训练步数为500,500；使用step decay learning rate scheduling strategy，即设初始学习率为0.01，在第400,000和第450,000步时，学习率缩小10倍；momentum=0.9，weight decay=0.0005。所有框架都使用单个GPU，使用multi-scale training，batch size=64，取决于GPU的内存限制，mini-batch size等于8或4。除了使用遗传算法进行超参数搜索的实验外，其他所有实验都使用默认设置。遗传算法使用YOLOv3-SPP，基于[GIoU loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)进行训练，在min-val 5k sets上搜索300个epoch。在遗传算法实验中，学习率为0.00261，momentum为0.949，IoU和GT的阈值为0.213，loss normalizer为0.07。我们验证了大量BoF方法，包括grid sensitivity elimination、mosaic data augmentation、IoU阈值、遗传算法、class label smoothing、CmBN、SAT、cosine annealing scheduler、dynamic mini-batch size、DropBlock、Optimized Anchors、不同的IoU loss。我们也评估了很多BoS方法，包括Mish、SPP、SAM、RFB、BiFPN、Gaussian YOLO。对于所有的实验，我们都只使用一个GPU进行训练，所以像syncBN那种针对多GPU优化的技术并没有被使用。
 
 ## 4.2.Influence of different features on Classifier training
 

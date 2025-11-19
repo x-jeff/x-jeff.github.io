@@ -106,7 +106,7 @@ $$\hat{y} = \int _{-\infty}^{+\infty}P(x)xdx=\int_{y_0}^{y_n}P(x)xdx \tag{4}$$
 
 $$\hat{y} = \sum_{i=0}^{n} P(y_i)y_i \tag{5}$$
 
-其中，$P(x)$可以通过一个包含$n+1$个神经元的softmax层（$S(\cdot)$）来实现，我们将$P(y_i)$记为$S_i$。$\hat{y}$可以和传统的损失函数（比如[SmoothL1](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/#23fine-tuning-for-detection)、IoU Loss、GIoU Loss）一起进行端到端的训练。然而，$P(x)$的值组合是无限的，这可能导致总能找到一些可能的组合使得最终积分得到的$\hat{y}$等于$y$，这会降低学习效率（个人注解：模型也难以收敛并且泛化性不好）。从直觉上讲，与Fig5(b1)和Fig5(b2)相比，Fig5(b3)的分布是紧凑的，并且在bbox估计上更具信心和精确性，这促使我们将Fig5(b3)的分布形状优化为在越接近$y$的地方概率值越高。此外，通常情况下，最合适的潜在位置（如果该位置存在的话）不会远离标签$y$（由于模糊或遮挡等原因，这个标签可能是粗略的）。因此，我们引入DFL（Distribution Focal Loss），通过显式地增大$y_i$和$y_{i+1}$（最接近$y$的两个值，有$y_i \leqslant y \leqslant y_{i+1}$）的概率，强制网络快速聚焦到接近标签$y$的值上。由于bbox的学习只针对正样本，所以没有类别不平衡的问题，我们仅使用完整的交叉熵损失来定义DFL：
+其中，$P(x)$可以通过一个包含$n+1$个神经元的softmax层（$S(\cdot)$）来实现，我们将$P(y_i)$记为$S_i$。$\hat{y}$可以和传统的损失函数（比如[SmoothL1](http://shichaoxin.com/2022/03/07/论文阅读-Fast-R-CNN/#23fine-tuning-for-detection)、IoU Loss、[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)）一起进行端到端的训练。然而，$P(x)$的值组合是无限的，这可能导致总能找到一些可能的组合使得最终积分得到的$\hat{y}$等于$y$，这会降低学习效率（个人注解：模型也难以收敛并且泛化性不好）。从直觉上讲，与Fig5(b1)和Fig5(b2)相比，Fig5(b3)的分布是紧凑的，并且在bbox估计上更具信心和精确性，这促使我们将Fig5(b3)的分布形状优化为在越接近$y$的地方概率值越高。此外，通常情况下，最合适的潜在位置（如果该位置存在的话）不会远离标签$y$（由于模糊或遮挡等原因，这个标签可能是粗略的）。因此，我们引入DFL（Distribution Focal Loss），通过显式地增大$y_i$和$y_{i+1}$（最接近$y$的两个值，有$y_i \leqslant y \leqslant y_{i+1}$）的概率，强制网络快速聚焦到接近标签$y$的值上。由于bbox的学习只针对正样本，所以没有类别不平衡的问题，我们仅使用完整的交叉熵损失来定义DFL：
 
 $$\textbf{DFL} (S_i,S_{i+1}) = -\left( (y_{i+1}-y)\log (S_i) + (y-y_i)\log (S_{i+1}) \right) \tag{6}$$
 

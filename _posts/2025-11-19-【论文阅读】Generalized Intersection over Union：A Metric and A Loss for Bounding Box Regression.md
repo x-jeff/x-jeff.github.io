@@ -62,7 +62,7 @@ GIoU有如下性质：
 
 ## 3.1.GIoU as Loss for Bounding Box Regression
 
-$\mathcal{L}_{IoU},\mathcal{L}_{GIoU}$的计算如下所示（仅适用于box不旋转的情况）：
+$\mathcal{L}\_{IoU},\mathcal{L}\_{GIoU}$的计算如下所示（仅适用于box不旋转的情况）：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GIoU/4.png)
 
@@ -70,7 +70,7 @@ $\mathcal{L}_{IoU},\mathcal{L}_{GIoU}$的计算如下所示（仅适用于box不
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GIoU/5.png)
 
-$\mathcal{L}_{IoU}$的取值范围为$[0,1]$，$\mathcal{L}_{GIoU}$的取值范围为$[0,2]$。
+$\mathcal{L}\_{IoU}$的取值范围为$[0,1]$，$\mathcal{L}\_{GIoU}$的取值范围为$[0,2]$。
 
 # 4.Experimental Results
 
@@ -78,7 +78,7 @@ $\mathcal{L}_{IoU}$的取值范围为$[0,1]$，$\mathcal{L}_{GIoU}$的取值范�
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GIoU/6.png)
 
-在表1中，左侧第一列$MSE,\mathcal{L}_{IoU},\mathcal{L}_{GIoU}$表示训练时所用的回归损失，AP和AP75下面的两列$IoU,GIoU$表示测试时用的评估指标。从表1可以看出，无论是使用IoU还是使用GIoU作为测试评估指标，$\mathcal{L}_{GIoU}$的性能都优于另外两种loss。
+在表1中，左侧第一列$MSE,\mathcal{L}\_{IoU},\mathcal{L}\_{GIoU}$表示训练时所用的回归损失，AP和AP75下面的两列$IoU,GIoU$表示测试时用的评估指标。从表1可以看出，无论是使用IoU还是使用GIoU作为测试评估指标，$\mathcal{L}\_{GIoU}$的性能都优于另外两种loss。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/GIoU/7.png)
 
