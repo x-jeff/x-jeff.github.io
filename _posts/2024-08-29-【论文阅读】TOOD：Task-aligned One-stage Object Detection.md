@@ -237,4 +237,4 @@ Fig4中，红色块是分类最佳anchor，绿色块是定位最佳anchor。图�
 
 # 7.原文链接
 
-[TOOD：Task-aligned One-stage Object Detection](https://github.com/x-jeff/AI_Papers/blob/master/2024/TOOD：Task-aligned%20One-stage%20Object%20Detection.pdf)
+👽[TOOD：Task-aligned One-stage Object Detection](https://github.com/x-jeff/AI_Papers/blob/master/2024/TOOD：Task-aligned%20One-stage%20Object%20Detection.pdf)
