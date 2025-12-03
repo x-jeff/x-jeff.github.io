@@ -98,7 +98,7 @@ BoS（Bag of specials）指的是只增加少量推理成本就能显著提升�
 为了改进目标检测训练，CNN通常采用以下内容：
 
 * **Activations**：[ReLU](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#22relu函数)，[leaky-ReLU](http://shichaoxin.com/2019/12/11/深度学习基础-第七课-激活函数/#23leaky-relu函数)，parametric-ReLU，ReLU6，SELU，Swish，Mish
-* **Bounding box regression loss**：MSE，IoU，[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)，CIoU，DIoU
+* **Bounding box regression loss**：MSE，IoU，[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)，[CIoU](https://shichaoxin.com/2025/12/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Distance-IoU-Loss-Faster-and-Better-Learning-for-Bounding-Box-Regression/#43complete-iou-loss)，[DIoU](https://shichaoxin.com/2025/12/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Distance-IoU-Loss-Faster-and-Better-Learning-for-Bounding-Box-Regression/#41distance-iou-loss)
 * **Data augmentation**：CutOut，MixUp，CutMix
 * **Regularization method**：[DropOut](http://shichaoxin.com/2020/02/01/深度学习基础-第十一课-正则化/#5dropout正则化)，DropPath，Spatial DropOut，DropBlock
 * **Normalization of the network activations by their mean and variance**：[Batch Normalization（BN）](http://shichaoxin.com/2021/11/02/论文阅读-Batch-Normalization-Accelerating-Deep-Network-Training-by-Reducing-Internal-Covariate-Shift/)，Cross-GPU Batch Normalization（CGBN或SyncBN），Filter Response Normalization（FRN），Cross-Iteration Batch Normalization（CBN）
@@ -150,8 +150,8 @@ YOLOv4使用了：
 
 * BoF for backbone：CutMix，Mosaic，DropBlock，[Class label smoothing](http://shichaoxin.com/2021/11/29/论文阅读-Rethinking-the-Inception-Architecture-for-Computer-Vision/#7model-regularization-via-label-smoothing)
 * BoS for backbone：Mish激活函数，[CSP](http://shichaoxin.com/2023/12/16/论文阅读-CSPNET-A-NEW-BACKBONE-THAT-CAN-ENHANCE-LEARNING-CAPABILITY-OF-CNN/)，Multi-input weighted residual connections（MiWRC）
-* BoF for detector：CIoU-loss，CmBN，DropBlock，Mosaic，SAT，Eliminate grid sensitivity，Using multiple anchors for a single ground truth，Cosine annealing scheduler，Optimal hyperparameters，Random training shapes
-* BoS for detector：Mish激活函数，[SPP-block](http://shichaoxin.com/2022/02/22/论文阅读-Spatial-Pyramid-Pooling-in-Deep-Convolutional-Networks-for-Visual-Recognition/)，SAM-block，[PAN path-aggregation block](http://shichaoxin.com/2023/12/28/论文阅读-Path-Aggregation-Network-for-Instance-Segmentation/)，DIoU-NMS
+* BoF for detector：[CIoU-loss](https://shichaoxin.com/2025/12/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Distance-IoU-Loss-Faster-and-Better-Learning-for-Bounding-Box-Regression/#43complete-iou-loss)，CmBN，DropBlock，Mosaic，SAT，Eliminate grid sensitivity，Using multiple anchors for a single ground truth，Cosine annealing scheduler，Optimal hyperparameters，Random training shapes
+* BoS for detector：Mish激活函数，[SPP-block](http://shichaoxin.com/2022/02/22/论文阅读-Spatial-Pyramid-Pooling-in-Deep-Convolutional-Networks-for-Visual-Recognition/)，SAM-block，[PAN path-aggregation block](http://shichaoxin.com/2023/12/28/论文阅读-Path-Aggregation-Network-for-Instance-Segmentation/)，[DIoU-NMS](https://shichaoxin.com/2025/12/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Distance-IoU-Loss-Faster-and-Better-Learning-for-Bounding-Box-Regression/#44non-maximum-suppression-using-diou)
 
 YOLOv4的整体框架见下：
 
@@ -218,19 +218,19 @@ IoU Loss就是1-IoU。IoU Loss有以下2个问题：
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/23.png)
 
-无论是IoU还是[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)都只考虑了重叠面积，因此提出DIoU（Distance IoU），考虑了中心点距离，要去最小化两个中心点的距离，增加一个惩罚项用于最小化两个框中心点的距离，公式如下图所示。
+无论是IoU还是[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)都只考虑了重叠面积，因此提出[DIoU（Distance IoU）](https://shichaoxin.com/2025/12/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Distance-IoU-Loss-Faster-and-Better-Learning-for-Bounding-Box-Regression/#41distance-iou-loss)，考虑了中心点距离，要去最小化两个中心点的距离，增加一个惩罚项用于最小化两个框中心点的距离，公式如下图所示。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/24.png)
 
-DIoU Loss的收敛速度比[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)快很多，如下图所示，上面一行是[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)的收敛，下面一行是DIoU Loss的收敛。
+[DIoU Loss](https://shichaoxin.com/2025/12/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Distance-IoU-Loss-Faster-and-Better-Learning-for-Bounding-Box-Regression/#41distance-iou-loss)的收敛速度比[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)快很多，如下图所示，上面一行是[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)的收敛，下面一行是[DIoU Loss](https://shichaoxin.com/2025/12/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Distance-IoU-Loss-Faster-and-Better-Learning-for-Bounding-Box-Regression/#41distance-iou-loss)的收敛。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/25.png)
 
-刚刚提到的[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)问题之一，当预测框在目标框内时，[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)与IoU Loss值相同，此时IoU和[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)都无法区分其相对位置，而DIoU Loss则不一样，可以更好的去解决这个问题。
+刚刚提到的[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)问题之一，当预测框在目标框内时，[GIoU Loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)与IoU Loss值相同，此时IoU和[GIoU](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)都无法区分其相对位置，而[DIoU Loss](https://shichaoxin.com/2025/12/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Distance-IoU-Loss-Faster-and-Better-Learning-for-Bounding-Box-Regression/#41distance-iou-loss)则不一样，可以更好的去解决这个问题。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/26.png)
 
-而YOLOv4最终使用的CIoU（Complete IoU） Loss，不但考虑了重叠面积和中心点，还考虑了长宽比。
+而YOLOv4最终使用的[CIoU（Complete IoU） Loss](https://shichaoxin.com/2025/12/03/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Distance-IoU-Loss-Faster-and-Better-Learning-for-Bounding-Box-Regression/#43complete-iou-loss)，不但考虑了重叠面积和中心点，还考虑了长宽比。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/27.png)
 
@@ -302,8 +302,6 @@ SAM（Spatial Attention Module）源自CBAM（Convolutional Block Attention Modu
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/AIPapers/YOLOv4/34.png)
 
 在SAM中，先分别进行$1\times 1$的AvgPool和$1\times 1$的MaxPool，得到两个$H \times W \times 1$的feature map，将这两个feature map按照通道方向concat在一起，然后经过一个$7 \times 7$的卷积层，激活函数为sigmoid，得到权重系数$\mathbf{M_s}$，最后将$\mathbf{M_s}$和经过CAM refine后的$\mathbf{F'}$相乘得到缩放后的新特征。而在YOLOv4中，作者没有使用pooling而是直接使用$7 \times 7$的卷积层，见Fig5。
-
-DIoU-NMS则是使用DIoU替换原始NMS中的IoU。
 
 # 4.Experiments
 

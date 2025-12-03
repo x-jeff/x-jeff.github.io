@@ -102,7 +102,7 @@ DIoU loss继承了IoU loss和[GIoU loss](https://shichaoxin.com/2025/11/19/%E8%A
 
 1. DIoU loss仍然具有尺度不变性。
 2. 和[GIoU loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)类似，DIoU loss在预测box和GT box不重叠时，也能为预测box提供有效的移动方向。
-3. 当预测box和GT box完美匹配时，有$\mathcal{L}_{IoU}=\mathcal{L}_{GIoU}=\mathcal{L}_{DIoU}=0$。当预测box和GT box相距较远时，有$\mathcal{L}_{GIoU}=\mathcal{L}_{DIoU} \to 2$。
+3. 当预测box和GT box完美匹配时，有$\mathcal{L}\_{IoU}=\mathcal{L}\_{GIoU}=\mathcal{L}\_{DIoU}=0$。当预测box和GT box相距较远时，有$\mathcal{L}\_{GIoU}=\mathcal{L}\_{DIoU} \to 2$。
 
 此外，相较于IoU loss和[GIoU loss](https://shichaoxin.com/2025/11/19/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generalized-Intersection-over-Union-A-Metric-and-A-Loss-for-Bounding-Box-Regression/)，DIoU loss具有多项优势：
 
