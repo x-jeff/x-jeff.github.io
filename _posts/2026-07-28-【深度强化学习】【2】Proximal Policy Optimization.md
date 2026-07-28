@@ -87,7 +87,7 @@ $$J_{TRPO}^{\theta'}(\theta) = J^{\theta'} (\theta), \quad KL(\theta, \theta') <
     * 使用$\theta^k$与环境交互并采集数据$\\{ s_t,a_t \\}$，同时计算$A^{\theta^k} (s_t,a_t)$。
     * 使用式(9)对目标参数$\theta$进行优化：$J_{PPO}^{\theta^k} (\theta) = J^{\theta^k} (\theta) - \beta \text{KL}(\theta, \theta^k)$。其中，在实际计算时，$J^{\theta^k}(\theta)$可近似为：$J^{\theta^k} (\theta) \approx \sum_{(s_t,a_t)} \frac{p_{\theta} (a_t \mid s_t)}{p_{\theta^k}(a_t \mid s_t)} A^{\theta^k} (s_t, a_t)$。注意：使用上一步采集到的数据，这一步可以做多次优化。
 
-额外的，还可以对[KL散度](https://shichaoxin.com/2021/10/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generative-Adversarial-Nets/#9kl%E6%95%A3%E5%BA%A6)项设置一个最大值$\text{KL}_{max}$和最小值$\text{KL}_{min}$，当$\text{KL}(\theta, \theta^k) > \text{KL}_{max}$时，增加$\beta$（即约束力度太小，需要加强）；当$\text{KL}(\theta, \theta^k) < \text{KL}_{min}$时，减小$\beta$（即约束力度太大，需要削弱）。
+额外的，还可以对[KL散度](https://shichaoxin.com/2021/10/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generative-Adversarial-Nets/#9kl%E6%95%A3%E5%BA%A6)项设置一个最大值$\text{KL}\_{max}$和最小值$\text{KL}\_{min}$，当$\text{KL}(\theta, \theta^k) > \text{KL}\_{max}$时，增加$\beta$（即约束力度太小，需要加强）；当$\text{KL}(\theta, \theta^k) < \text{KL}\_{min}$时，减小$\beta$（即约束力度太大，需要削弱）。
 
 为了简化掉[KL散度](https://shichaoxin.com/2021/10/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generative-Adversarial-Nets/#9kl%E6%95%A3%E5%BA%A6)，又提出了PPO2算法：
 
