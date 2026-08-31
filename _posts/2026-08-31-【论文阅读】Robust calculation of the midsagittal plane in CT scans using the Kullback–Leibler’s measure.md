@@ -57,9 +57,9 @@ tags:
 
 在Fig1中，将MSP投影到某个axial平面得到的线称为**MSL（MidSagittal Line）**。在颅骨前后方向（即Y方向）跨度最大的那一层axial图像中，对颅骨外边缘进行椭圆拟合，拟合椭圆的长轴记为$M_j$。MSL和$M_j$的夹角记为$\theta_d$。
 
-对于每张axial图像，以MSL为分界线，把脑组织区域分成两部分：1）$\text{brain}_1$表示MSL左侧的脑组织区域；2）$\text{brain}_2$表示MSL右侧的脑组织区域。将所有axial图像的$\text{brain}_1$面积和$\text{brain}_2$面积各自累加，累加的$\text{brain}_1$面积之和除以$\text{brain}_2$面积之和，比值记为$lr\_ratio$。
+对于每张axial图像，以MSL为分界线，把脑组织区域分成两部分：1）$\text{brain}_1$表示MSL左侧的脑组织区域；2）$\text{brain}_2$表示MSL右侧的脑组织区域。将所有axial图像的$\text{brain}_1$面积和$\text{brain}_2$面积各自累加，累加的$\text{brain}_1$面积之和除以$\text{brain}_2$面积之和，比值记为$lr\\_ratio$。
 
-$\theta_d$和$lr\_ratio$被用来衡量MSP的偏离程度。
+$\theta_d$和$lr\\_ratio$被用来衡量MSP的偏离程度。
 
 算法整体流程见下图：
 
@@ -70,11 +70,11 @@ $\theta_d$和$lr\_ratio$被用来衡量MSP的偏离程度。
     * 颅骨提取。
     * 对颅骨外轮廓进行椭圆拟合。
     * 计算$\theta_d$。
-* 基于$\text{MSP}_1$，计算$lr\_ratio$：
+* 基于$\text{MSP}_1$，计算$lr\\_ratio$：
     * 脑组织提取。
     * 左右脑组织分别计算面积。
-    * 计算$lr\_ratio$。
-* 是否满足$\theta_d > 7.8 \degree$或$lr\_ratio > 10%$？
+    * 计算$lr\\_ratio$。
+* 是否满足$\theta_d > 7.8 °$或$lr\_ratio > 10%$？
     * 如果满足：
         * 对原始数据进行旋转。
         * 使用[论文“Extraction of the midsagittal plane from morphological neuroimages using the Kullback–Leibler’s measure”](https://shichaoxin.com/2026/08/26/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Extraction-of-the-midsagittal-plane-from-morphological-neuroimages-using-the-Kullback-Leibler-s-measure/)提出的算法在旋转后的数据上检测得到$\text{MSP}_2$。
@@ -96,23 +96,23 @@ $$\begin{align*} I(p/q) &= \sum_i p_i \log (p_i) - \sum_i p_i \log (q_i) \\&= \s
 
 将顺时针方向规定为角度的正方向。定义$\theta_{\text{MSP}}$为MSL与Y轴之间的夹角，$\theta_{\text{ellipse}}$为$M_j$与Y轴之间的夹角。因此，$\theta_d$可定义为：$\theta_d = \lvert \theta_{\text{MSP}} - \theta_{\text{ellipse}} \rvert$。其中，$\theta_{\text{MSP}}$的计算比较直接，在任意axial图像上，可通过MSL求出。而$\theta_{\text{ellipse}}$的计算则需要以下几个步骤：
 
-1. 首先需要确定一张axial图像，记为$slice\_ref$，并在这张axial图像上拟合颅骨椭圆。寻找$slice\_ref$的标准是：前后方向（anterior–posterior）跨度最大的axial图像。作者认为这样找到的$slice\_ref$可近似对应于经过前连合（anterior commissure，AC）的axial图像。寻找$slice\_ref$的具体步骤见下：
+1. 首先需要确定一张axial图像，记为$slice\\_ref$，并在这张axial图像上拟合颅骨椭圆。寻找$slice\\_ref$的标准是：前后方向（anterior–posterior）跨度最大的axial图像。作者认为这样找到的$slice\\_ref$可近似对应于经过前连合（anterior commissure，AC）的axial图像。寻找$slice\\_ref$的具体步骤见下：
     * 首先初始化一个VOI，这个VOI从切片$s$开始，一直到最靠近头顶部的切片。其中这个$s$是近似对应AC平面的位置，其计算公式为：$s = round (\frac{43}{43 + 74} \times \text{数据总层数})$。43和74的单位都是mm，值来自Talairach–Tournoux atlas。43mm是从AC到颞叶皮层最下端点（CT颅脑扫描大约都是从这里开始的）的距离。74mm是从AC到大脑上方解剖标志点的距离。因此，这两个值被用来估计AC在数据场中的位置。此外，根据Talairach–Tournoux atlas，经过AC的这个axial图像具有最大的前后方向跨度。因此，在这一层，颅骨应该具有最大的偏心程度，并且拟合椭圆的长轴方向应该大致对应于IF的方向。个人注解：如果颅脑扫描的范围过大或者过小，这种寻找$s$的方法可能会有问题。
     * 对于VOI中的每一张axial图像，基于颅骨CT值对颅骨进行分割，低阈值设为350HU，高阈值设为2250HU，从而得到二值化的颅骨区域。阈值的选择依据为，在CT图像中，骨组织的CT值范围约为1000-2250HU，但考虑到部分容积效应，将下限降为350HU。
     * 对于VOI中的每一张axial图像，提取其中的最大连通域，计算该连通域在前后方向上的跨度。
-    * 找到前后方向跨度最大的那张切片，即为$slice\_ref$。
-2. 基于提取颅骨的CT阈值，对$slice\_ref$重新提取颅骨，并找到最大颅骨连通域。
+    * 找到前后方向跨度最大的那张切片，即为$slice\\_ref$。
+2. 基于提取颅骨的CT阈值，对$slice\\_ref$重新提取颅骨，并找到最大颅骨连通域。
 3. 对第2步得到的颅骨连通域的外轮廓进行椭圆拟合。
 4. 基于第3步得到的拟合椭圆，计算$\theta_{\text{ellipse}}$。
 
-### 2.2.4.Calculation of $lr\_ratio$
+### 2.2.4.Calculation of $lr\\_ratio$
 
 1. 首先，对三维体数据进行阈值分割，用于提取脑组织。阈值可根据窗宽、窗位来设置。通常，下阈值设为-5HU，上阈值设为75HU。在得到的二值体数据中，白色体素表示脑组织，黑色体素表示非脑组织。
 2. 接下来，分析每一个脑组织体素相对于$MSP_1$的位置。设$MSP_1$的平面方程为$Ax+By+Cz+D=0$且$A>0$，其中$x,y,z$是三维体数据的坐标。对于二值体数据中任意一个白色体素，其坐标记为$(v_x,v_y,v_z)$，计算$f(v_x,v_y,v_z) = A v_x + B v_y + C v_z + D$。如果$f(v_x,v_y,v_z) > 0$，则表示该体素位于$MSP_1$的左侧；如果$f(v_x,v_y,v_z) < 0$，则表示该体素位于$MSP_1$的右侧。位于$MSP_1$左侧的所有白色体素的数量记为$V_{left}$；位于$MSP_1$右侧的所有白色体素的数量记为$V_{right}$。最终有：$lr\_ratio = \frac{\lvert V_{right} - V_{left} \rvert}{ \max (V_{right},V_{left}) }$。
 
 ### 2.2.5.Volume rotation
 
-体数据按照如下方式进行旋转。首先，计算二值化后切片$slice\_ref$的质心，其坐标记为$(X_c,Y_c,Z_{slice\_ref})$。然后，将这个质心投影到每一张axial切片上，并将投影点作为对应切片的旋转中心。例如，对于第5张axial切片，它的旋转中心就是$(X_c,Y_c,5)$。接下来，将每一张axial切片旋转$\theta_{\text{ellipse}}$。旋转后的切片采用双线性插值来进行重建。这个旋转操作相当于是整个三维数据，以经过$slice\_ref$质心且垂直于axial平面的直线为旋转轴。
+体数据按照如下方式进行旋转。首先，计算二值化后切片$slice\\_ref$的质心，其坐标记为$(X_c,Y_c,Z_{slice\\_ref})$。然后，将这个质心投影到每一张axial切片上，并将投影点作为对应切片的旋转中心。例如，对于第5张axial切片，它的旋转中心就是$(X_c,Y_c,5)$。接下来，将每一张axial切片旋转$\theta_{\text{ellipse}}$。旋转后的切片采用双线性插值来进行重建。这个旋转操作相当于是整个三维数据，以经过$slice\\_ref$质心且垂直于axial平面的直线为旋转轴。
 
 ### 2.2.6.Analysis
 
@@ -134,7 +134,7 @@ $$\begin{align*} I(p/q) &= \sum_i p_i \log (p_i) - \sum_i p_i \log (q_i) \\&= \s
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/MedicalImaging/MSP/5.png)
 
-$\alpha$和$d$的分布见Fig3。可以看到，偏差值大多集中在0附近。75%的数据满足$\alpha < 1 \degree$和$d < 1 mm$。说明检测到的MSP和GT差距不大。
+$\alpha$和$d$的分布见Fig3。可以看到，偏差值大多集中在0附近。75%的数据满足$\alpha < 1 °$和$d < 1 mm$。说明检测到的MSP和GT差距不大。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/MedicalImaging/MSP/6.png)
 
@@ -156,9 +156,9 @@ $d$随旋转角度的变化而变化的趋势见Fig4。实线表示yaw方向，�
 
 ## 4.1.Parameter justification
 
-### 4.1.1.Selection of threshold values for $\theta_d$ and $lr\_ratio$
+### 4.1.1.Selection of threshold values for $\theta_d$ and $lr\\_ratio$
 
-这部分主要用于解释为什么使用$\theta_d$和$lr\_ratio$来判断原始数据是否需要旋转。首先，MSP的检测对pitch方向的旋转并不敏感。$\theta_d$用于衡量yaw方向的角度偏差。$lr\_ratio$用于衡量roll方向的角度偏差。而7.8°和10%这两个阈值则是通过之前提到的8折交叉验证得到的。
+这部分主要用于解释为什么使用$\theta_d$和$lr\\_ratio$来判断原始数据是否需要旋转。首先，MSP的检测对pitch方向的旋转并不敏感。$\theta_d$用于衡量yaw方向的角度偏差。$lr\\_ratio$用于衡量roll方向的角度偏差。而7.8°和10%这两个阈值则是通过之前提到的8折交叉验证得到的。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/MedicalImaging/MSP/10.png)
 
@@ -172,7 +172,7 @@ Fig5是在寻找最优阈值时做的一些实验，此处不再详述。
 
 ### 4.1.3.Selection of reference axial slice for ellipse fitting
 
-这部分主要解释$slice\_ref$的确定依据，不再详述。
+这部分主要解释$slice\\_ref$的确定依据，不再详述。
 
 ![](https://xjeffblogimg.oss-cn-beijing.aliyuncs.com/BLOGIMG/BlogImage/MedicalImaging/MSP/12.png)
 
