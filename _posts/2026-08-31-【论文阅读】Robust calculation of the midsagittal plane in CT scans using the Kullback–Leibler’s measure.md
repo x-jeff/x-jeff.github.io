@@ -108,7 +108,7 @@ $$\begin{align*} I(p/q) &= \sum_i p_i \log (p_i) - \sum_i p_i \log (q_i) \\&= \s
 ### 2.2.4.Calculation of $lr\\_ratio$
 
 1. 首先，对三维体数据进行阈值分割，用于提取脑组织。阈值可根据窗宽、窗位来设置。通常，下阈值设为-5HU，上阈值设为75HU。在得到的二值体数据中，白色体素表示脑组织，黑色体素表示非脑组织。
-2. 接下来，分析每一个脑组织体素相对于$MSP_1$的位置。设$MSP_1$的平面方程为$Ax+By+Cz+D=0$且$A>0$，其中$x,y,z$是三维体数据的坐标。对于二值体数据中任意一个白色体素，其坐标记为$(v_x,v_y,v_z)$，计算$f(v_x,v_y,v_z) = A v_x + B v_y + C v_z + D$。如果$f(v_x,v_y,v_z) > 0$，则表示该体素位于$MSP_1$的左侧；如果$f(v_x,v_y,v_z) < 0$，则表示该体素位于$MSP_1$的右侧。位于$MSP_1$左侧的所有白色体素的数量记为$V_{left}$；位于$MSP_1$右侧的所有白色体素的数量记为$V_{right}$。最终有：$lr\\_ratio = \frac{\lvert V_{right} - V_{left} \rvert}{ \max (V_{right},V_{left}) }$。
+2. 接下来，分析每一个脑组织体素相对于$MSP_1$的位置。设$MSP_1$的平面方程为$Ax+By+Cz+D=0$且$A>0$，其中$x,y,z$是三维体数据的坐标。对于二值体数据中任意一个白色体素，其坐标记为$(v_x,v_y,v_z)$，计算$f(v_x,v_y,v_z) = A v_x + B v_y + C v_z + D$。如果$f(v_x,v_y,v_z) > 0$，则表示该体素位于$MSP_1$的左侧；如果$f(v_x,v_y,v_z) < 0$，则表示该体素位于$MSP_1$的右侧。位于$MSP_1$左侧的所有白色体素的数量记为$V_{left}$；位于$MSP_1$右侧的所有白色体素的数量记为$V_{right}$。最终有：$lr\\__ratio = \frac{\lvert V_{right} - V_{left} \rvert}{ \max (V_{right},V_{left}) }$。
 
 ### 2.2.5.Volume rotation
 
