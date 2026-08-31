@@ -89,7 +89,7 @@ MSP可定义为一个穿过大脑半球间裂（the Interhemispheric Fissure，I
 * 读取脑部三维数据、体素尺寸以及图像方向信息。初始volume可以是各向同性，也可以是各向异性。
 * 如果原始数据的方向是轴位或冠状位，则生成对应的矢状位切片。
 * 确定整个volume的矢状位中央切片。
-* 以中央切片为中心，取±2mm范围内的矢状位切片作为VOI。
+* 以中央切片为中心，取±2cm范围内的矢状位切片作为VOI。
 * 选择VOI中的第一张切片作为参考切片。
 * 对VOI中的所有切片，分别计算它们相对于参考切片的[KL度量](https://shichaoxin.com/2021/10/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generative-Adversarial-Nets/#9kl%E6%95%A3%E5%BA%A6)。
 * 选择[KL度量](https://shichaoxin.com/2021/10/30/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-Generative-Adversarial-Nets/#9kl%E6%95%A3%E5%BA%A6)最大的那张切片作为cMSP，如Fig3所示。
