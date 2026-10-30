@@ -64,8 +64,8 @@ tags:
 1. 在参考图像的head mask内，寻找满足以下条件的像素对：
     * 这两个像素是8邻域相连的。
     * 其中一个像素的CT值大于等于minBone，即认为它属于骨组织。
-    * 另一个像素的CT值小于minBore，但大于lowThresh，即认为它属于白质或灰质。
-2. 对于第1步找到的所有符合要求的像素对，计算所有CT值大于等于minBore的像素的平均CT值，记为brightAvg。类似地，计算所有CT值小于minBore的像素的平均CT值，记为darkAvg。
+    * 另一个像素的CT值小于minBone，但大于lowThresh，即认为它属于白质或灰质。
+2. 对于第1步找到的所有符合要求的像素对，计算所有CT值大于等于minBone的像素的平均CT值，记为brightAvg。类似地，计算所有CT值小于minBone的像素的平均CT值，记为darkAvg。
 3. 高阈值的计算为：$highThresh = \alpha * brightAvg + ( 1-\alpha ) * darkAvg$。其中，$\alpha$是一个权重参数，取值范围为0到1。如果误删脑组织的代价高于误把非脑组织包含进来的代价，那么$\alpha$应该取大于0.5的值。如果两类错误的代价同等重要，或者希望使总体分类误差最小，则设$\alpha=0.5$。
 
 ## 2.4.Perform binarization
